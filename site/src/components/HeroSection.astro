@@ -1,0 +1,156 @@
+---
+/*
+  HeroSection.astro – Sektion 1 der Startseite.
+  Hintergrund: echtes Bild mit cover + dunkler Scrim für Lesbarkeit.
+  Inhalt fix, keine Props.
+*/
+import Button from './Button.astro';
+---
+
+<section class="hero-section" aria-label="Hero">
+
+  <!-- Hintergrund-Bild (eager, LCP-Kandidat) -->
+  <img
+    src="/bilder/unternehmen/albert-wilts-gebaeudeaussen-obst-gemuesehandel.webp"
+    alt="Aussenansicht des Obst- und Gemuesehandels Albert Wilts in Upgant-Schott"
+    aria-hidden="true"
+    class="hero-bg-img"
+    loading="eager"
+    decoding="sync"
+    fetchpriority="high"
+  />
+
+  <!-- Dunkler Scrim für Lesbarkeit -->
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <!-- Inhalt-Overlay -->
+  <div class="hero-inside">
+    <div class="hero-content">
+      <h1 class="hero-headline">
+        Frische verbindet - vom Grossverbraucher bis zum Familientisch
+      </h1>
+      <p class="hero-subline">
+        Ob professionelle Kuechenlogistik oder der Wocheneinkauf auf dem Markt:
+        Albert Wilts liefert Qualitaet aus Tradition. Seit 1958.
+      </p>
+      <div class="hero-buttons">
+        <Button href="/fuer-gewerbekunden" label="Zum Grosshandel" />
+        <Button href="/wochenmarkt"        label="Zum Wochenmarkt" />
+        <Button href="/ladenverkauf"       label="Zum Ladenverkauf" />
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* ── Section: fullwidth, Stacking-Context ── */
+  .hero-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid transparent;
+    border-image: linear-gradient(to right, #fff, #EF7F1A 20%, #EF7F1A 80%, #fff) 1;
+  }
+
+  /* ── Hintergrund-Bild: cover, fullwidth ── */
+  .hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  /* ── Verlauf von links dunkel nach rechts transparent (exakt wie Staging) ── */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.80)  0%,
+      rgba(0, 0, 0, 0.50) 40%,
+      rgba(0, 0, 0, 0.15) 65%,
+      rgba(0, 0, 0, 0.00) 90%
+    );
+    z-index: 1;
+  }
+
+  /* ── Inhalt-Container: über Scrim ── */
+  .hero-inside {
+    position: relative;
+    z-index: 2;
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .hero-content {
+    max-width: 660px;
+  }
+
+  /* ── Headline: weiss ── */
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Subline: hell-weiss ── */
+  .hero-subline {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 36px;
+    max-width: 540px;
+  }
+
+  /* ── Button-Gruppe: drei nebeneinander, umbrechen wenn nötig ── */
+  .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: 420px;
+    }
+
+    /* Auf Mobil: vollflächiger dunkler Scrim statt Verlauf ── */
+    .hero-scrim {
+      background: rgba(0, 0, 0, 0.50);
+    }
+
+    .hero-inside {
+      max-width: 100%;
+      padding: 50px 20px;
+    }
+
+    .hero-headline {
+      font-size: 28px;
+    }
+
+    .hero-subline {
+      font-size: 16px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

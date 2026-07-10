@@ -1,0 +1,91 @@
+---
+/*
+  Placeholder.astro – Bild-Slot: zeigt echtes Bild wenn src gesetzt, sonst grauen Stub.
+  Props:
+    label  – Beschriftung im Stub-Modus / alt-Text im Bild-Modus
+    aspect – CSS aspect-ratio (z. B. "16/9", "4/3"), Default "16/9"
+    src    – wenn gesetzt: echtes Bild mit object-fit:cover
+    eager  – loading="eager" statt lazy (nur relevant wenn src gesetzt)
+    class  – optionale Extra-Klassen
+*/
+
+interface Props {
+  label:   string;
+  aspect?: string;
+  src?:    string;
+  alt?:    string;
+  eager?:  boolean;
+  class?:  string;
+}
+
+const { label, aspect = '16/9', src, alt, eager = false, class: extraClass } = Astro.props;
+---
+
+{src ? (
+  <div
+    class:list={['aw-img-wrap', extraClass]}
+    style={`aspect-ratio:${aspect};`}
+  >
+    <img
+      src={src}
+      alt={alt ?? label}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding={eager ? 'sync' : 'async'}
+      class="aw-img"
+    />
+  </div>
+) : (
+  <div
+    class:list={['aw-placeholder', extraClass]}
+    style={`aspect-ratio:${aspect};`}
+    aria-label={`Bild folgt: ${label}`}
+    role="img"
+  >
+    <span class="aw-placeholder-label">{label}</span>
+  </div>
+)}
+
+<style>
+  /* ── Echter Bild-Slot ── */
+  .aw-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .aw-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Grauer Stub ── */
+  .aw-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #D8D8D8;
+    border: 2px dashed #AAAAAA;
+    box-sizing: border-box;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .aw-placeholder-label {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    text-align: center;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
+    pointer-events: none;
+    user-select: none;
+  }
+</style>
+

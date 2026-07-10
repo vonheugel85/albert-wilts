@@ -1,0 +1,139 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Quicklinks from '../components/Quicklinks.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: Array<{ label: string; href: string }>;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = 'Albert Wilts e. K. – Frischwarengroßhandel seit 1958 in Upgant-Schott. Frische aus Tradition.',
+  breadcrumbs,
+  ogImage,
+  ogImageAlt = '',
+  ogType = 'website',
+  jsonLd,
+} = Astro.props;
+
+// Kanonische URL aus aktuellem Pfad + Site-Basis
+const siteBase = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+const ogImageUrl = ogImage ? new URL(ogImage, siteBase).href : undefined;
+
+// Statisches Organization-JSON-LD (gilt für jede Seite)
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteBase}#organization`,
+  name: 'Albert Wilts e. K.',
+  url: siteBase.href,
+  logo: `${siteBase}logo.png`,
+  foundingDate: '1958',
+  areaServed: 'Ostfriesland',
+  telephone: '+49 4934 91060',
+  email: 'info@albert-wilts.de',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Hansestraße 4',
+    postalCode: '26529',
+    addressLocality: 'Upgant-Schott',
+    addressCountry: 'DE',
+  },
+};
+
+// Optionales seitenspezifisches JSON-LD (z. B. BreadcrumbList, FAQPage)
+const extraJsonLd = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : [jsonLd]
+  : [];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicon + Theme-Color -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#4F7146" />
+
+    <!-- Font Awesome 4.7 (Quicklinks-Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Albert Wilts" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImageUrl && (
+      <>
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={ogImageAlt} />
+      </>
+    )}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <!-- Organization-JSON-LD (statisch, jede Seite) -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+
+    <!-- Seitenspezifisches JSON-LD (BreadcrumbList, FAQPage usw.) -->
+    {extraJsonLd.map((ld) => (
+      <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    ))}
+  </head>
+  <body>
+    <!-- Skip-Link für Tastatur-Navigation und Screenreader -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2
+             focus:z-[200] focus:bg-primary focus:text-white focus:px-4
+             focus:py-2 focus:rounded focus:font-sans focus:text-sm"
+    >
+      Zum Hauptinhalt springen
+    </a>
+
+    <Nav breadcrumbs={breadcrumbs} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <Quicklinks />
+    <ConsentBanner />
+  </body>
+</html>

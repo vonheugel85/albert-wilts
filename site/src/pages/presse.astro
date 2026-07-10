@@ -1,0 +1,127 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+import { pressebeitraege } from '../data/presse.js';
+
+const typLabel = { zeitungsbericht: 'Zeitungsbericht', anzeige: 'Anzeige', video: 'Video' };
+const typBadge = { zeitungsbericht: '', anzeige: ' sub-press-badge--anzeige', video: ' sub-press-badge--video' };
+const sortiert = [...pressebeitraege].sort((a, b) => (a.datum < b.datum ? 1 : -1));
+const featured = sortiert.find((p) => p.featured) || sortiert[0];
+const weitere = sortiert.filter((p) => p !== featured);
+---
+
+<BaseLayout
+  title="Presse | Bekannt aus Funk und Fernsehen | Albert Wilts"
+  description="Albert Wilts in den Medien: Berichte aus Zeitung, Funk und Fernsehen über unseren ostfriesischen Familienbetrieb. Hier finden Sie unsere Pressestimmen."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Bekannt aus Funk und Fernsehen</h1>
+      <p class="sub-hero-sub">Als ostfriesisches Original werden wir gerne gesehen und gelesen. Hier finden Sie eine Auswahl unserer Pressestimmen.</p>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={70}>
+    <p class="sub-lead-center" style="margin-bottom:18px;">Gesehen und gelesen bei</p>
+    <div class="sub-medialogos">
+      <span>NDR</span>
+      <span>Ostfriesen-Zeitung</span>
+      <span>Emder Zeitung</span>
+      <span>Norderney Magazin</span>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <div class="sub-press" id="presse">
+
+      <div class="sub-press-featured">
+        <div class="thumb">
+          <span class="sub-press-badge">Im Fokus</span>
+          <Placeholder label={`Platzhalter Bild: ${featured.medium}`} aspect="3/2" />
+        </div>
+        <div class="body">
+          <div class="sub-press-meta">{featured.medium}, {featured.datumLabel}</div>
+          <h3>{featured.titel}</h3>
+          <p>{featured.anriss}</p>
+          {featured.link
+            ? <Button href={featured.link} label="Zum Beitrag" />
+            : <span class="sub-press-note">Derzeit nicht online verfügbar</span>}
+        </div>
+      </div>
+
+      <div class="sub-press-filter" role="tablist" aria-label="Pressebeiträge filtern">
+        <button class="sub-tab" role="tab" aria-selected="true" data-filter="alle">Alle</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-filter="zeitungsbericht">Zeitungsberichte</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-filter="anzeige">Anzeigen</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-filter="video">Videos</button>
+      </div>
+      <p class="sub-press-count" id="presse-count"></p>
+
+      <div class="sub-press-grid">
+
+        {weitere.map((p) => (
+          <div class="sub-press-card" data-type={p.typ}>
+            <div class="thumb">
+              <span class={`sub-press-badge${typBadge[p.typ]}`}>{typLabel[p.typ]}</span>
+              <Placeholder label={`Platzhalter Bild: ${p.medium}`} aspect="3/2" />
+            </div>
+            <div class="body">
+              <div class="sub-press-meta">{p.medium}, {p.datumLabel}</div>
+              <h3>{p.titel}</h3>
+              <p>{p.anriss}</p>
+              {p.link
+                ? <a class="more" href={p.link} target="_blank" rel="noopener">Zum Beitrag <span class="arrow">&#x203A;</span></a>
+                : <span class="sub-press-note">Derzeit nicht online verfügbar</span>}
+            </div>
+          </div>
+        ))}
+
+      </div>
+
+      <p class="sub-press-empty" id="presse-empty">In dieser Kategorie liegen aktuell keine Beiträge vor.</p>
+    </div>
+  </Section>
+
+  <section class="sub-cta" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Sie möchten über uns berichten?</h2>
+      <p>Für Presseanfragen, Bildmaterial oder einen Termin vor Ort erreichen Sie uns direkt.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Presseanfrage senden" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  const root = document.getElementById('presse');
+  if (root) {
+    const pills = root.querySelectorAll('[data-filter]');
+    const cards = root.querySelectorAll('[data-type]');
+    const countEl = root.querySelector('#presse-count');
+    const emptyEl = root.querySelector('#presse-empty');
+
+    const apply = (filter) => {
+      let visible = 0;
+      cards.forEach((c) => {
+        const show = filter === 'alle' || c.getAttribute('data-type') === filter;
+        c.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (countEl) countEl.textContent = visible + (visible === 1 ? ' Beitrag' : ' Beiträge');
+      if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
+    };
+
+    pills.forEach((p) => p.addEventListener('click', () => {
+      pills.forEach((x) => x.setAttribute('aria-selected', String(x === p)));
+      apply(p.getAttribute('data-filter'));
+    }));
+
+    apply('alle');
+  }
+</script>

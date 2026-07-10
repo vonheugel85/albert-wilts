@@ -1,0 +1,136 @@
+---
+/*
+  InfoLeiste.astro – Sektion 2 der Startseite (article-3 Entsprechung).
+  Fullwidth, gruen (#4F7146), drei gleich breite Spalten.
+  Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Arimo, weiss),
+  kleiner oranger Button "Mehr Informationen".
+  Keine Props, Inhalt fix.
+*/
+
+import Button from './Button.astro';
+
+const cols = [
+  {
+    iconSrc: '/icons/einkaufskorb_weiss.svg',
+    iconAlt: '',
+    title:   ['Wochenmarkt', 'Emden & Norderney'],
+    lines:   ['Di, Do, Fr, Sa in Emden', 'Mittwoch auf Norderney'],
+    href:    '/wochenmarkt',
+  },
+  {
+    iconSrc: '/icons/ladenverkauf_weiss.svg',
+    iconAlt: '',
+    title:   ['Ladenverkauf', 'Upgant-Schott'],
+    lines:   ['Immer Freitags', '08.00 - 18.00 Uhr'],
+    href:    '/ladenverkauf',
+  },
+  {
+    iconSrc: '/icons/aktuelle-angebote_weiss.svg',
+    iconAlt: '',
+    title:   ['Aktuelle', 'Angebote'],
+    lines:   ['Jede Woche aktuell', 'direkt im Postfach'],
+    href:    '/aktuelle-angebote',
+  },
+];
+---
+
+<section class="info-leiste" aria-label="Info-Leiste">
+  <div class="il-inside">
+    {cols.map((col) => (
+      <div class="il-col">
+        <img src={col.iconSrc} alt={col.iconAlt} class="il-icon" aria-hidden="true" width="48" height="48" loading="lazy" />
+        <div class="il-text">
+          <h2 class="il-title">
+            <span class="il-title-line">{col.title[0]}</span>
+            <span class="il-title-line">{col.title[1]}</span>
+          </h2>
+          {col.lines.map((line) => (
+            <p class="il-line">{line}</p>
+          ))}
+          <Button href={col.href} label="Mehr Informationen" />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* ── Section: fullwidth, gruen ── */
+  .info-leiste {
+    width: 100%;
+    background: #4F7146;
+    padding: 60px 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Inside-Container: 85%, 40px Padding ── */
+  .il-inside {
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  /* ── Spalte: Icon links, Text rechts (wie Staging) ── */
+  .il-col {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  /* ── Icon: SVG-Bild, weiss, 48px, oben ausrichten ── */
+  .il-icon {
+    width: auto;
+    height: 75px;
+    display: block;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* ── Text-Block: stapelt Titel, Zeilen, Button ── */
+  .il-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  /* ── Titel: Caladea 700, weiss ── */
+  .il-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0 0 4px 0;
+  }
+
+  .il-title-line {
+    display: block;
+    font-size: 1.4rem;
+  }
+
+  /* ── Info-Zeilen: Arimo, weiss ── */
+  .il-line {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .il-inside {
+      max-width: 100%;
+      padding: 0 20px;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>

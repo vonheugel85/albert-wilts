@@ -1,0 +1,176 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+---
+
+<BaseLayout
+  title="Sortiment und Leistungen | Obst, Gemüse, Fleisch und Logistik | Albert Wilts"
+  description="Entdecken Sie das Vollsortiment von Albert Wilts: frisches Obst und Gemüse, Fleisch, Ready-Cut-Produkte und flexible Logistik für Ostfriesland."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Frische Vielfalt und Service nach Maß</h1>
+      <p class="sub-hero-sub">Vom Feld bis ins Kühlhaus: Entdecken Sie unser Vollsortiment für Profis und Genießer.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Eigener Fuhrpark, fünf Lkw</span>
+      <span class="sub-trustbar-item">Sechs Tage Lieferung</span>
+      <span class="sub-trustbar-item">Festland und Inseln</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100}>
+    <div class="sub-block">
+      <h2>Alles aus einer Hand</h2>
+      <p>Warum kompliziert, wenn es auch einfach geht? Als Ihr regionaler Partner bündeln wir die wichtigsten Frische-Sortimente in einer Lieferung. Egal ob Sie ein Restaurant, ein Hotel oder eine Großküche leiten, bei Albert Wilts erhalten Sie Qualität, auf die Sie sich verlassen können. Unsere Wurzeln liegen im Eierhandel von 1958, heute bieten wir Ihnen die komplette Bandbreite moderner Lebensmittelversorgung.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2 class="sub-h2-center">Unsere Produktwelten</h2>
+    <p class="sub-lead-center">Vier Sortimente, eine Lieferung. Ein Blick auf das, was bei uns täglich frisch bereitsteht.</p>
+    <div class="sub-showcase">
+
+      <div class="sub-showcase-row">
+        <div class="sub-showcase-media">
+          <Placeholder label="Platzhalter Bild: Frische Obst- und Gemüseauswahl in Marktoptik (Querformat, echtes Foto)" aspect="4/3" />
+        </div>
+        <div class="sub-showcase-body">
+          <h3>Obst und Gemüse</h3>
+          <p>Das Herzstück unseres Unternehmens. Wir beziehen unsere Ware bevorzugt von langjährigen Partnern aus der Region, ergänzt durch internationale Top-Qualität, von regionalen Klassikern über Exoten bis zu täglich frischen Kräutern und Salaten.</p>
+          <ul class="sub-chips">
+            <li>Kartoffeln aus der Leybucht</li>
+            <li>Saisonaler Spargel</li>
+            <li>Beeren und Kohlsorten</li>
+            <li>Flugananas</li>
+            <li>Sprossenbrokkoli</li>
+            <li>Frische Kräuter und Salate</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-showcase-row sub-showcase-row--reverse">
+        <div class="sub-showcase-media">
+          <Placeholder label="Platzhalter Bild: Fleisch-, Wurst- und Geflügelauswahl in Metzger-Qualität (Querformat, echtes Foto)" aspect="4/3" />
+        </div>
+        <div class="sub-showcase-body">
+          <h3>Fleisch, Wurst und Geflügel</h3>
+          <p>Qualität, die man schmeckt. Wir liefern Fleischwaren, die höchsten gastronomischen Ansprüchen genügen, in diversen Zuschnitten und auf Wunsch küchenfertig gewürzt.</p>
+          <ul class="sub-chips">
+            <li>Rind und Schwein</li>
+            <li>Hähnchen und Pute</li>
+            <li>Hähnchen-Gyros</li>
+            <li>Aufschnitt</li>
+            <li>Wurstspezialitäten</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-showcase-row">
+        <div class="sub-showcase-media">
+          <Placeholder
+            label="Platzhalter Bild: Frische Eier und Molkereiprodukte (Querformat, echtes Foto)"
+            aspect="4/3"
+            src="/bilder/unternehmen/eierkartons-braune-eier-ladenverkauf.webp"
+            alt="Gestapelte Eierkartons mit frischen braunen Eiern im Ladenverkauf von Albert Wilts"
+          />
+        </div>
+        <div class="sub-showcase-body">
+          <h3>Eier und Molkerei</h3>
+          <p>Hier liegen unsere Wurzeln. Frische ist bei diesen sensiblen Produkten unser oberstes Gebot, in bedarfsgerechten Gebinden für die Profi-Küche.</p>
+          <ul class="sub-chips">
+            <li>Frische Eier aus der Region</li>
+            <li>Stangenware und Karton</li>
+            <li>Milch und Sahne</li>
+            <li>Quark und Joghurt</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-showcase-row sub-showcase-row--reverse">
+        <div class="sub-showcase-media">
+          <Placeholder label="Platzhalter Bild: Frische Fruchtsäfte im Glas (Querformat, echtes Foto)" aspect="4/3" />
+        </div>
+        <div class="sub-showcase-body">
+          <h3>Getränke</h3>
+          <p>Zur Abrundung liefern wir vitaminreiche Fruchtsäfte, die sich ideal für Ihr Frühstücksangebot, die Bar oder den Wiederverkauf eignen.</p>
+          <ul class="sub-chips">
+            <li>Frische Fruchtsäfte</li>
+            <li>Ideal fürs Buffet</li>
+            <li>Für Bar und Verkauf</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </Section>
+
+  <Section bg="#fff" py={100}>
+    <h2>Unsere Manufaktur</h2>
+    <p class="sub-lead">Zeit sparen mit Ready-Cut und Hausgemachtem. Wir unterstützen Ihre Küche mit vorbereiteten Produkten, die wie handgemacht schmecken, aber Ihre Personalressourcen schonen.</p>
+    <div class="sub-cards">
+      <div class="sub-card">
+        <h3>Ready-Cut-Service</h3>
+        <p>Gemüse und Obst, gewaschen, geschält und geschnitten. Sofort einsatzbereit für Salate, Beilagen oder Desserts.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Hausgemachte Spezialitäten</h3>
+        <p>In unserer eigenen Manufaktur bereiten wir Pfannengerichte (zum Beispiel mariniertes Geschnetzeltes) und Convenience-Lösungen vor, die keine Industrieware sind.</p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-midcta">
+    <div class="sub-midcta-inside">
+      <p class="sub-midcta-text"><strong>Fragen zum Sortiment?</strong> Wir stellen Ihre Lieferung passend zusammen.</p>
+      <div class="sub-midcta-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <a href="tel:+49493491060" class="sub-phone sub-midcta-phone">04934 91060</a>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2>Mehr als nur Ware</h2>
+    <p class="sub-lead">Ein gutes Produkt ist wertlos, wenn es nicht pünktlich bei Ihnen ist. Darum ist unsere Dienstleistung genauso wichtig wie unser Sortiment.</p>
+    <div class="sub-featcols">
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Flexible Logistik</h3>
+        <p>Unser eigener Fuhrpark mit fünf Lkw ist an sechs Tagen die Woche in ganz Ostfriesland unterwegs, pünktlich bis in Ihr Lager oder Kühlhaus.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Insel-Versorgung</h3>
+        <p>Wir beliefern Norderney und die ostfriesischen Inseln mehrmals wöchentlich. Wir kennen die Fährpläne und sorgen dafür, dass die Ware sicher ankommt.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Persönlicher Ansprechpartner</h3>
+        <p>Keine Callcenter, keine Warteschleifen. Bei uns sprechen Sie mit Menschen, die Ihr Geschäft verstehen und sich persönlich kümmern.</p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-cta" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Überzeugen Sie sich selbst</h2>
+      <p>Sie suchen einen Lieferanten, der Sortimentsbreite mit persönlicher Nähe verbindet? Sprechen Sie uns an.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Jetzt Kunde werden" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,52 @@
+// Zentrale Pressedaten. Presseseite und Startseiten-Teaser speisen sich hieraus.
+// typ: 'zeitungsbericht' | 'anzeige' | 'video'. link/bild leer = (noch) nicht vorhanden.
+export const pressebeitraege = [
+  {
+    id: 'ostfriesischer-kurier-2024',
+    medium: 'Ostfriesischer Kurier',
+    datum: '2024-08-21', datumLabel: 'August 2024',
+    typ: 'zeitungsbericht',
+    titel: 'Eine Familie, eine Mission: Frische und Qualität',
+    anriss: 'Ein ausführliches Porträt über den Familienbetrieb seit 1958, die dritte Generation und die Wurzeln im Brookmerland.',
+    link: 'https://nachrichten.ostfriesischer-kurier.de/nachrichten/eine-familie-eine-mission-frische-und-qualitaet-5449.html',
+    bild: '', featured: true,
+  },
+  {
+    id: 'norderney-magazin-2019',
+    medium: 'Norderney Nordsee-Magazin',
+    datum: '2019-12-18', datumLabel: 'Dezember 2019',
+    typ: 'zeitungsbericht',
+    titel: 'Albert Wilts, der Höker von Norderney',
+    anriss: 'Das Insel-Magazin porträtiert die Familie und ihren beliebten Marktstand mit dem kostenlosen Kaffee auf Norderney.',
+    link: 'https://magazin.norderney-zs.de/news/norderney-inside/albert-wilts/',
+    bild: '', featured: false,
+  },
+  {
+    id: 'ferien-ahoi-39',
+    medium: 'Ferien Ahoi, Norderney',
+    datum: '2019-06-01', datumLabel: 'Ausgabe 39',
+    typ: 'zeitungsbericht',
+    titel: 'Von Generation zu Generation',
+    anriss: 'Ein einfühlsames Inselmagazin-Porträt über den Generationswechsel und den Weg der dritten Generation.',
+    link: 'https://issuu.com/ferien.ahoi/docs/39/s/42389929',
+    bild: '', featured: false,
+  },
+  {
+    id: 'ferien-ahoi-21',
+    medium: 'Ferien Ahoi, Norderney',
+    datum: '2014-06-01', datumLabel: '2014, Ausgabe 21',
+    typ: 'zeitungsbericht',
+    titel: 'Porträt: Albert Wilts, ein ostfriesisches Original',
+    anriss: 'Ein frühes Porträt des Firmengründers Albert Wilts senior, aufgenommen in seinem Betrieb südlich von Marienhafe.',
+    link: '', bild: '', featured: false,
+  },
+  {
+    id: 'ndr-hoeker-2011',
+    medium: 'NDR, Reihe Typisch!',
+    datum: '2011-12-22', datumLabel: 'Dezember 2011',
+    typ: 'video',
+    titel: 'Der Höker von Norderney',
+    anriss: 'Ein halbstündiges NDR-Porträt begleitet Albert Wilts senior und seine Familie durch einen Arbeitstag zwischen Festland und Insel.',
+    link: '', bild: '', featured: false,
+  },
+];

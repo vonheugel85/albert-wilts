@@ -1,0 +1,147 @@
+
+@import "./subpages.css";
+
+/* =============================================================================
+ * Albert Wilts – Design-Foundation (Tailwind v4)
+ * Marken-Werte aus dem freigegebenen Contao-Entwurf extrahiert.
+ * Grundsatz: schlank halten. Tokens nur, wo das Design es verlangt – alles
+ * Übrige kommt aus Tailwind-Utilities, nicht aus Custom-CSS. Jede Regel hat
+ * genau einen Ort, kein Override-Stapel.
+ * ========================================================================== */
+
+@import "tailwindcss";
+
+@theme {
+  /* Schriften ---------------------------------------------------------------- */
+  --font-sans:    Arial, Helvetica, sans-serif;
+  --font-display: Cambria, Georgia, 'Times New Roman', Times, serif;
+
+  /* Neutrale Tokens ---------------------------------------------------------- */
+  --color-ink:     #555555;   /* Haupttext */
+  --color-muted:   #7F7F7F;   /* Sekundärtext, Eyebrow-Labels */
+  --color-surface: #F8F8F8;   /* helle Sektions-Tönung (live: #article-59, rgb(248,248,248)) */
+  --color-border:  #E5E5E5;   /* Trennlinien */
+
+  /* Marken-Akzente ----------------------------------------------------------- */
+  --color-primary:       #4F7146;  /* Grün: Primärflächen + theme-color */
+  --color-primary-hover: #3D5A36;  /* dunkleres Grün (Grün-Button-Hover) */
+  --color-cta:           #EF7F1A;  /* Orange: Buttons, aktive Navi, Akzente */
+  --color-dark:          #454545;  /* dunkle Bildflächen / Platzhalter */
+  --color-heading:       #3B3C42;  /* Überschriftenfarbe (live h2/h3: rgb(59,60,66)) */
+
+  /* Content-driven Breakpoint ------------------------------------------------ */
+  --breakpoint-nav: 62rem;          /* 992px – erzeugt alle nav:*-Varianten */
+
+  /* Fluid Headlines via clamp() ---------------------------------------------- */
+  --text-hero:        clamp(2rem,     4vw + 1rem,    3.5rem);  /* Hero-H1  56px */
+  --text-headline-xl: clamp(1.875rem, 3.5vw + 1rem,  3rem);    /* H1       48px */
+  --text-headline-lg: clamp(1.5rem,   3vw + 0.5rem,  2.5rem);  /* H2-clamp (Fallback; @layer base nutzt 37.5px) */
+  --text-headline-md: clamp(1.25rem,  2vw + 0.5rem,  2rem);    /* H3-clamp (Fallback; @layer base nutzt 30px) */
+  --text-h2-teaser:   28.5px;  /* h2 auf Farbfläche (Teaser-Stripe, live gemessen) */
+
+  /* Maße --------------------------------------------------------------------- */
+  --radius-button: 5px;             /* Buttons; Pillen = rounded-full */
+
+  /* Hilfswerte für Transitions und Schatten ---------------------------------- */
+  --shadow-sticky: 0 4px 16px rgba(0,0,0,0.12); /* Sticky-Nav-Schatten */
+
+  /* Button-Tokens (zwei Stile, live gemessen) -------------------------------- */
+  /* CTA-Button: Navigation, Hero (orange) */
+  --btn-cta-bg:          #EF7F1A;
+  --btn-cta-color:       #ffffff;
+  --btn-cta-padding:     10px 20px;
+  --btn-cta-radius:      5px;
+  --btn-cta-font-size:   16px;
+  --btn-cta-font-weight: 400;
+  /* Submit-Button: Formulare (grüne Pille) */
+  --btn-submit-bg:          #4F7146;
+  --btn-submit-color:       #ffffff;
+  --btn-submit-padding:     12px 28px;
+  --btn-submit-radius:      30px;
+  --btn-submit-font-size:   16px;
+  --btn-submit-font-weight: 400;
+}
+
+/* --- Basis-Layer: nur das, was wirklich global gilt -------------------------- */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;            /* 18px */
+    line-height: 1.5;
+    color: var(--color-ink);
+    background-color: #fff;
+  }
+
+  /* Fließtext-Elemente: Größe explizit setzen, da Tailwind-Reset sie nullt */
+  p, a, span, li, ul, ol {
+    font-size: 1.125rem;            /* 18px */
+    line-height: 1.5;
+  }
+
+  /* ── Typo-Hierarchie (verbindlich) ── */
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.2;
+    color: #3B3C42;
+    margin: 0 0 20px 0;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 37.5px;
+    line-height: 1.3;
+    color: #3B3C42;
+    margin: 0 0 16px 0;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    color: #3B3C42;
+    margin: 0 0 12px 0;
+  }
+
+  /* ── Formular-Steuerelemente: einheitlich 18px, gleiche Zeilenhoehe ── */
+  input,
+  textarea,
+  select,
+  button {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;              /* 24px */
+    line-height: 1.4;
+  }
+
+  h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;             /* 20px */
+    line-height: 1.4;
+  }
+
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;                /* 16px */
+    line-height: 1.4;
+  }
+}
+
+/* --- Container ---------------------------------------------------------------
+ * Inhaltsbreite fluid max-width 85 %, padding-inline 40px (mobil 20px).
+ * Live-Probe bei 1280px VP: .inside = 1088px (= 85 % von 1280 − padding).   
+ * Kein harter px-Cap bis zur Probe bei ≥ 1920px – Wert folgt.
+ * Als Astro-Utility-Klassen:
+ *   mx-auto max-w-[85%] px-5 nav:px-10
+ * -------------------------------------------------------------------------- */

@@ -1,0 +1,180 @@
+---
+// ConsentBanner.astro – seitenweites Einwilligungs-Banner (DSGVO).
+// Speichert die Zustimmung in localStorage unter "aw_consent".
+// Kategorien: necessary (immer an), analytics (GA4), maps (Google Maps).
+//
+// Globale Schnittstelle (window.awConsent):
+//   awConsent.get('maps')  -> boolean   (Zustimmung pruefen)
+//   awConsent.open()       -> Einstellungen erneut oeffnen
+// Jede Aenderung feuert auf document das Event "aw:consent-change"
+// mit detail = { necessary:true, analytics:bool, maps:bool }.
+// Jedes Element mit Attribut data-aw-consent-open oeffnet die Einstellungen.
+---
+
+<div id="aw-consent" class="cb" hidden role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="cb-notice" data-cb-view="notice">
+    <h2 class="cb-title">Ihre Privatsphäre</h2>
+    <p class="cb-text">
+      Wir verwenden Cookies und ähnliche Technologien. Notwendige sind für den Betrieb der
+      Seite erforderlich. Statistik (Google Analytics) und Karten (Google Maps) laden wir nur
+      mit Ihrer Einwilligung. Mehr dazu in unserer
+      <a href="/datenschutz" class="cb-link">Datenschutzerklärung</a>.
+    </p>
+    <div class="cb-actions">
+      <button type="button" class="cb-btn cb-btn--primary" data-cb="accept-all">Alle akzeptieren</button>
+      <button type="button" class="cb-btn cb-btn--ghost" data-cb="reject-all">Nur notwendige</button>
+      <button type="button" class="cb-btn cb-btn--text" data-cb="show-prefs">Einstellungen</button>
+    </div>
+  </div>
+
+  <div class="cb-prefs" data-cb-view="prefs" hidden>
+    <h2 class="cb-title">Cookie-Einstellungen</h2>
+    <div class="cb-row">
+      <div class="cb-row-text">
+        <span class="cb-row-title">Notwendig</span>
+        <span class="cb-row-desc">Für den Betrieb der Seite erforderlich. Immer aktiv.</span>
+      </div>
+      <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span class="cb-slider"></span></label>
+    </div>
+    <div class="cb-row">
+      <div class="cb-row-text">
+        <span class="cb-row-title">Statistik</span>
+        <span class="cb-row-desc">Google Analytics, hilft uns die Seite zu verbessern.</span>
+      </div>
+      <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span class="cb-slider"></span></label>
+    </div>
+    <div class="cb-row">
+      <div class="cb-row-text">
+        <span class="cb-row-title">Karten</span>
+        <span class="cb-row-desc">Google Maps zur Anzeige unserer Standorte.</span>
+      </div>
+      <label class="cb-switch"><input type="checkbox" data-cb-cat="maps"><span class="cb-slider"></span></label>
+    </div>
+    <div class="cb-actions">
+      <button type="button" class="cb-btn cb-btn--primary" data-cb="save">Auswahl speichern</button>
+      <button type="button" class="cb-btn cb-btn--ghost" data-cb="accept-all">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cb {
+    position: fixed; left: 24px; bottom: 24px; z-index: 9999;
+    width: min(420px, calc(100vw - 32px));
+    background: #fff; border: 1px solid #E6E6E6; border-top: 4px solid #4F7146;
+    border-radius: 6px; box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+    padding: 24px 24px 22px; font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  }
+  .cb[hidden] { display: none; }
+  .cb-title { font-family: var(--font-display, Cambria, Georgia, serif); font-size: 22px; color: #3B3C42; margin: 0 0 10px; }
+  .cb-text { font-size: 15px; line-height: 1.5; color: #555; margin: 0 0 18px; }
+  .cb-link { color: #4F7146; text-decoration: underline; }
+  .cb-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cb-btn { font-family: inherit; font-size: 15px; font-weight: 700; border-radius: 5px; padding: 11px 18px; cursor: pointer; border: 1px solid transparent; transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease; }
+  .cb-btn--primary { background: #4F7146; color: #fff; }
+  .cb-btn--primary:hover { background: #3D5A36; }
+  .cb-btn--ghost { background: #fff; color: #4F7146; border-color: #4F7146; }
+  .cb-btn--ghost:hover { background: #EDF1EA; }
+  .cb-btn--text { background: transparent; color: #777; padding-left: 8px; padding-right: 8px; }
+  .cb-btn--text:hover { color: #3B3C42; }
+  .cb-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #EDEDED; }
+  .cb-row:first-of-type { padding-top: 4px; }
+  .cb-row-text { display: flex; flex-direction: column; }
+  .cb-row-title { font-size: 16px; font-weight: 700; color: #3B3C42; }
+  .cb-row-desc { font-size: 14px; line-height: 1.45; color: #777; margin-top: 2px; }
+  .cb-prefs .cb-actions { margin-top: 20px; }
+  .cb-switch { position: relative; flex-shrink: 0; width: 46px; height: 26px; }
+  .cb-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .cb-slider { position: absolute; inset: 0; background: #C9C9C9; border-radius: 26px; transition: background 0.18s ease; }
+  .cb-slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform 0.18s ease; }
+  .cb-switch input:checked + .cb-slider { background: #4F7146; }
+  .cb-switch input:checked + .cb-slider::before { transform: translateX(20px); }
+  .cb-switch--locked .cb-slider { background: #4F7146; opacity: 0.5; }
+  @media (max-width: 520px) { .cb { left: 16px; right: 16px; bottom: 16px; width: auto; } }
+</style>
+
+<script>
+  const KEY = 'aw_consent';
+  const VERSION = 1;
+
+  // === Platzhalter: echte GA4-Mess-ID erst spaeter setzen (siehe 03-analytics-aktivieren.md) ===
+  const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+  const root = document.getElementById('aw-consent');
+  if (root) {
+    const viewNotice = root.querySelector('[data-cb-view="notice"]');
+    const viewPrefs  = root.querySelector('[data-cb-view="prefs"]');
+
+    const read = () => {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (!raw) return null;
+        const obj = JSON.parse(raw);
+        if (!obj || obj.v !== VERSION) return null;
+        return obj;
+      } catch { return null; }
+    };
+
+    const apply = (state) => {
+      if (state.analytics && GA_MEASUREMENT_ID && GA_MEASUREMENT_ID.indexOf('XXXX') === -1) loadGA(GA_MEASUREMENT_ID);
+    };
+    const dispatch = (state) => document.dispatchEvent(new CustomEvent('aw:consent-change', { detail: state }));
+
+    const save = (sel) => {
+      const full = { v: VERSION, necessary: true, analytics: !!sel.analytics, maps: !!sel.maps, ts: Date.now() };
+      try { localStorage.setItem(KEY, JSON.stringify(full)); } catch {}
+      hide(); apply(full); dispatch(full);
+    };
+
+    const show = (view) => {
+      root.hidden = false;
+      if (view === 'prefs') {
+        viewNotice.hidden = true; viewPrefs.hidden = false;
+        const cur = read() || { analytics: false, maps: false };
+        root.querySelectorAll('[data-cb-cat]').forEach((el) => { el.checked = !!cur[el.getAttribute('data-cb-cat')]; });
+      } else { viewNotice.hidden = false; viewPrefs.hidden = true; }
+    };
+    const hide = () => { root.hidden = true; };
+
+    root.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-cb]');
+      if (!t) return;
+      const action = t.getAttribute('data-cb');
+      if (action === 'accept-all') save({ analytics: true, maps: true });
+      else if (action === 'reject-all') save({ analytics: false, maps: false });
+      else if (action === 'show-prefs') show('prefs');
+      else if (action === 'save') {
+        const sel = {};
+        root.querySelectorAll('[data-cb-cat]').forEach((el) => { sel[el.getAttribute('data-cb-cat')] = el.checked; });
+        save(sel);
+      }
+    });
+
+    window.awConsent = {
+      get(cat) { if (cat === 'necessary') return true; const s = read(); return s ? !!s[cat] : false; },
+      open() { show('prefs'); },
+    };
+
+    document.addEventListener('click', (e) => {
+      const opener = e.target.closest('[data-aw-consent-open]');
+      if (opener) { e.preventDefault(); window.awConsent.open(); }
+    });
+
+    const existing = read();
+    if (existing) apply(existing); else show('notice');
+    // Beim Laden den aktuellen Stand bekanntgeben (auch ohne Entscheidung),
+    // damit z. B. Karten korrekt initial rendern.
+    dispatch(existing || { v: VERSION, necessary: true, analytics: false, maps: false });
+  }
+
+  function loadGA(id) {
+    if (window.__gaLoaded) return;
+    window.__gaLoaded = true;
+    const s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag; gtag('js', new Date()); gtag('config', id);
+  }
+</script>

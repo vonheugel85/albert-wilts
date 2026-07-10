@@ -1,0 +1,16 @@
+---
+/*
+  Header.astro
+  Schlanker Re-Export: BaseLayout.astro nutzt <Nav />, dieser Wrapper erlaubt
+  zukünftigen Austausch ohne Layout-Änderung.
+*/
+import Nav from './Nav.astro';
+
+interface Props {
+  breadcrumbs?: Array<{ label: string; href: string }>;
+}
+
+const { breadcrumbs } = Astro.props;
+---
+
+<Nav breadcrumbs={breadcrumbs} />

@@ -1,0 +1,231 @@
+---
+/*
+  BereicheSection.astro – Sektion 3 der Startseite (article-56 Entsprechung).
+  Zwei Zeilen, je zwei Spalten (Bild | Text), alternierend.
+  Keine Props, Inhalt fix.
+*/
+import Placeholder from './Placeholder.astro';
+import Button from './Button.astro';
+---
+
+<section class="bereiche-section" aria-label="Unsere Bereiche">
+  <div class="bereiche-inside">
+
+    <!-- ── Zeile 1: Gewerbe – links Bild, rechts Text ── -->
+    <div class="bereiche-row">
+
+      <div class="bereiche-bild">
+        <Placeholder label="Gewerbe-Bild" aspect="4/3" src="/bilder/unternehmen/grosshandelslager-obst-gemuese-mitarbeiter.webp" alt="Mitarbeiter im Grosshandelslager fuer Obst und Gemuese bei Albert Wilts" />
+      </div>
+
+      <div class="bereiche-text">
+        <p class="bereiche-overline">Gastro, Hotel, Grosskueche</p>
+        <h2>Für Gewerbekunden</h2>
+        <p class="bereiche-lead">Ihr Partner für Verlässlichkeit.</p>
+        <ul class="bereiche-check">
+          <li>Logistik: 6-Tage-Woche &amp; Insel-Belieferung</li>
+          <li>Produkte: Ready-Cut, Manufaktur &amp; Vollsortiment</li>
+          <li>Service: Feste Ansprechpartner</li>
+        </ul>
+        <div class="bereiche-btn-group">
+          <Button href="/fuer-gewerbekunden" label="Weiterlesen" chevron />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Zeile 2: Privat – links Text, rechts Bild ── -->
+    <div class="bereiche-row bereiche-row--reverse">
+
+      <div class="bereiche-text">
+        <p class="bereiche-overline">Wochenmarkt &amp; Ladenverkauf</p>
+        <h2>Für Privatkunden</h2>
+        <p class="bereiche-lead">Einkaufen wie frueher - mit Qualitaet von heute.</p>
+        <ul class="bereiche-check">
+          <li>Wochenmarkt Emden: frische Ware und ein Schnack mit Anke Wilts</li>
+          <li>Ladenverkauf: unser Lagerverkauf jeden Freitag</li>
+        </ul>
+        <div class="bereiche-btn-group">
+          <Button href="/wochenmarkt"  label="Wochenmarkt" />
+          <Button href="/ladenverkauf" label="Ladenverkauf" />
+        </div>
+      </div>
+
+      <div class="bereiche-bild">
+        <Placeholder label="Ladenverkauf" aspect="4/3" src="/bilder/unternehmen/ladenverkauf-albert-wilts-obst-gemuese-eier.webp" alt="Ladenverkauf von Albert Wilts mit frischem Obst, Gemuese und Eiern" />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── Section: weisser Hintergrund, 70px vertikal ── */
+  .bereiche-section {
+    width: 100%;
+    background: #fff;
+    padding: 70px 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Inside: 85% Container ── */
+  .bereiche-inside {
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  /* ── Zeile: Bild + Text, zwei gleiche Spalten ── */
+  .bereiche-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* ── Bild-Spalte ── */
+  .bereiche-bild {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Bild füllt die volle Höhe der Zeile ── */
+  .bereiche-bild :global(.aw-img-wrap) {
+    height: 100%;
+    aspect-ratio: unset !important;
+  }
+
+  .bereiche-bild :global(.aw-img) {
+    height: 100%;
+  }
+
+  /* ── Grauer Text-Panel mit Innenabstand ── */
+  .bereiche-text {
+    background: #F8F8F8;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  /*
+    Zeile 1 (Gewerbe): Bild links, Text rechts.
+    Spitze an der LINKEN Kante des Text-Panels, zeigt nach links (zum Bild).
+    border-right = Panel-Farbe, border-left = transparent
+  */
+  .bereiche-row .bereiche-text::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    transform: translateY(-50%);
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    border-right: 24px solid #F8F8F8;
+    border-left: none;
+  }
+
+  /*
+    Zeile 2 (Privat): Text links, Bild rechts.
+    Spitze an der RECHTEN Kante des Text-Panels, zeigt nach rechts (zum Bild).
+  */
+  .bereiche-row--reverse .bereiche-text::before {
+    left: auto;
+    right: -24px;
+    border-right: none;
+    border-left: 24px solid #F8F8F8;
+  }
+
+  /* ── Overline: klein, grau ── */
+  .bereiche-overline {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: #7F7F7F;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+
+  /* ── h2 erbt Global-Style, nur Margin anpassen ── */
+  .bereiche-text h2 {
+    margin-bottom: 12px;
+  }
+
+  /* ── Lead ── */
+  .bereiche-lead {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0 0 24px 0;
+  }
+
+  /* ── Checkliste mit Haken ── */
+  .bereiche-check {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bereiche-check li {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.5;
+    color: #555;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .bereiche-check li::before {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    font-size: 13px;
+    color: #4F7146;
+    position: absolute;
+    left: 0;
+    top: 4px;
+  }
+
+  /* ── Button(s) ── */
+  .bereiche-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .bereiche-inside {
+      max-width: 100%;
+      padding: 0 20px;
+      gap: 60px;
+    }
+
+    .bereiche-row,
+    .bereiche-row--reverse {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    /* Auf Mobil: Dreieck ausblenden ── */
+    .bereiche-row .bereiche-text::before,
+    .bereiche-row--reverse .bereiche-text::before {
+      display: none;
+    }
+
+    .bereiche-text {
+      padding: 32px 24px;
+    }
+  }
+</style>

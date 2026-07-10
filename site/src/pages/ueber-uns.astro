@@ -1,0 +1,135 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+---
+
+<BaseLayout
+  title="Über uns | Familienbetrieb seit 1958 | Albert Wilts"
+  description="Albert Wilts e.K., ein ostfriesischer Familienbetrieb seit 1958. Vom Eierhandel in Moordorf zum Vollsortimenter in dritter Generation. Lernen Sie die Familie Wilts kennen."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Frische aus Tradition, seit 1958</h1>
+      <p class="sub-hero-sub">Hinter Albert Wilts steht eine Familie, in dritter Generation und mit beiden Beinen in Ostfriesland.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Kontakt aufnehmen" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Eigener Fuhrpark, fünf Lkw</span>
+      <span class="sub-trustbar-item">Sechs Tage Lieferung</span>
+      <span class="sub-trustbar-item">Festland und Inseln</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100}>
+    <div class="sub-block">
+      <h2>Hinter Albert Wilts steht eine Familie</h2>
+      <p>Keine Investorengruppe, kein anonymer Konzern, sondern ein ostfriesisches Familienunternehmen, das seit über sechs Jahrzehnten im Brookmerland verwurzelt ist. Was 1958 mit dem Verkauf von Eiern begann, ist heute ein zuverlässiger Partner für Frische und Qualität, vom Großhandel über den Ladenverkauf bis zum Wochenmarkt. Geblieben ist über all die Jahre eines: der persönliche Draht zu den Menschen, die bei uns einkaufen.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2 class="sub-h2-center">Unsere Geschichte</h2>
+    <p class="sub-lead-center">Von Moordorf nach ganz Ostfriesland, in drei Generationen.</p>
+    <div class="sub-timeline">
+      <div class="sub-tl-item">
+        <div class="sub-tl-year">1958</div>
+        <h3>Der Anfang in Moordorf</h3>
+        <p>Alles begann ganz klein: Der Großvater startete in Moordorf mit dem Verkauf von Eiern, direkt vom Bauern zum Kunden und auf den Märkten der Region.</p>
+      </div>
+      <div class="sub-tl-item">
+        <div class="sub-tl-year">Die 1980er</div>
+        <h3>Vom Eierhandel zum Vollsortimenter</h3>
+        <p>Sohn Albert Wilts stieg ein und trieb die Entwicklung voran. Aus dem Eierhandel wuchs ein Vollsortimenter für Obst, Gemüse und Fleisch, und mit der Belieferung von Großkunden begann das Großhandelsgeschäft.</p>
+      </div>
+      <div class="sub-tl-item">
+        <div class="sub-tl-year">2017</div>
+        <h3>Die dritte Generation übernimmt</h3>
+        <p>Als Albert Wilts 2017 verstarb, führten seine Kinder Andree und Anke gemeinsam mit ihrer Mutter Anita den Betrieb weiter, mit denselben Werten, die er geprägt hatte.</p>
+      </div>
+      <div class="sub-tl-item">
+        <div class="sub-tl-year">Heute</div>
+        <h3>Frische aus Tradition</h3>
+        <p>Mit eigenem Fuhrpark beliefern wir an sechs Tagen die Woche Gastronomie, Hotellerie und Großküchen auf dem Festland und den Inseln. Dazu kommen Ladenverkauf und Wochenmärkte. Moderne Logistik, verbunden mit dem persönlichen Draht von früher.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#fff" py={100}>
+    <h2>Was uns ausmacht</h2>
+    <p class="sub-lead">Drei Dinge, auf die bei uns Verlass ist, gestern wie heute.</p>
+    <div class="sub-featcols">
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Persönlicher Schnack</h3>
+        <p>Bei uns sprechen Sie mit Menschen, nicht mit Callcentern. Anliegen werden direkt und persönlich gelöst, auf dem kurzen Dienstweg.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Handschlagqualität</h3>
+        <p>Wir sind kein anonymer Konzern. Die Familie steht selbst im Geschäft, ob bei der Auslieferung oder am Marktstand, und steht für ihr Wort ein.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Regionale Wurzeln</h3>
+        <p>Wir setzen auf ein Netzwerk kleiner Familienbetriebe aus der Region, etwa Kartoffeln aus der Leybucht, und auf faire Preise für die Erzeuger.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2 class="sub-h2-center">Die Familie Wilts</h2>
+    <p class="sub-lead-center">Drei Generationen, ein Anspruch. Bei uns packt die Familie selbst mit an, jeden Tag.</p>
+    <div class="sub-people">
+      <div class="sub-person">
+        <Placeholder label="Platzhalter Bild: Andree Wilts (Portrait, echtes Foto)" aspect="1/1" />
+        <h3>Andree Wilts</h3>
+        <p>Geschäftsführung, Einkauf und Auslieferung</p>
+      </div>
+      <div class="sub-person">
+        <Placeholder label="Platzhalter Bild: Anke Wilts (Portrait, echtes Foto)" aspect="1/1" />
+        <h3>Anke Wilts</h3>
+        <p>Verkauf und Wochenmärkte</p>
+      </div>
+      <div class="sub-person">
+        <Placeholder label="Platzhalter Bild: Anita Wilts (Portrait, echtes Foto)" aspect="1/1" />
+        <h3>Anita Wilts</h3>
+        <p>Büro und Ladenverkauf</p>
+      </div>
+    </div>
+    <blockquote class="sub-quote" style="max-width:720px; margin:44px auto 0;">
+      <p>Platzhalter Zitat: Hier kommt ein echtes, persönliches Zitat der Familie Wilts hin, zwei bis drei Zeilen O-Ton zur Geschichte oder zur Haltung des Betriebs. Wird vom Kunden geliefert.</p>
+      <cite>Platzhalter Name, Albert Wilts</cite>
+    </blockquote>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Bekannt aus Funk und Fernsehen</h2>
+        <p>Ob NDR, Ostfriesen-Zeitung oder das Norderney Magazin: Über unseren Familienbetrieb wird gerne berichtet. Werfen Sie einen Blick in unsere Pressestimmen.</p>
+      </div>
+      <Button href="/presse" label="Alle Pressestimmen" />
+    </div>
+  </section>
+
+  <section class="sub-cta" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Lernen Sie uns kennen</h2>
+      <p>Ob am Marktstand, im Hofladen oder am Telefon, wir freuen uns darauf, Sie persönlich kennenzulernen.</p>
+      <div class="sub-cta-actions">
+        <Button href="/kontakt" label="Kontakt aufnehmen" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

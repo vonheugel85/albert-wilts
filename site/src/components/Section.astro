@@ -1,0 +1,65 @@
+---
+/*
+  Section.astro – wiederverwendbarer Sektions-Wrapper.
+  Props:
+    bg       – Hintergrundfarbe als inline-CSS-Wert (Default: transparent)
+    py       – vertikales Padding in px (Default: 70)
+    id       – optionale ID für Anker-Links
+    fullBleed – wenn true: kein .inside-Container um den Slot (Default: false)
+*/
+
+interface Props {
+  bg?:        string;
+  py?:        number;
+  id?:        string;
+  fullBleed?: boolean;
+}
+
+const {
+  bg        = 'transparent',
+  py        = 70,
+  id,
+  fullBleed = false,
+} = Astro.props;
+---
+
+<section
+  {id}
+  class="aw-section"
+  style={`background:${bg}; padding-top:${py}px; padding-bottom:${py}px;`}
+>
+  {fullBleed
+    ? <slot />
+    : (
+      <div class="aw-inside">
+        <slot />
+      </div>
+    )
+  }
+</section>
+
+<style>
+  /*
+    .aw-section ist immer fullwidth (kein max-width auf der Section selbst).
+    .aw-inside entspricht dem Contao-Muster: max-width 85%, padding 40px,
+    margin auto – identisch mit header .inside und footer .inside.
+  */
+  .aw-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .aw-inside {
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    .aw-inside {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+  }
+</style>

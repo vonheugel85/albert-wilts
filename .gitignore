@@ -1,0 +1,27 @@
+# Astro build output
+site/dist/
+site/.astro/
+
+# Node modules
+site/node_modules/
+node_modules/
+
+# Legacy Contao-Assets (nicht deployed)
+css/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor
+.vscode/settings.json
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example

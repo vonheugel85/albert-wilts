@@ -1,0 +1,210 @@
+---
+/*
+  GeschichteSection.astro – Sektion 5 der Startseite (article-58 Entsprechung).
+  Zentrierter Kopf, vertikale Timeline mit drei Einträgen (abwechselnd links/rechts).
+  Keine Props, Inhalt fix.
+*/
+import Placeholder from './Placeholder.astro';
+
+const eintraege = [
+  {
+    jahr:  '1958',
+    text:  'Alles begann ganz klein. Der Grossvater startete in Moordorf mit dem Verkauf von Eiern, direkt vom Bauern zum Kunden.',
+    label: 'Betriebsgebäude Albert Wilts',
+    src:   '/bilder/albert-wilts_22.jpg',
+    seite: 'rechts',
+  },
+  {
+    jahr:  '19XX',
+    text:  'Sohn Albert Wilts stieg ein und baute den Handel sukzessive zum Vollsortimenter aus.',
+    label: 'Fuhrpark Albert Wilts',
+    src:   '/bilder/albert-wilts_18.jpg',
+    seite: 'links',
+  },
+  {
+    jahr:  'Heute',
+    text:  'In der dritten Generation führen Andree, Anke und Anita Wilts das Unternehmen. Wir verbinden die alten Werte, Handschlagqualität und Fleiss, mit moderner Logistik für Hotels und Grossküchen.',
+    label: 'Albert Wilts heute',
+    src:   '/bilder/albert-wilts_21.jpg',
+    seite: 'rechts',
+  },
+];
+---
+
+<section class="geschichte-section" aria-label="Unsere Geschichte">
+  <div class="geschichte-inside">
+
+    <!-- Zentrierter Kopf -->
+    <div class="geschichte-kopf">
+      <h2>Unsere Geschichte</h2>
+      <p class="geschichte-sub">Von Moordorf nach ganz Ostfriesland</p>
+      <p class="geschichte-lead">Hinter Albert Wilts steht keine Investorengruppe, sondern eine Familie.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline" role="list">
+      {eintraege.map((e) => (
+        <div class:list={['tl-entry', `tl-entry--${e.seite}`]} role="listitem">
+
+          <!-- Bild -->
+          <div class="tl-bild">
+            <Placeholder label={e.label} aspect="4/3" src={e.src} />
+          </div>
+
+          <!-- Inhalt mit Jahres-Badge -->
+          <div class="tl-inhalt">
+            <span class="tl-badge">{e.jahr}</span>
+            <p class="tl-text">{e.text}</p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .geschichte-section {
+    width: 100%;
+    background: #fff;
+    padding: 70px 0;
+    box-sizing: border-box;
+  }
+
+  .geschichte-inside {
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  /* ── Zentrierter Kopf ── */
+  .geschichte-kopf {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+  }
+
+  .geschichte-kopf h2 {
+    margin-bottom: 10px;
+  }
+
+  .geschichte-sub {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: #4F7146;
+    margin: 0 0 16px 0;
+    line-height: 1.3;
+  }
+
+  .geschichte-lead {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Timeline-Container: Mittellinie via border ── */
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  /* Mittellinie */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #E5E5E5;
+    transform: translateX(-50%);
+  }
+
+  /* ── Einzelner Eintrag: Bild + Inhalt, 2 Spalten ── */
+  .tl-entry {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Punkt auf der Mittellinie */
+  .tl-entry::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #4F7146;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #4F7146;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  /* ── Eintrag rechts: Bild links, Inhalt rechts (Standard) ── */
+  .tl-entry--rechts .tl-bild    { order: 1; }
+  .tl-entry--rechts .tl-inhalt  { order: 2; }
+
+  /* ── Eintrag links: Inhalt links, Bild rechts ── */
+  .tl-entry--links .tl-bild    { order: 2; }
+  .tl-entry--links .tl-inhalt  { order: 1; }
+
+  /* ── Inhalt ── */
+  .tl-inhalt {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tl-badge {
+    display: inline-block;
+    background: #4F7146;
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .tl-text {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .geschichte-inside {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+
+    .timeline::before { display: none; }
+
+    .tl-entry,
+    .tl-entry--rechts,
+    .tl-entry--links {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .tl-entry--links .tl-bild,
+    .tl-entry--links .tl-inhalt {
+      order: unset;
+    }
+
+    .tl-entry::before { display: none; }
+  }
+</style>

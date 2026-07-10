@@ -1,0 +1,199 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+---
+
+<BaseLayout
+  title="Wochenmarkt Emden und Norderney | Frisches Obst, Gemüse und Eier | Albert Wilts"
+  description="Besuchen Sie Albert Wilts auf dem Wochenmarkt in Emden und auf Norderney. Frische Eier, regionales Gemüse und ein persönlicher Schnack mit Anke Wilts."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Ihr Frische-Stand auf dem Wochenmarkt</h1>
+      <p class="sub-hero-sub">Regional einkaufen, persönlich schnacken und Qualität erleben, in Emden und auf Norderney.</p>
+      <div class="sub-hero-actions">
+        <Button href="#markttage" label="Zu den Marktzeiten" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Persönliche Beratung</span>
+      <span class="sub-trustbar-item">Regional und saisonal</span>
+      <span class="sub-trustbar-item">Emden und Norderney</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100}>
+    <div class="sub-block">
+      <h2>Tradition trifft Lebensfreude</h2>
+      <p>Der Wochenmarkt ist mehr als ein Einkaufsort, er ist ein Treffpunkt. Hier riecht es nach frischen Kräutern, hier leuchten saisonale Früchte um die Wette, und hier nimmt man sich Zeit für ein freundliches Moin. Seit den Anfängen unseres Unternehmens, als der Großvater noch Eier verkaufte, sind wir dem Marktleben treu geblieben. Heute finden Sie am Stand von Albert Wilts nicht nur beste Ware, sondern auch immer ein Lächeln von Anke Wilts und ihrem Team. Wir bringen die Frische aus Upgant-Schott direkt zu Ihnen in die Stadt.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2 class="sub-h2-center">Was das Herz begehrt</h2>
+    <p class="sub-lead-center">An unserem Stand finden Sie eine Auswahl, die Saison und Qualität vereint. Anders als im Supermarkt prüfen Sie die Ware mit allen Sinnen und lassen sich persönlich beraten.</p>
+    <div class="sub-cards">
+      <div class="sub-card">
+        <h3>Frische Eier</h3>
+        <p>Unsere Wurzeln. Eier aus der Region, frisch und lecker, so wie damals, als alles begann.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Obst und Gemüse</h3>
+        <p>Von Kartoffeln aus der Leybucht bis zu knackigen Äpfeln und saisonalen Highlights wie Spargel oder Beeren.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Manufaktur to go</h3>
+        <p>Ideal für die schnelle Küche zu Hause, etwa unsere hausgemachten Geflügelsalate oder vorbereiteten Pfannengerichte.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Exoten</h3>
+        <p>Auch auf dem Markt überraschen wir Sie gerne mit besonderen Früchten oder Gemüsesorten.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#fff" py={100} id="markttage">
+    <h2 class="sub-h2-center">Wann und wo Sie uns finden</h2>
+    <p class="sub-lead-center">Besuchen Sie uns regelmäßig auf dem Markt und decken Sie sich für die Woche ein.</p>
+
+    <div class="sub-schedule">
+      <div class="sub-schedule-head">Unsere Markttage</div>
+      <div class="sub-schedule-row"><span class="sub-schedule-day">Dienstag</span><span class="sub-schedule-place">Emden</span></div>
+      <div class="sub-schedule-row"><span class="sub-schedule-day">Mittwoch</span><span class="sub-schedule-place">Norderney</span></div>
+      <div class="sub-schedule-row"><span class="sub-schedule-day">Donnerstag</span><span class="sub-schedule-place">Emden-Borssum</span></div>
+      <div class="sub-schedule-row"><span class="sub-schedule-day">Freitag</span><span class="sub-schedule-place">Emden</span></div>
+      <div class="sub-schedule-row"><span class="sub-schedule-day">Samstag</span><span class="sub-schedule-place">Emden</span></div>
+    </div>
+
+    <div class="sub-standort" id="standort" style="margin-top: 56px;">
+      <div class="sub-tabs" role="tablist" aria-label="Marktstandorte">
+        <button class="sub-tab" role="tab" aria-selected="true" data-loc="emden">Emden</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-loc="norderney">Norderney</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-loc="borssum">Emden-Borssum</button>
+      </div>
+      <div class="sub-standort-panel">
+        <div class="sub-standort-info">
+          <h3 data-st="name">Wochenmarkt Emden</h3>
+          <div class="sub-standort-meta">
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Wann</span><span class="sub-standort-meta-val" data-st="days">Dienstag, Freitag und Samstag</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Uhrzeit</span><span class="sub-standort-meta-val" data-st="time">8 bis 13 Uhr</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Wo</span><span class="sub-standort-meta-val" data-st="addr">Stadtgarten, Emden</span></div>
+          </div>
+          <p class="sub-standort-maplink"><a data-st="extlink" href="https://www.google.com/maps/search/?api=1&query=Stadtgarten+Emden" target="_blank" rel="noopener">In Google Maps öffnen ›</a></p>
+        </div>
+        <div class="sub-standort-map" id="st-map"></div>
+      </div>
+    </div>
+
+    <script>
+      const STANDORTE = {
+        emden:     { name: 'Wochenmarkt Emden',         days: 'Dienstag, Freitag und Samstag', time: '8 bis 13 Uhr',       addr: 'Stadtgarten, Emden',                          query: 'Stadtgarten Emden' },
+        norderney: { name: 'Wochenmarkt Norderney',     days: 'Mittwoch',                      time: '7:30 bis 12:30 Uhr', addr: 'Zwischen Kurtheater und Kurplatz, Norderney', query: 'Kurplatz Norderney' },
+        borssum:   { name: 'Wochenmarkt Emden-Borssum', days: 'Donnerstag',                    time: '8 bis 13 Uhr',       addr: 'Parkplatz Petkumer Straße 207, Emden',        query: 'Petkumer Straße 207 Emden' },
+      };
+
+      const wrap = document.getElementById('standort');
+      if (wrap) {
+        const mapBox = wrap.querySelector('#st-map');
+        const tabs = wrap.querySelectorAll('.sub-tab');
+        let current = 'emden';
+
+        const setText = (key, val) => { const el = wrap.querySelector('[data-st="' + key + '"]'); if (el) el.textContent = val; };
+
+        const renderInfo = (loc) => {
+          const d = STANDORTE[loc];
+          setText('name', d.name); setText('days', d.days); setText('time', d.time); setText('addr', d.addr);
+          const ext = wrap.querySelector('[data-st="extlink"]');
+          if (ext) ext.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.query);
+        };
+
+        const renderMap = (loc) => {
+          const d = STANDORTE[loc];
+          const ok = window.awConsent && window.awConsent.get('maps');
+          if (ok) {
+            mapBox.innerHTML = '';
+            const ifr = document.createElement('iframe');
+            ifr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(d.query) + '&z=16&output=embed';
+            ifr.loading = 'lazy';
+            ifr.title = 'Karte: ' + d.name;
+            ifr.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            mapBox.appendChild(ifr);
+          } else {
+            mapBox.innerHTML =
+              '<div class="sub-map-fallback">' +
+              '<p>Aufgrund Ihrer Cookie-Einstellung kann die Karte nicht geladen werden. Stimmen Sie der Kategorie Karten zu, um den Standort hier anzuzeigen.</p>' +
+              '<button type="button" data-aw-consent-open>Cookie-Einstellungen anpassen</button>' +
+              '</div>';
+          }
+        };
+
+        const select = (loc) => {
+          current = loc;
+          tabs.forEach((t) => t.setAttribute('aria-selected', String(t.getAttribute('data-loc') === loc)));
+          renderInfo(loc); renderMap(loc);
+        };
+
+        tabs.forEach((t) => t.addEventListener('click', () => select(t.getAttribute('data-loc'))));
+        document.addEventListener('aw:consent-change', () => renderMap(current));
+        select('emden');
+      }
+    </script>
+  </Section>
+
+  <section class="sub-midcta">
+    <div class="sub-midcta-inside">
+      <p class="sub-midcta-text"><strong>Fragen vorab?</strong> Rufen Sie uns einfach an, wir helfen gerne weiter.</p>
+      <div class="sub-midcta-actions">
+        <a href="tel:+49493491060" class="sub-phone sub-midcta-phone">04934 91060</a>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <div class="sub-trust">
+      <div class="sub-trust-text">
+        <h2>Warum Markt? Weil es persönlich ist.</h2>
+        <p>Bei uns sind Sie keine Nummer. Anke Wilts und ihr Team kennen viele Kunden seit Jahren. Ein kleiner Schnack gehört genauso dazu wie die Petersilie zur Suppe. Wir beraten Sie gerne zur Zubereitung unserer Produkte oder verraten Ihnen, welches Gemüse gerade besonders aromatisch ist.</p>
+        <blockquote class="sub-quote">
+          <p>Platzhalter Zitat: Hier kommt ein echtes, persönliches Zitat von Anke Wilts hin, zwei bis drei Zeilen O-Ton vom Marktstand. Wird vom Kunden geliefert.</p>
+          <cite>Platzhalter Name, Albert Wilts</cite>
+        </blockquote>
+      </div>
+      <div class="sub-trust-bild">
+        <Placeholder label="Platzhalter Bild: Anke Wilts am Marktstand im Kundengespräch (Querformat, echtes Foto)" aspect="4/3" />
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Sie betreiben ein Restaurant oder Hotel?</h2>
+        <p>Wir liefern unsere Frische auch direkt in Ihre Küche. Entdecken Sie unser Angebot für Gastronomie, Hotellerie und Großverbraucher.</p>
+      </div>
+      <Button href="/fuer-gewerbekunden" label="Zum Bereich für Gewerbekunden" />
+    </div>
+  </section>
+
+  <section class="sub-cta" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Wir freuen uns auf Ihren Besuch</h2>
+      <p>Kommen Sie vorbei, probieren Sie unsere Frische und erleben Sie den Wochenmarkt mit Albert Wilts.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Kontakt aufnehmen" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

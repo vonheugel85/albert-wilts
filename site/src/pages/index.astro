@@ -1,0 +1,73 @@
+---
+import BaseLayout          from '../layouts/BaseLayout.astro';
+import HeroSection         from '../components/HeroSection.astro';
+import InfoLeiste          from '../components/InfoLeiste.astro';
+import BereicheSection     from '../components/BereicheSection.astro';
+import SortimentSection    from '../components/SortimentSection.astro';
+import GeschichteSection   from '../components/GeschichteSection.astro';
+import MedienSection       from '../components/MedienSection.astro';
+import NewsletterSection   from '../components/NewsletterSection.astro';
+import Section             from '../components/Section.astro';
+import Button              from '../components/Button.astro';
+import Placeholder         from '../components/Placeholder.astro';
+import { pressebeitraege } from '../data/presse.js';
+
+const presseTeaser = [...pressebeitraege].sort((a, b) => (a.datum < b.datum ? 1 : -1)).slice(0, 2);
+const pTypLabel = { zeitungsbericht: 'Zeitungsbericht', anzeige: 'Anzeige', video: 'Video' };
+const pTypBadge = { zeitungsbericht: '', anzeige: ' sub-press-badge--anzeige', video: ' sub-press-badge--video' };
+---
+
+<BaseLayout
+  title="Albert Wilts – Frische aus Tradition"
+  description="Albert Wilts e. K. – Frischwarengroßhandel seit 1958 in Upgant-Schott. Frische für Gastronomie, Hotellerie und Familientisch."
+>
+  <!-- Sektion 1: Hero -->
+  <HeroSection />
+
+  <!-- Sektion 2: Info-Leiste (grün, article-3) -->
+  <InfoLeiste />
+
+  <!-- Sektion 3: Bereiche – Gewerbe & Privat (article-56) -->
+  <BereicheSection />
+
+  <!-- Sektion 4: Frische-Sortiment (article-57) -->
+  <SortimentSection />
+
+  <!-- Sektion 5: Unsere Geschichte (article-58) -->
+  <GeschichteSection />
+
+  <!-- Sektion 6: In den Medien (article-59) -->
+  <MedienSection />
+
+  <!-- Sektion 7: Presse-Teaser -->
+  <Section bg="#F8F8F8" py={100}>
+    <div class="sub-press" style="text-align:center;">
+      <h2>Bekannt aus Funk und Fernsehen</h2>
+      <p class="sub-lead-center">Über unseren Familienbetrieb wird gerne berichtet. Ein Einblick in unsere Pressestimmen.</p>
+      <div class="sub-press-grid" style="grid-template-columns:repeat(2,1fr); max-width:760px; margin:40px auto 0; text-align:left;">
+        {presseTeaser.map((p) => (
+          <div class="sub-press-card">
+            <div class="thumb">
+              <span class={`sub-press-badge${pTypBadge[p.typ]}`}>{pTypLabel[p.typ]}</span>
+              <Placeholder label={`Platzhalter Bild: ${p.medium}`} aspect="3/2" />
+            </div>
+            <div class="body">
+              <div class="sub-press-meta">{p.medium}, {p.datumLabel}</div>
+              <h3>{p.titel}</h3>
+              <p>{p.anriss}</p>
+              {p.link
+                ? <a class="more" href={p.link} target="_blank" rel="noopener">Zum Beitrag <span class="arrow">&#x203A;</span></a>
+                : <span class="sub-press-note">Derzeit nicht online verfügbar</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:40px;">
+        <Button href="/presse" label="Alle Pressestimmen" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Sektion 8: Newsletter (article-60) -->
+  <NewsletterSection />
+</BaseLayout>
