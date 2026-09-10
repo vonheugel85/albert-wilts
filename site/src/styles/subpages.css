@@ -90,10 +90,11 @@
 
 .sub-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .sub-card {
-  background: #fff;
-  border: 1px solid #E6E6E6;
+  background: #F9FAFB;
+  border: 1px solid #F3F4F6;
   border-left: 4px solid #EF7F1A;
   border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   padding: 30px 34px;
 }
 .sub-card h3 { font-size: 22px; margin: 0 0 8px; }
@@ -251,10 +252,11 @@
 .sub-navcard {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 1px solid #E6E6E6;
+  background: #F9FAFB;
+  border: 1px solid #F3F4F6;
   border-top: 4px solid #4F7146;
   border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   padding: 32px 30px 26px;
   text-decoration: none;
   color: inherit;
@@ -346,9 +348,10 @@
 .sub-schedule {
   max-width: 620px;
   margin: 0 auto;
-  background: #fff;
-  border: 1px solid #E6E6E6;
+  background: #F9FAFB;
+  border: 1px solid #F3F4F6;
   border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 .sub-schedule-head {
@@ -393,7 +396,8 @@
 .sub-tab[aria-selected="true"] { background: #4F7146; color: #fff; }
 .sub-standort-panel {
   display: grid; grid-template-columns: 1fr 1.3fr;
-  border: 1px solid #E6E6E6; border-radius: 6px; overflow: hidden; background: #fff;
+  border: 1px solid #F3F4F6; border-radius: 6px; overflow: hidden; background: #F9FAFB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .sub-standort-info { padding: 32px 34px; }
 .sub-standort-info h3 { font-size: 26px; margin: 0 0 18px; }
@@ -478,7 +482,7 @@
 .sub-press-count { text-align: center; font-size: 15px; color: #777; margin: 0 0 30px; }
 
 .sub-press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.sub-press-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #E6E6E6; border-radius: 6px; overflow: hidden; }
+.sub-press-card { display: flex; flex-direction: column; background: #F9FAFB; border: 1px solid #F3F4F6; border-radius: 6px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); overflow: hidden; }
 .sub-press-card .thumb { position: relative; }
 .sub-press-card .body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
 .sub-press-meta { font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-size: 14px; color: #777; margin: 0 0 8px; }
