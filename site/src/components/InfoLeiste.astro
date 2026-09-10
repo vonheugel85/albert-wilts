@@ -13,8 +13,8 @@ const cols = [
   {
     iconSrc: '/icons/einkaufskorb_weiss.svg',
     iconAlt: '',
-    title:   ['Wochenmarkt', 'Emden & Norderney'],
-    lines:   ['Di, Do, Fr, Sa in Emden', 'Mittwoch auf Norderney'],
+    title:   ['Wochenmarkt'],
+    lines:   ['Di, Do, Fr, Sa Emden', 'Mi Norderney'],
     href:    '/wochenmarkt',
   },
   {
@@ -41,13 +41,12 @@ const cols = [
         <img src={col.iconSrc} alt={col.iconAlt} class="il-icon" aria-hidden="true" width="48" height="48" loading="lazy" />
         <div class="il-text">
           <h2 class="il-title">
-            <span class="il-title-line">{col.title[0]}</span>
-            <span class="il-title-line">{col.title[1]}</span>
+            {col.title.map((line) => <span class="il-title-line">{line}</span>)}
           </h2>
           {col.lines.map((line) => (
             <p class="il-line">{line}</p>
           ))}
-          <Button href={col.href} label="Mehr Informationen" />
+          <Button href={col.href} label="Mehr Informationen" variant="link" class="btn-link--white il-link" />
         </div>
       </div>
     ))}
@@ -74,12 +73,13 @@ const cols = [
     gap: 40px;
   }
 
-  /* ── Spalte: Icon links, Text rechts (wie Staging) ── */
+  /* ── Spalte: Icon links, Text rechts (wie Staging), volle Grid-Hoehe ── */
   .il-col {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 20px;
+    height: 100%;
   }
 
   /* ── Icon: SVG-Bild, weiss, 48px, oben ausrichten ── */
@@ -91,14 +91,16 @@ const cols = [
     margin-top: 4px;
   }
 
-  /* ── Text-Block: stapelt Titel, Zeilen, Button ── */
+  /* ── Text-Block: stapelt Titel, Zeilen, Link am unteren Rand ── */
   .il-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
     min-width: 0;
+    flex: 1;
   }
+  .il-text :global(.il-link) { margin-top: auto; padding-top: 12px; }
 
   /* ── Titel: Caladea 700, weiss ── */
   .il-title {
