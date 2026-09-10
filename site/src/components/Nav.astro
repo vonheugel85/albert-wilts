@@ -492,14 +492,16 @@ const navItems = [
     left: 0;
     right: 0;
     z-index: 10000;
-    opacity: 0;
+    background: #4F7146;
+    transform: translateY(-100%);
     pointer-events: none;
-    transition: opacity 0.3s;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
   }
 
   #sticky-header.is-visible {
-    opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 
   @media (min-width: 62rem) {
