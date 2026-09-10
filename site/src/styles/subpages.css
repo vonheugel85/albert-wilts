@@ -154,11 +154,11 @@
 .sub-trust-text h2 { margin-top: 0; }
 .sub-trust-text p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
 
-.sub-cta { background: #EF7F1A; padding: 100px 0; box-sizing: border-box; }
+.sub-cta { background: #EDF1EA; padding: 100px 0; box-sizing: border-box; }
 .sub-cta-inside { text-align: center; }
-.sub-cta h2 { color: #fff; margin: 0 0 16px; }
+.sub-cta h2 { color: #3B3C42; margin: 0 0 16px; }
 .sub-cta p {
-  color: #fff;
+  color: #555;
   font-size: 18px;
   line-height: 1.5;
   max-width: 720px;
@@ -171,22 +171,7 @@
   flex-wrap: wrap;
   gap: 14px 20px;
 }
-.sub-cta-phone { color: #fff; font-size: 18px; }
-.sub-cta .aw-btn,
-.sub-cta a.aw-btn,
-.sub-cta .aw-btn--cta,
-.sub-cta a.aw-btn--cta {
-  background: #4F7146 !important;
-  color: #fff !important;
-  border-color: #4F7146 !important;
-}
-.sub-cta .aw-btn:hover,
-.sub-cta a.aw-btn:hover,
-.sub-cta .aw-btn--cta:hover,
-.sub-cta a.aw-btn--cta:hover {
-  background: #3D5A36 !important;
-  color: #fff !important;
-}
+.sub-cta-phone { color: #555; font-size: 18px; }
 
 /* ── Feature-Spalten (z. B. Logistik) ── */
 .sub-featcols {
