@@ -7,7 +7,26 @@
   background: #4F7146;
   padding: 110px 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
+/* Optionales Hintergrundbild via --hero-img, gruen ueberlagert (B10) */
+.sub-hero--image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.sub-hero--image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(79, 113, 70, 0.8);
+  z-index: 0;
+}
+.sub-hero--image .sub-hero-inside { position: relative; z-index: 1; }
 .sub-hero-inside,
 .sub-cta-inside,
 .sub-trustbar-inside,
