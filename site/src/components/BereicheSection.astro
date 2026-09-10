@@ -28,7 +28,7 @@ import Button from './Button.astro';
           <li>Service: Feste Ansprechpartner</li>
         </ul>
         <div class="bereiche-btn-group">
-          <Button href="/fuer-gewerbekunden" label="Weiterlesen" chevron />
+          <Button href="/fuer-gewerbekunden" label="Weiterlesen" />
         </div>
       </div>
 
@@ -47,7 +47,7 @@ import Button from './Button.astro';
         </ul>
         <div class="bereiche-btn-group">
           <Button href="/wochenmarkt"  label="Wochenmarkt" />
-          <Button href="/ladenverkauf" label="Ladenverkauf" />
+          <Button href="/ladenverkauf" label="Ladenverkauf" variant="link" />
         </div>
       </div>
 
@@ -201,7 +201,8 @@ import Button from './Button.astro';
   .bereiche-btn-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 10px 24px;
   }
 
   /* ── Responsive ── */

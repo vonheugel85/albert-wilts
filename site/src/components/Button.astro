@@ -1,104 +1,88 @@
 ---
 /*
-  Button.astro – einheitliche Button-Primitive für alle Sektionen.
+  Button.astro – Zwei-Stile-System (B1) plus Hero-Ausnahme.
 
   Props:
     href      – Ziel-URL (required)
-    variant   – "cta" (orange, default) | "submit" (gruene Pille)
-    chevron   – fuehrendes "›"-Zeichen voranstellen (default: false)
-    label     – Linktext; alternativ kann ein Slot befuellt werden
+    variant   – "primary" (orange gefuellt, Pfeil vorne, default)
+                "link"    (Textlink orange, Pfeil hinten, kein Hintergrund)
+                "outline" (weisser Rahmen, nur auf dunklen Hero-Bildern)
+    label     – Linktext; alternativ Slot
+    class     – zusaetzliche Klassen (z. B. btn-link--white in InfoLeiste)
 */
 
 interface Props {
   href:      string;
-  variant?:  'cta' | 'submit';
-  chevron?:  boolean;
+  variant?:  'primary' | 'link' | 'outline';
   label?:    string;
+  class?:    string;
 }
 
-const {
-  href,
-  variant  = 'cta',
-  chevron,
-  label,
-} = Astro.props;
-
-// CTA-Buttons erhalten das führende Chevron standardmäßig
-const showChevron = chevron ?? (variant === 'cta');
+const { href, variant = 'primary', label, class: extra } = Astro.props;
 ---
 
-<a href={href} class:list={['aw-btn', `aw-btn--${variant}`]}>
-  {variant === 'cta'
-    ? (
-      <span class="aw-btn-inner">
-        {showChevron && <span class="aw-btn-chevron" aria-hidden="true">&#x203A;</span>}
-        <span class="aw-btn-label">{label ?? <slot />}</span>
-      </span>
-    )
-    : (
-      <>
-        {showChevron && <span class="aw-btn-chevron" aria-hidden="true">&#x203A;</span>}
-        {label ?? <slot />}
-      </>
-    )
-  }
-</a>
+{variant === 'link' ? (
+  <a href={href} class:list={['btn-link', extra]}>
+    <span class="btn-link-label">{label ?? <slot />}</span>
+    <span class="btn-link-arrow" aria-hidden="true">&#x203A;</span>
+  </a>
+) : (
+  <a href={href} class:list={['btn-primary', variant === 'outline' && 'btn-primary--outline', extra]}>
+    <span class="btn-primary-inner">
+      <span class="btn-primary-chevron" aria-hidden="true">&#x203A;</span>
+      <span class="btn-primary-label">{label ?? <slot />}</span>
+    </span>
+  </a>
+)}
 
 <style>
-  /* ── Basis ── */
-  .aw-btn {
+  /* ── btn-primary: orange gefuellt ── */
+  .btn-primary {
     display: inline-block;
     text-decoration: none;
     white-space: nowrap;
     font-family: var(--font-sans);
     font-weight: 400;
-    line-height: 1.5;
-  }
-
-  /* ── Variante cta (orange) ── */
-  .aw-btn--cta {
-    background: #EF7F1A;
-    color: #fff;
     font-size: 18px;
+    line-height: 1.5;
+    color: #fff;
+    background: #EF7F1A;
     padding: 12px 20px;
-    border-radius: 5px;
+    border-radius: 6px;
+    transition: background 0.18s ease-out;
   }
+  .btn-primary:hover { background: #d9700f; }
 
-  /* Inhalt-Wrapper: Slide nach rechts beim Hover ── */
-  .aw-btn--cta .aw-btn-inner {
+  .btn-primary-inner { display: inline-flex; align-items: center; }
+  .btn-primary-chevron { margin-right: 6px; line-height: 1; display: flex; align-items: center; }
+  .btn-primary-label { display: inline-block; transition: transform 0.2s ease-out; }
+  .btn-primary:hover .btn-primary-label { transform: translateX(4px); }
+
+  /* ── outline: nur auf dunklen Hero-Bildern ── */
+  .btn-primary--outline {
+    background: transparent;
+    border: 2px solid #fff;
+    padding: 10px 18px;
+  }
+  .btn-primary--outline:hover { background: rgba(255, 255, 255, 0.1); }
+
+  /* ── btn-link: Textlink orange, Pfeil hinten ── */
+  .btn-link {
     display: inline-flex;
     align-items: center;
-  }
-
-  .aw-btn--cta .aw-btn-label {
-    display: inline-block;
-    transition: transform 0.2s ease-out;
-  }
-
-  .aw-btn--cta:hover .aw-btn-label {
-    transform: translateX(4px);
-  }
-
-  /* ── Variante submit (grüne Pille): kein Slide, nur Hintergrund-Wechsel ── */
-  .aw-btn--submit {
-    background: #4F7146;
-    color: #fff;
+    gap: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+    font-weight: 700;
     font-size: 18px;
-    padding: 12px 28px;
-    border-radius: 30px;
-    transition: background 0.2s ease-out;
+    line-height: 1.5;
+    color: #EF7F1A;
   }
+  .btn-link:hover .btn-link-label { text-decoration: underline; }
+  .btn-link-arrow { display: inline-block; font-weight: 400; transition: transform 0.18s ease; }
+  .btn-link:hover .btn-link-arrow { transform: translateX(4px); }
 
-  .aw-btn--submit:hover {
-    background: #3D5A36;
-  }
-
-  /* ── Chevron-Zeichen ── */
-  .aw-btn-chevron {
-    margin-right: 5px;
-    font-style: normal;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-  }
+  /* Weiss-Variante auf gruenen Flaechen */
+  .btn-link--white { color: #fff; }
 </style>
