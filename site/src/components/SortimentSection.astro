@@ -76,9 +76,9 @@ const kategorien = [
     align-items: stretch -> beide Zellen bekommen die Zeilenhoehe des Texts.
   */
   .sortiment-inside {
-    max-width: 85%;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 24px;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -88,11 +88,7 @@ const kategorien = [
 
   /*
     ── Bild-Zelle ──
-    Die Zelle bleibt eine normale halbe Grid-Spalte (wird durch align-items:
-    stretch auf volle Zeilenhoehe gezogen). Das Bild liegt absolut darin:
-    oben/unten 0 (volle Hoehe), rechts 0 (bis zur Spaltenmitte), links bricht
-    es per calc bis über den Viewport-Rand aus. Die Section klippt den
-    Überhang. Kein Verlass mehr auf width:100% + calc, Kanten direkt gesetzt.
+    Bild fuellt die halbe Grid-Spalte in voller Zeilenhoehe, bleibt im Container.
   */
   .sortiment-bild {
     position: relative;
@@ -100,14 +96,11 @@ const kategorien = [
 
   .sortiment-bild :global(.aw-img-wrap) {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: calc(-50vw + 50%);
+    inset: 0;
     width: auto !important;
     height: auto !important;
     aspect-ratio: unset !important;
-    border-radius: 0;
+    border-radius: 4px;
   }
 
   .sortiment-bild :global(.aw-img) {

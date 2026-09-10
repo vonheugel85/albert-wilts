@@ -12,9 +12,9 @@
 .sub-cta-inside,
 .sub-trustbar-inside,
 .sub-midcta-inside {
-  max-width: 85%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
   box-sizing: border-box;
 }
 .sub-hero h1 { color: #fff; max-width: 900px; margin: 0 0 20px; }
@@ -306,9 +306,9 @@
 /* ── Teaser-Band (z. B. Verweis aufs Sortiment) ── */
 .sub-teaserband { background: #EDF1EA; padding: 44px 0; }
 .sub-teaserband-inside {
-  max-width: 85%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
