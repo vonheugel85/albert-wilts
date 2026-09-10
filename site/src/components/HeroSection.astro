@@ -12,7 +12,7 @@ import Button from './Button.astro';
   <!-- Hintergrund-Bild (eager, LCP-Kandidat) -->
   <img
     src="/bilder/unternehmen/albert-wilts-gebaeudeaussen-obst-gemuesehandel.webp"
-    alt="Aussenansicht des Obst- und Gemuesehandels Albert Wilts in Upgant-Schott"
+    alt="Außenansicht des Obst- und Gemüsehandels Albert Wilts in Upgant-Schott"
     aria-hidden="true"
     class="hero-bg-img"
     loading="eager"
@@ -35,8 +35,7 @@ import Button from './Button.astro';
       </p>
       <div class="hero-buttons">
         <Button href="/fuer-gewerbekunden" label="Zum Großhandel" />
-        <Button href="/wochenmarkt"        label="Zum Wochenmarkt" />
-        <Button href="/ladenverkauf"       label="Zum Ladenverkauf" />
+        <Button href="/wochenmarkt"        label="Markt und Laden" variant="outline" />
       </div>
     </div>
   </div>
@@ -63,7 +62,8 @@ import Button from './Button.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    /* Links ankern: Schriftzug bleibt, Lens-Flare rechts kippt bei schmalen Viewports zuerst raus */
+    object-position: 20% 55%;
     z-index: 0;
   }
 
