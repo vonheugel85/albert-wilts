@@ -46,6 +46,11 @@ import Placeholder  from '../components/Placeholder.astro';
             <p class="sub-contact-sub">Hofladen: freitags 8 bis 18 Uhr</p>
           </div>
         </div>
+
+        <div class="sub-contact-map">
+          <div class="sub-standort-map" id="kontakt-map"></div>
+          <p class="sub-standort-maplink"><a href="https://www.google.com/maps/search/?api=1&query=Albert+Wilts+Hansestra%C3%9Fe+4+Upgant-Schott" target="_blank" rel="noopener">Route planen ›</a></p>
+        </div>
       </div>
 
       <form class="sub-form" action="https://FORMULAR-ENDPUNKT-EINTRAGEN" method="POST">
@@ -90,25 +95,6 @@ import Placeholder  from '../components/Placeholder.astro';
         <button type="submit" class="sub-form-submit">Nachricht senden</button>
       </form>
     </div>
-  </Section>
-
-  <Section bg="#F8F8F8" py={100}>
-    <h2 class="sub-h2-center">Sie finden uns hier</h2>
-    <p class="sub-lead-center">Unser Stammsitz in Upgant-Schott. Lager, Verkauf und Hofladen unter einem Dach.</p>
-    <div class="sub-standort">
-      <div class="sub-standort-panel">
-        <div class="sub-standort-info">
-          <h3>Albert Wilts e.K.</h3>
-          <div class="sub-standort-meta">
-            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Adresse</span><span class="sub-standort-meta-val">Hansestr. 4, 26529 Upgant-Schott</span></div>
-            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Hofladen</span><span class="sub-standort-meta-val">Freitags 8 bis 18 Uhr</span></div>
-            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Telefon</span><span class="sub-standort-meta-val"><a href="tel:+49493491060" class="sub-phone">04934 91060</a></span></div>
-          </div>
-          <p class="sub-standort-maplink"><a href="https://www.google.com/maps/search/?api=1&query=Albert+Wilts+Hansestra%C3%9Fe+4+Upgant-Schott" target="_blank" rel="noopener">Route planen ›</a></p>
-        </div>
-        <div class="sub-standort-map" id="kontakt-map"></div>
-      </div>
-    </div>
 
     <script>
       (function () {
@@ -135,7 +121,7 @@ import Placeholder  from '../components/Placeholder.astro';
     </script>
   </Section>
 
-  <Section bg="#fff" py={100}>
+  <Section bg="#F8F8F8" py={100}>
     <h2 class="sub-h2-center">Ihre Ansprechpartner</h2>
     <p class="sub-lead-center">Drei Generationen, ein Team. Bei uns wissen Sie immer, mit wem Sie sprechen.</p>
     <div class="sub-people">
