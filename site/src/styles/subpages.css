@@ -119,7 +119,7 @@
   padding: 30px 34px;
 }
 .sub-card h3 { font-size: 22px; margin: 0 0 8px; }
-.sub-card p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-card p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 .sub-check {
   list-style: none;
@@ -172,7 +172,7 @@
   align-items: center;
 }
 .sub-trust-text h2 { margin-top: 0; }
-.sub-trust-text p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-trust-text p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 .sub-cta { background: #EDF1EA; padding: 100px 0; box-sizing: border-box; }
 .sub-cta-inside { text-align: center; }
@@ -205,7 +205,7 @@
   padding-top: 18px;
 }
 .sub-featcol h3 { font-size: 20px; margin: 0 0 8px; }
-.sub-featcol p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-featcol p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 /* ── Checkliste zweispaltig ── */
 .sub-check--2col {
@@ -262,7 +262,7 @@
   white-space: nowrap;
 }
 .sub-highlight-body h3 { font-size: 24px; margin: 0 0 10px; }
-.sub-highlight-body p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-highlight-body p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 /* ── Navigations-Kacheln (Wegweiser, z. B. Branchen-Auswahl) ── */
 .sub-navcards {
@@ -298,7 +298,7 @@
   margin-bottom: 10px;
 }
 .sub-navcard h3 { font-size: 24px; margin: 0 0 10px; }
-.sub-navcard p { font-size: 18px; line-height: 1.5; color: #555; margin: 0 0 20px; }
+.sub-navcard p { font-size: 17px; line-height: 1.65; color: #555; margin: 0 0 20px; }
 .sub-navcard-bullets { list-style: none; padding: 0; margin: 0 0 22px; }
 .sub-navcard-bullets li {
   position: relative;
@@ -339,7 +339,7 @@
 }
 .sub-teaserband-text { max-width: 640px; }
 .sub-teaserband-text h2 { margin: 0 0 8px; }
-.sub-teaserband-text p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-teaserband-text p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 /* ── Sortiments-Schau (alternierende Produktwelten) ── */
 .sub-showcase { display: flex; flex-direction: column; gap: 64px; }
@@ -352,7 +352,7 @@
 .sub-showcase-row--reverse .sub-showcase-media { order: 2; }
 .sub-showcase-row--reverse .sub-showcase-body { order: 1; }
 .sub-showcase-body h3 { font-size: 28px; margin: 0 0 12px; }
-.sub-showcase-body p { font-size: 18px; line-height: 1.5; color: #555; margin: 0 0 18px; }
+.sub-showcase-body p { font-size: 17px; line-height: 1.65; color: #555; margin: 0 0 18px; }
 
 /* ── Chips / Schlagwort-Pillen ── */
 .sub-chips { display: flex; flex-wrap: wrap; gap: 8px 10px; list-style: none; padding: 0; margin: 0; }
@@ -425,7 +425,7 @@
 .sub-standort-meta { display: flex; flex-direction: column; gap: 14px; }
 .sub-standort-meta-row { display: flex; gap: 12px; align-items: flex-start; }
 .sub-standort-meta-label { font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-weight: 700; color: #3B3C42; font-size: 16px; min-width: 64px; }
-.sub-standort-meta-val { font-size: 18px; line-height: 1.5; color: #555; }
+.sub-standort-meta-val { font-size: 17px; line-height: 1.65; color: #555; }
 .sub-standort-map { position: relative; min-height: 340px; background: #EDEDED; }
 .sub-standort-map iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; }
 .sub-map-fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px; background: #F1F1F1; }
@@ -492,7 +492,7 @@
 .sub-tl-item::before { content: ''; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: #EF7F1A; }
 .sub-tl-year { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: #4F7146; margin-bottom: 4px; }
 .sub-tl-item h3 { font-size: 22px; margin: 0 0 8px; }
-.sub-tl-item p { font-size: 18px; line-height: 1.5; color: #555; margin: 0; }
+.sub-tl-item p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
 /* ── Pressebereich ── */
 .sub-medialogos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 40px; margin-top: 6px; }
@@ -502,7 +502,7 @@
 .sub-press-featured { display: grid; grid-template-columns: 1.1fr 1fr; border: 1px solid #E6E6E6; border-radius: 6px; overflow: hidden; background: #fff; margin-bottom: 50px; }
 .sub-press-featured .body { padding: 36px 40px; align-self: center; }
 .sub-press-featured .body h3 { font-size: 28px; margin: 14px 0 14px; line-height: 1.3; }
-.sub-press-featured .body p { font-size: 18px; line-height: 1.5; color: #555; margin: 0 0 20px; }
+.sub-press-featured .body p { font-size: 17px; line-height: 1.65; color: #555; margin: 0 0 20px; }
 
 .sub-press-filter { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px; }
 .sub-press-count { text-align: center; font-size: 15px; color: #777; margin: 0 0 30px; }

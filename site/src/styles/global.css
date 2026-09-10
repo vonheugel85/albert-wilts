@@ -87,16 +87,16 @@ html, body { overflow-x: hidden; max-width: 100%; }
 @layer base {
   body {
     font-family: var(--font-sans);
-    font-size: 1.125rem;            /* 18px */
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.65;
     color: var(--color-ink);
     background-color: #fff;
   }
 
   /* Fließtext-Elemente: Größe explizit setzen, da Tailwind-Reset sie nullt */
   p, a, span, li, ul, ol {
-    font-size: 1.125rem;            /* 18px */
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.65;
   }
 
   /* ── Typo-Hierarchie (verbindlich) ── */
