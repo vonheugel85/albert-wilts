@@ -1,0 +1,156 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+---
+
+<BaseLayout
+  title="Ladenverkauf in Upgant-Schott | Freitags 8 bis 18 Uhr | Albert Wilts"
+  description="Ladenverkauf bei Albert Wilts in Upgant-Schott: jeden Freitag von 8 bis 18 Uhr Großhandelsqualität für Ihren Haushalt. Obst, Gemüse, Fleisch, Eier und Manufaktur direkt vom Lager."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Ladenverkauf in Upgant-Schott</h1>
+      <p class="sub-hero-sub">Jeden Freitag von 8 bis 18 Uhr: Großhandelsqualität für Ihren Haushalt.</p>
+      <div class="sub-hero-actions">
+        <Button href="#anfahrt" label="Anfahrt planen" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Freitags 8 bis 18 Uhr</span>
+      <span class="sub-trustbar-item">Direkt vom Lager</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100}>
+    <div class="sub-block">
+      <h2>Einkaufen, wo die Ware ankommt</h2>
+      <p>Unser Ladenverkauf öffnet jeden Freitag die Tür zwischen Lager und Kunde. Sie kaufen dort ein, wo Gastronomen und Hotels ihre Ware beziehen: dieselbe Frische, dieselbe Auswahl, im haushaltsgerechten Gebinde. Fragen Sie nach, was gerade besonders gut ist. Wir beraten Sie persönlich.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100}>
+    <h2 class="sub-h2-center">Öffnungszeiten und Adresse</h2>
+    <p class="sub-lead-center">Einmal pro Woche, dafür mit voller Auswahl.</p>
+    <div class="sub-schedule">
+      <div class="sub-schedule-head">Ladenverkauf Upgant-Schott</div>
+      <div class="sub-schedule-row">
+        <span class="sub-schedule-day">Freitag</span>
+        <span class="sub-schedule-place">8.00 bis 18.00 Uhr</span>
+      </div>
+      <div class="sub-schedule-row">
+        <span class="sub-schedule-day">Adresse</span>
+        <span class="sub-schedule-place">Hansestr. 4, 26529 Upgant-Schott</span>
+      </div>
+      <div class="sub-schedule-row">
+        <span class="sub-schedule-day">Telefon</span>
+        <span class="sub-schedule-place"><a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#fff" py={100}>
+    <h2 class="sub-h2-center">Was Sie bei uns finden</h2>
+    <p class="sub-lead-center">Das Sortiment wechselt mit der Saison. Diese Bereiche finden Sie immer.</p>
+    <div class="sub-cards">
+      <div class="sub-card">
+        <h3>Obst und Gemüse</h3>
+        <p>Von Kartoffeln aus der Leybucht bis zur Flugananas. Saisonal, regional wo möglich, immer frisch.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Fleisch und Geflügel</h3>
+        <p>Frisches Fleisch und Geflügel in Metzgerqualität, auch küchenfertig zugeschnitten.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Eier</h3>
+        <p>Hier liegen unsere Wurzeln. Frische Eier aus der Region, in jeder Gebindegröße.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Manufaktur</h3>
+        <p>Hausgemachte Salate, marinierte Spezialitäten und Ready-Cut-Gemüse für die schnelle Küche.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" py={100} id="anfahrt">
+    <h2 class="sub-h2-center">Anfahrt</h2>
+    <p class="sub-lead-center">Unser Stammsitz in Upgant-Schott. Lager, Verkauf und Hofladen unter einem Dach.</p>
+    <div class="sub-standort">
+      <div class="sub-standort-panel">
+        <div class="sub-standort-info">
+          <h3>Albert Wilts e.K.</h3>
+          <div class="sub-standort-meta">
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Adresse</span><span class="sub-standort-meta-val">Hansestr. 4, 26529 Upgant-Schott</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Parken</span><span class="sub-standort-meta-val">Direkt am Gebäude</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Telefon</span><span class="sub-standort-meta-val"><a href="tel:+49493491060" class="sub-phone">04934 91060</a></span></div>
+          </div>
+          <p class="sub-standort-maplink"><a href="https://www.google.com/maps/search/?api=1&query=Albert+Wilts+Hansestra%C3%9Fe+4+Upgant-Schott" target="_blank" rel="noopener">Route planen ›</a></p>
+        </div>
+        <div class="sub-standort-map" id="laden-map"></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const box = document.getElementById('laden-map');
+        if (!box) return;
+        const QUERY = 'Albert Wilts Hansestraße 4 Upgant-Schott';
+        const render = () => {
+          const ok = window.awConsent && window.awConsent.get('maps');
+          if (ok) {
+            box.innerHTML = '';
+            const ifr = document.createElement('iframe');
+            ifr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(QUERY) + '&z=15&output=embed';
+            ifr.loading = 'lazy';
+            ifr.title = 'Karte: Albert Wilts Upgant-Schott';
+            ifr.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            box.appendChild(ifr);
+          } else {
+            box.innerHTML = '<div class="sub-map-fallback"><p>Aufgrund Ihrer Cookie-Einstellung kann die Karte nicht geladen werden. Stimmen Sie der Kategorie Karten zu, um den Standort hier anzuzeigen.</p><button type="button" data-aw-consent-open>Cookie-Einstellungen anpassen</button></div>';
+          }
+        };
+        document.addEventListener('aw:consent-change', render);
+        render();
+      })();
+    </script>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Aktuelle Angebote</h2>
+        <p>Jede Woche neu: Unser Wochenblatt mit den aktuellen Angeboten für Ladenverkauf und Wochenmarkt.</p>
+      </div>
+      <Button href="/aktuelle-angebote" label="Zu den Angeboten" />
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100}>
+    <div class="sub-block">
+      <h2>Lieber auf dem Markt?</h2>
+      <p>Wir sind an fünf Tagen pro Woche auf den Wochenmärkten in Emden, Emden-Borssum und auf Norderney. Dort finden Sie Anke Wilts mit einer Auswahl unseres Sortiments und einem Schnack dazu.</p>
+      <Button href="/wochenmarkt" label="Zum Wochenmarkt" />
+    </div>
+  </Section>
+
+  <section class="sub-cta" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Wir sehen uns am Freitag</h2>
+      <p>Fragen zum Sortiment oder zu größeren Mengen? Rufen Sie vorher kurz an, dann legen wir zurück.</p>
+      <div class="sub-cta-actions">
+        <Button href="/kontakt" label="Kontakt aufnehmen" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout        from '../layouts/BaseLayout.astro';
+import Section           from '../components/Section.astro';
+import Button            from '../components/Button.astro';
+import Placeholder       from '../components/Placeholder.astro';
+import NewsletterSection from '../components/NewsletterSection.astro';
+---
+
+<BaseLayout
+  title="Aktuelle Angebote | Wochenblatt für Ladenverkauf und Wochenmarkt | Albert Wilts"
+  description="Jede Woche neu: die aktuellen Angebote von Albert Wilts für Ladenverkauf in Upgant-Schott und die Wochenmärkte in Emden und auf Norderney. Als Wochenblatt zum Ansehen und Herunterladen."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Aktuelle Angebote</h1>
+      <p class="sub-hero-sub">Jede Woche neu: unsere Angebote für Ladenverkauf und Wochenmarkt.</p>
+      <div class="sub-hero-actions">
+        <Button href="#wochenblatt" label="Zum Wochenblatt" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Wöchentlich neu</span>
+      <span class="sub-trustbar-item">Markt und Laden</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" py={100} id="wochenblatt">
+    <h2 class="sub-h2-center">Unser Wochenblatt</h2>
+    <p class="sub-lead-center">Die Angebote der Woche für den Ladenverkauf am Freitag und unsere Marktstände. Gültig, solange der Vorrat reicht.</p>
+    <div class="sub-angebot">
+      <Placeholder label="Platzhalter: Wochenblatt als Bild oder PDF (wird wöchentlich ausgetauscht)" aspect="1/1.414" />
+      <p class="sub-angebot-hinweis">Das Wochenblatt liegt jeden Freitag im Ladenverkauf aus und steht hier zum Ansehen und Herunterladen bereit.</p>
+    </div>
+  </Section>
+
+  <NewsletterSection />
+
+</BaseLayout>

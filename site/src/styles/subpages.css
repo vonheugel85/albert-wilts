@@ -508,6 +508,10 @@
 
 .sub-press-empty { display: none; text-align: center; color: #777; font-size: 17px; padding: 40px 0; }
 
+/* Aktuelle Angebote: Wochenblatt-Slot */
+.sub-angebot { max-width: 560px; margin: 0 auto; }
+.sub-angebot-hinweis { text-align: center; font-size: 15px; color: #777; margin: 18px 0 0; }
+
 @media (max-width: 768px) {
   .sub-cards { grid-template-columns: 1fr; }
   .sub-featcols { grid-template-columns: 1fr; }
