@@ -67,6 +67,10 @@
 .sub-trustbar-item:last-child {
   border-right: none;
 }
+@media (max-width: 1200px) {
+  .sub-trustbar-inside { max-width: 100%; padding: 0 24px; }
+  .sub-trustbar-item { padding: 0 14px; font-size: 15px; }
+}
 
 .sub-block { max-width: 820px; }
 .sub-lead {
