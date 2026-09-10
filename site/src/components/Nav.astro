@@ -168,14 +168,13 @@ const navItems = [
   <div class="hd-desktop">
     <div class="hd-inside">
 
-      <!-- Logo-Zeile: zentriert -->
-      <!-- Staging: .logo a bg-image = albert-wilts-logo.svg, container 180x180, background-size:100% -->
+      <!-- Logo: links, kompakt -->
       <div class="hd-logo-row">
         <a href="/" aria-label="Albert Wilts – zur Startseite">
           <img
             src="/logo/albert-wilts-logo.svg"
             alt="Albert Wilts"
-            style="width:180px; height:auto; display:block;"
+            style="width:76px; height:auto; display:block;"
           />
         </a>
       </div>
@@ -348,8 +347,13 @@ const navItems = [
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: content-box;
+  }  .hd-desktop .hd-inside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    height: 90px;
   }
-
   /* ── Desktop-Block: default hidden, ab 62rem sichtbar ─────────────── */
   .hd-desktop { display: none; }
   .hd-mobile  { display: block; background: #fff; border-bottom: 1px solid #E5E5E5; }
@@ -373,21 +377,20 @@ const navItems = [
   /* ── Logo-Zeile ───────────────────────────────────────────────────── */
   .hd-logo-row {
     display: flex;
-    justify-content: center;
-    align-items: center; /* PNG (144px hoch) vertikal zentrieren wie Staging bg-position:50% */
-    height: 180px;       /* Staging: logoDiv.height = 180px, nav startet exakt bei y=180 */
+    align-items: center;
+    flex-shrink: 0;
   }
 
   /* ── Nav-Zeile ────────────────────────────────────────────────────── */
   #site-nav {
     display: block;
-    width: 100%;
+    flex: 1;
   }
 
   .hd-nav-list {
     display: flex;
-    align-items: stretch;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -401,18 +404,19 @@ const navItems = [
   }
 
   .hd-item--cta {
-    /* kein margin-left:auto – CTA sitzt inline direkt hinter Kontakt */
+    margin-left: 12px;
+    margin-right: 16px;
   }
 
   /* ── Level-1-Links ────────────────────────────────────────────────── */
   .hd-l1 {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px; /* gemessen: span_fontSize 18px auf Staging (Contao setzt 16px am <a>, 18px am inneren <span>) */
+    font-size: 17px;
     font-weight: 400;
     color: #696969;
-    padding: 0 17.5px; /* gemessen: Abstand zw. Items ~35px → 17.5px je Seite */
-    line-height: 67px; /* Staging: nav.height = 67px */
+    padding: 0 16px;
+    line-height: 90px;
     white-space: nowrap;
     text-decoration: none;
     transition: color 0.15s;
@@ -431,25 +435,25 @@ const navItems = [
     background: #EF7F1A;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px; /* Staging: span_fontSize 18px, identisch mit hd-l1 */
+    font-size: 17px;
     font-weight: 400;
-    padding: 0 15px;
-    line-height: 67px; /* identisch mit hd-l1 */
-    border-radius: 4px 4px 0 0;
+    padding: 10px 18px;
+    line-height: 1.5;
+    border-radius: 6px;
     white-space: nowrap;
     text-decoration: none;
-    transition: opacity 0.15s;
+    transition: background 0.15s;
   }
 
   .hd-cta:hover {
-    opacity: 0.85;
+    background: #d9700f;
   }
 
   /* ── Dropdowns ────────────────────────────────────────────────────── */
   .hd-dd {
     display: none;
     position: absolute;
-    top: 67px; /* Nav-Zeilenhöhe */
+    top: 90px; /* Header-Hoehe */
     left: 0;
     min-width: 220px;
     background: #fff;
@@ -650,7 +654,7 @@ const navItems = [
     });
 
     // Sticky einblenden wenn Original aus Viewport
-    var threshold = header.offsetHeight || 247;
+    var threshold = header.offsetHeight || 90;
     var ticking = false;
 
     function update() {

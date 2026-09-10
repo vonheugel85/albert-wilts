@@ -5,8 +5,6 @@
 .sub-hero {
   position: relative;
   background: #4F7146;
-  border-top: 4px solid transparent;
-  border-image: linear-gradient(to right, #fff, #EF7F1A 20%, #EF7F1A 80%, #fff) 1;
   padding: 110px 0;
   box-sizing: border-box;
 }
