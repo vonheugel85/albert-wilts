@@ -1,0 +1,20 @@
+---
+/*
+  ChipRow.astro – eine Sortimentskategorie: Label fett, dahinter Einzelposten als Chips.
+  Props:
+    label  – Kategoriename (z. B. "Obst und Gemüse")
+    items  – Einzelposten
+*/
+interface Props {
+  label: string;
+  items: string[];
+}
+const { label, items } = Astro.props;
+---
+
+<div class="sub-chiprow">
+  <strong class="sub-chiprow-label">{label}</strong>
+  <ul class="sub-chips">
+    {items.map((it) => <li>{it}</li>)}
+  </ul>
+</div>

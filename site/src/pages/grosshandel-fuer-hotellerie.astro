@@ -3,6 +3,7 @@ import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
+import ChipRow      from '../components/ChipRow.astro';
 ---
 
 <BaseLayout
@@ -93,12 +94,12 @@ import Placeholder  from '../components/Placeholder.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2>Alles für Frühstück, Tagung und Bar</h2>
     <p class="sub-lead">Bündeln Sie Ihren Einkauf. Als Vollsortimenter im Großhandel für Hotellerie decken wir alle Touchpoints Ihres Hauses ab.</p>
-    <ul class="sub-check sub-check--2col">
-      <li><strong>Frühstücksbuffet:</strong> Säfte, Obstsalat-Komponenten, Aufschnitt und Eier.</li>
-      <li><strong>Vegan und Allergiker:</strong> Alternativen wie spezielle Milchsorten und vegane Aufstriche, damit Sie auf glutenfreie oder vegane Anfragen souverän reagieren.</li>
-      <li><strong>Tagung und Lobby:</strong> Handobst (Äpfel, Bananen, Birnen) für Kaffeepausen und Vitamin-Snacks für den Konferenzraum.</li>
-      <li><strong>Bar und Restaurant:</strong> Limetten, Minze und Beeren für Cocktails sowie Premium-Fleisch für das Dinner.</li>
-    </ul>
+    <div class="sub-chiprows">
+      <ChipRow label="Frühstücksbuffet" items={['Säfte', 'Obstsalat-Komponenten', 'Aufschnitt', 'Eier']} />
+      <ChipRow label="Vegan und Allergiker" items={['Spezielle Milchsorten', 'Vegane Aufstriche', 'Glutenfrei']} />
+      <ChipRow label="Tagung und Lobby" items={['Äpfel', 'Bananen', 'Birnen', 'Vitamin-Snacks']} />
+      <ChipRow label="Bar und Restaurant" items={['Limetten', 'Minze', 'Beeren', 'Premium-Fleisch']} />
+    </div>
   </Section>
 
   <Section bg="#fff" py={100}>

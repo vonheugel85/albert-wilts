@@ -3,6 +3,7 @@ import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
+import ChipRow      from '../components/ChipRow.astro';
 ---
 
 <BaseLayout
@@ -88,23 +89,11 @@ import Placeholder  from '../components/Placeholder.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2>Alles aus einer Hand für Ihre Küche</h2>
     <p class="sub-lead">Vereinfachen Sie Ihren Wareneingang. Als Vollsortimenter decken wir Ihren Bedarf komplett ab.</p>
-    <div class="sub-cards">
-      <div class="sub-card">
-        <h3>Obst und Gemüse</h3>
-        <p>Schnittware für die kalte Küche, Kochgemüse in Großmengen und Handobst für die Pausenversorgung.</p>
-      </div>
-      <div class="sub-card">
-        <h3>Fleisch und Geflügel</h3>
-        <p>Rind, Schwein und Geflügel, portioniert oder am Stück für den Braten.</p>
-      </div>
-      <div class="sub-card">
-        <h3>Eier, Molkerei und Bio</h3>
-        <p>Stangen-Eier, Vollei und frische Eier sowie Molkereiprodukte in Großgebinden, auf Wunsch in offiziell bio-zertifizierter Qualität für Kitas, Schulen und zertifizierte Einrichtungen.</p>
-      </div>
-      <div class="sub-card">
-        <h3>Diätetik und Allergene</h3>
-        <p>Wir unterstützen Sie mit passenden Produkten bei speziellen Kostformen.</p>
-      </div>
+    <div class="sub-chiprows">
+      <ChipRow label="Obst und Gemüse" items={['Schnittware für die kalte Küche', 'Kochgemüse in Großmengen', 'Handobst']} />
+      <ChipRow label="Fleisch und Geflügel" items={['Rind', 'Schwein', 'Geflügel', 'Portioniert oder am Stück']} />
+      <ChipRow label="Eier, Molkerei und Bio" items={['Stangen-Eier', 'Vollei', 'Frische Eier', 'Molkerei in Großgebinden', 'Bio-zertifiziert']} />
+      <ChipRow label="Diätetik und Allergene" items={['Spezielle Kostformen']} />
     </div>
   </Section>
 

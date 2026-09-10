@@ -522,6 +522,14 @@
 .sub-angebot { max-width: 560px; margin: 0 auto; }
 .sub-angebot-hinweis { text-align: center; font-size: 15px; color: #777; margin: 18px 0 0; }
 
+/* ChipRow: Kategorie-Label + Chips (B11) */
+.sub-chiprows { display: flex; flex-direction: column; gap: 22px; }
+.sub-chiprow { display: grid; grid-template-columns: 220px 1fr; gap: 16px; align-items: start; }
+.sub-chiprow-label { font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-size: 18px; font-weight: 700; color: #3B3C42; padding-top: 5px; }
+@media (max-width: 768px) {
+  .sub-chiprow { grid-template-columns: 1fr; gap: 8px; }
+}
+
 @media (max-width: 768px) {
   .sub-cards { grid-template-columns: 1fr; }
   .sub-featcols { grid-template-columns: 1fr; }

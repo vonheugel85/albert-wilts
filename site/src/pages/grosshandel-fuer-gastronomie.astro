@@ -3,6 +3,7 @@ import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
+import ChipRow      from '../components/ChipRow.astro';
 ---
 
 <BaseLayout
@@ -93,13 +94,13 @@ import Placeholder  from '../components/Placeholder.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2>Unser Sortiment: Alles aus einer Hand</h2>
     <p class="sub-lead">Reduzieren Sie Ihre Lieferantenanzahl und Ihre Prozesskosten. Als Vollsortimenter im Großhandel für Gastronomie decken wir Ihren gesamten Frische-Bedarf ab:</p>
-    <ul class="sub-check sub-check--2col">
-      <li><strong>Obst und Gemüse:</strong> Saisonal aus der Region, zum Beispiel Kartoffeln aus der Leybucht, dazu internationale Exoten und Standard-Rohware.</li>
-      <li><strong>Fleisch und Geflügel:</strong> Rind, Schwein und Geflügel in bester Metzger-Qualität.</li>
-      <li><strong>Frische Fruchtsäfte:</strong> Vitaminreiche Säfte für Ihr Frühstücksbuffet oder die Bar.</li>
-      <li><strong>Bio-Qualität:</strong> Wir sind offiziell bio-zertifiziert.</li>
-      <li><strong>Eier und Molkerei:</strong> Frische Eier und Basisprodukte für die Küche.</li>
-    </ul>
+    <div class="sub-chiprows">
+      <ChipRow label="Obst und Gemüse" items={['Kartoffeln aus der Leybucht', 'Saisonales aus der Region', 'Internationale Exoten', 'Standard-Rohware']} />
+      <ChipRow label="Fleisch und Geflügel" items={['Rind', 'Schwein', 'Geflügel', 'Metzger-Qualität']} />
+      <ChipRow label="Frische Fruchtäfte" items={['Frühstücksbuffet', 'Bar']} />
+      <ChipRow label="Bio-Qualität" items={['Offiziell bio-zertifiziert']} />
+      <ChipRow label="Eier und Molkerei" items={['Frische Eier', 'Basisprodukte für die Küche']} />
+    </div>
   </Section>
 
   <Section bg="#fff" py={100}>
