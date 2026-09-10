@@ -1,0 +1,22 @@
+---
+/*
+  HighlightBox.astro – hervorgehobene Karte mit Badge (B12).
+  Props:
+    badge  – kurzes Label, wird uppercase gesetzt (z. B. "Effizienz-Turbo")
+    title  – Ueberschrift
+  Slot: Fliesstext
+*/
+interface Props {
+  badge: string;
+  title: string;
+}
+const { badge, title } = Astro.props;
+---
+
+<div class="sub-highlight">
+  <span class="sub-highlight-badge">{badge}</span>
+  <div class="sub-highlight-body">
+    <h3>{title}</h3>
+    <p><slot /></p>
+  </div>
+</div>

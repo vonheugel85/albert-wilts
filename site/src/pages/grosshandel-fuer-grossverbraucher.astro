@@ -4,6 +4,7 @@ import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
 import ChipRow      from '../components/ChipRow.astro';
+import HighlightBox from '../components/HighlightBox.astro';
 ---
 
 <BaseLayout
@@ -42,13 +43,9 @@ import ChipRow      from '../components/ChipRow.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2>Lösungen für Großküchen</h2>
     <p class="sub-lead">Ein moderner Großhandel für Großverbraucher entlastet Ihre Abläufe und sichert Ihre Kalkulation. Wir bieten Verarbeitungsstufen, die Personalknappheit kompensieren.</p>
-    <div class="sub-highlight">
-      <span class="sub-highlight-badge">Effizienz-Turbo</span>
-      <div class="sub-highlight-body">
-        <h3>Ready-Cut-Service</h3>
-        <p>Reduzieren Sie Rüstzeiten und Personalaufwand massiv. Wir liefern Kartoffeln, Möhren, Zwiebeln und Salate bereits gewaschen, geschält und geschnitten in Großgebinden. Das bedeutet keine Schälverluste, einen zu 100 Prozent kalkulierbaren Wareneinsatz und höchste Hygiene-Sicherheit.</p>
-      </div>
-    </div>
+    <HighlightBox badge="Effizienz-Turbo" title="Ready-Cut-Service">
+      Reduzieren Sie Rüstzeiten und Personalaufwand massiv. Wir liefern Kartoffeln, Möhren, Zwiebeln und Salate bereits gewaschen, geschält und geschnitten in Großgebinden. Das bedeutet keine Schälverluste, einen zu 100 Prozent kalkulierbaren Wareneinsatz und höchste Hygiene-Sicherheit.
+    </HighlightBox>
     <div class="sub-featcols">
       <div class="sub-featcol sub-featcol-top">
         <h3>Rohware in Großgebinden</h3>

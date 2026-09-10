@@ -108,6 +108,7 @@
 }
 
 .sub-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.sub-cards--3 { grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .sub-card {
   background: #F9FAFB;
   border: 1px solid #F3F4F6;
@@ -531,7 +532,7 @@
 }
 
 @media (max-width: 768px) {
-  .sub-cards { grid-template-columns: 1fr; }
+  .sub-cards, .sub-cards--3 { grid-template-columns: 1fr; }
   .sub-featcols { grid-template-columns: 1fr; }
   .sub-check--2col { grid-template-columns: 1fr; }
   .sub-highlight { grid-template-columns: 1fr; gap: 14px; }

@@ -4,6 +4,7 @@ import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
 import ChipRow      from '../components/ChipRow.astro';
+import HighlightBox from '../components/HighlightBox.astro';
 ---
 
 <BaseLayout
@@ -42,11 +43,10 @@ import ChipRow      from '../components/ChipRow.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2 class="sub-h2-center">Frische nach Maß: So senken Sie Ihre Prozesskosten</h2>
     <p class="sub-lead-center">Ein moderner Großhandel für Hotellerie unterstützt Ihre Kalkulation. Wir bieten Produkte, die Ihren Wareneinsatz pro Gast stabil halten.</p>
-    <div class="sub-cards">
-      <div class="sub-card">
-        <h3>Ready-Cut-Service</h3>
-        <p>Vermeiden Sie teuren Abfall durch Schalen und Abschnitte. Unser gewaschenes und geschnittenes Obst (zum Beispiel für Obstsalat) und Gemüse bietet 100 Prozent verzehrbaren Anteil, exakte Kalkulation pro Portion und spürbare Zeitersparnis für Ihre Frühstückskräfte.</p>
-      </div>
+    <HighlightBox badge="Food-Waste-Killer" title="Ready-Cut-Service">
+      Vermeiden Sie teuren Abfall durch Schalen und Abschnitte. Unser gewaschenes und geschnittenes Obst (zum Beispiel für Obstsalat) und Gemüse bietet 100 Prozent verzehrbaren Anteil, exakte Kalkulation pro Portion und spürbare Zeitersparnis für Ihre Frühstückskräfte.
+    </HighlightBox>
+    <div class="sub-cards sub-cards--3">
       <div class="sub-card">
         <h3>Exoten und Superfoods</h3>
         <p>Gesundheitsbewusste Gäste erwarten heute mehr als Äpfel und Bananen. Wir liefern trendige Zutaten für Bowls, Smoothies und Ingwer-Shots (zum Beispiel Kurkuma, exotische Früchte, Sprossen), mit denen Sie sich abheben.</p>

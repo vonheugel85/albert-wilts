@@ -4,6 +4,7 @@ import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
 import ChipRow      from '../components/ChipRow.astro';
+import HighlightBox from '../components/HighlightBox.astro';
 ---
 
 <BaseLayout
@@ -42,7 +43,10 @@ import ChipRow      from '../components/ChipRow.astro';
   <Section bg="#F8F8F8" py={100}>
     <h2 class="sub-h2-center">Frische nach Maß: Rohware, Exoten oder Ready-Cut?</h2>
     <p class="sub-lead-center">Ein moderner Großhandel für Gastronomie passt sich Ihrem Bedarf an. Sie entscheiden, was auf den Teller kommt und in welchem Verarbeitungsgrad die Ware bei Ihnen eintrifft.</p>
-    <div class="sub-cards">
+    <HighlightBox badge="Hausgemacht" title="Hausgemachte Manufaktur">
+      Nutzen Sie unsere handwerklich vorbereiteten Produkte wie selbst marinierte Geschnetzelte oder küchenfertige Pfannengerichte, keine Industrieware, sondern Qualität wie hausgemacht.
+    </HighlightBox>
+    <div class="sub-cards sub-cards--3">
       <div class="sub-card">
         <h3>Klassische Frische-Rohware</h3>
         <p>Das ist unser Kerngeschäft. Wir liefern Ihnen täglich kistenweise unbehandeltes Obst, Gemüse und Salate. Knackig, frisch und bereit für Ihre Weiterverarbeitung.</p>
@@ -54,10 +58,6 @@ import ChipRow      from '../components/ChipRow.astro';
       <div class="sub-card">
         <h3>Ready-Cut-Service</h3>
         <p>Wenn es im Mise en Place schnell gehen muss, liefern wir Gemüse auf Wunsch bereits gewaschen, geschält und geschnitten.</p>
-      </div>
-      <div class="sub-card">
-        <h3>Hausgemachte Manufaktur</h3>
-        <p>Nutzen Sie unsere handwerklich vorbereiteten Produkte wie selbst marinierte Geschnetzelte oder küchenfertige Pfannengerichte, keine Industrieware, sondern Qualität wie hausgemacht.</p>
       </div>
     </div>
   </Section>
