@@ -41,10 +41,10 @@ const pTypBadge = { zeitungsbericht: '', anzeige: ' sub-press-badge--anzeige', v
 
   <!-- Sektion 7: Presse-Teaser -->
   <Section bg="#F8F8F8" py={100}>
-    <div class="sub-press" style="text-align:center;">
+    <div class="sub-press sub-press-teaser" style="text-align:center;">
       <h2>Bekannt aus Funk und Fernsehen</h2>
       <p class="sub-lead-center">Über unseren Familienbetrieb wird gerne berichtet. Ein Einblick in unsere Pressestimmen.</p>
-      <div class="sub-press-grid" style="grid-template-columns:repeat(2,1fr); max-width:760px; margin:40px auto 0; text-align:left;">
+      <div class="sub-press-grid sub-press-grid--teaser" style="max-width:760px; margin:40px auto 0; text-align:left;">
         {presseTeaser.map((p) => (
           <div class="sub-press-card">
             <div class="thumb">

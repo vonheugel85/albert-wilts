@@ -352,14 +352,16 @@ const navItems = [
 
   /* ── Desktop-Block: default hidden, ab 62rem sichtbar ─────────────── */
   .hd-desktop { display: none; }
-  .hd-mobile  { display: block; background: #1A1418; }
+  .hd-mobile  { display: block; background: #fff; border-bottom: 1px solid #E5E5E5; }
+
+  #mobile-overlay { width: 100vw; max-width: 100vw; overflow-x: hidden; }
 
   .hd-mobile .hd-inside {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 70px;
-    padding: 0 20px;
+    padding: 10px 24px;
     max-width: 100%;
   }
 

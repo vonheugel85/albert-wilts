@@ -1,8 +1,6 @@
 ---
 // Marktzeiten: volle Tagesnamen nach Staging-Vorlage.
 // » final bestätigen (Markttage noch nicht freigegeben).
-// WIDERSPRUCH (protokolliert, nicht korrigiert): Footer zeigt "17.00 Uhr",
-// Teaser auf derselben Staging-Seite zeigt "18.00 Uhr". Freigabe abwarten.
 const marktzeiten = [
   { tag: 'Dienstag',   ort: 'Emden' },
   { tag: 'Mittwoch',   ort: 'Norderney' },
@@ -43,9 +41,9 @@ const marktzeiten = [
       Row-Container mit neg. margin -15px (Bootstrap-Muster aus pct_theme autogrid_row).
       col border-box = 259.5px, content = 229.5px – exakt wie Staging.
     -->
-    <div style="display:flex; flex-wrap:nowrap; margin:0 -15px; align-items:flex-start;">
+    <div class="footer-cols" style="display:flex; flex-wrap:wrap; margin:0 -15px; align-items:flex-start; gap:0;">
       <!-- Spalte 0: Signet (229px breit, opacity 0.6 – Quelle: computed probe) -->
-      <div style="width:25%; padding:0 15px; box-sizing:border-box; flex-shrink:0;">
+      <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
         <img
           src="/logo/albert-wilts-signet-invertiert.svg"
           alt=""
@@ -60,8 +58,8 @@ const marktzeiten = [
         Fliesstext: Arimo 18px / 27px rgba(255,255,255,0.6) (Quelle: computed).
         Drei distinkte Icons: Telefon (fa-phone), Fax (fa-fax), E-Mail (fa-envelope) als Inline-SVG.
       -->
-      <div style="width:25%; padding:0 15px; box-sizing:border-box; flex-shrink:0;">
-        <div style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
+      <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
+        <div class="footer-coltitle" style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
           Kontakt
         </div>
         <div style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:27px; color:rgba(255,255,255,0.6);">
@@ -76,7 +74,7 @@ const marktzeiten = [
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.57 4.9 2 2 0 0 1 3.55 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
             </span>
-            <a href="tel:+4949349 1060" style="color:rgba(255,255,255,0.6); text-decoration:none;">+49 4934 91060</a>
+              <a href="tel:+49493491060" style="color:rgba(255,255,255,0.6); text-decoration:none;">+49 4934 91060</a>
           </p>
           <!-- Fax (eigenes Drucker-/Fax-Icon, unterscheidet sich vom Telefon) -->
           <p style="margin:0 0 4px; display:flex; align-items:center; gap:8px;">
@@ -109,14 +107,14 @@ const marktzeiten = [
         "Wann:" und "Wo:" fett (Quelle: #footer strong font-weight:700 + customize.css).
         Bindestrich im Uhrzeitbereich (kein En-Dash), Inhalt exakt wie Staging.
       -->
-      <div style="width:25%; padding:0 15px; box-sizing:border-box; flex-shrink:0;">
-        <div style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
+      <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
+        <div class="footer-coltitle" style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
           Ladenverkauf
         </div>
         <div style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:27px; color:rgba(255,255,255,0.6);">
           <p style="margin:0 0 4px;"><strong style="font-weight:700; color:rgba(255,255,255,0.6);">Wann:</strong></p>
           <p style="margin:0 0 4px;">Jeden Freitag</p>
-          <p style="margin:0 0 12px;">08.00 - 17.00 Uhr</p>
+            <p style="margin:0 0 12px;">08.00 - 18.00 Uhr</p>
           <p style="margin:0 0 4px;"><strong style="font-weight:700; color:rgba(255,255,255,0.6);">Wo:</strong></p>
           <p style="margin:0 0 4px;">Hansestr. 4</p>
           <p style="margin:0;">26529 Upgant-Schott</p>
@@ -130,11 +128,11 @@ const marktzeiten = [
         font-size 18px, color rgba(255,255,255,0.6).
         Erste Zeile pt=0, letzte Zeile kein border-bottom.
       -->
-      <div style="width:25%; padding:0 15px; box-sizing:border-box; flex-shrink:0;">
-        <div style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
+      <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
+        <div class="footer-coltitle" style="font-family:Arial, Helvetica, sans-serif; font-weight:400; font-size:22.5px; line-height:1.5; color:#fff; margin-bottom:20px;">
           Wochenmarkt
         </div>
-        <table style="width:100%; border-collapse:collapse; font-size:18px; font-family:Arial, Helvetica, sans-serif;">
+        <table class="footer-markttabelle" style="width:100%; border-collapse:collapse; font-size:18px; font-family:Arial, Helvetica, sans-serif;">
           <tbody>
             {marktzeiten.map((m, i) => (
               <tr>
@@ -168,8 +166,8 @@ const marktzeiten = [
   Padding 20px 40px, color rgba(255,255,255,0.4), font-size 16.74px (= 0.93em von 18px).
   Text mit Bindestrich, exakt wie Staging.
 -->
-<div style="background:#3D5A36; color:rgba(255,255,255,0.4); font-family:Arial, Helvetica, sans-serif; font-size:16.74px; padding:20px 40px;">
-  <div style="max-width:85%; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px;">
+<div class="footer-bottom" style="background:#3D5A36; color:rgba(255,255,255,0.4); font-family:Arial, Helvetica, sans-serif; font-size:16.74px; padding:20px 40px;">
+  <div class="footer-bottom-inner" style="max-width:85%; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px;">
     <p style="margin:0;">
       Copyright {new Date().getFullYear()}. Albert Wilts - Idee, Konzept, Umsetzung -
       <a href="https://vonheugel.de" style="color:rgba(255,255,255,0.4); text-decoration:none;">vonheugel.de</a>

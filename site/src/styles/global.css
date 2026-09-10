@@ -1,6 +1,25 @@
 
 @import "./subpages.css";
 
+/* Globaler Reset: box-sizing und horizontaler Ueberlaufschutz */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; max-width: 100%; }
+
+/* Footer: Markttabelle und mobiles Spalten-Layout */
+.footer-markttabelle { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.footer-markttabelle td { word-break: break-word; }
+@media (max-width: 768px) {
+  .footer-cols { flex-direction: column; }
+  .footer-cols > * { flex: 1 1 100%; width: 100%; max-width: 100%; }
+  h2 { font-size: 26px !important; line-height: 1.25 !important; }
+  .footer-coltitle { margin-top: 28px !important; }
+  .footer-cols > div:nth-child(2) .footer-coltitle { margin-top: 0 !important; }
+  .footer-bottom-inner { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+  .footer-bottom-inner > p { order: 2; }
+  .footer-bottom-inner > nav { order: 1; }
+  .hero-section { border-top: 0 !important; border-image: none !important; }
+}
+
 /* =============================================================================
  * Albert Wilts – Design-Foundation (Tailwind v4)
  * Marken-Werte aus dem freigegebenen Contao-Entwurf extrahiert.

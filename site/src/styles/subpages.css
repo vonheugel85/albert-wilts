@@ -521,6 +521,11 @@
   .sub-standort-panel { grid-template-columns: 1fr; }
   .sub-press-featured { grid-template-columns: 1fr; }
   .sub-press-grid { grid-template-columns: 1fr; }
+  .sub-press-teaser .sub-press-grid, .sub-press-grid--teaser { grid-template-columns: 1fr !important; }
+  .sub-press-teaser .sub-press-card h3 { font-size: 18px; line-height: 1.3; }
+  .sub-press-teaser .sub-press-card .body { padding: 16px; }
+  .sub-press-teaser .sub-press-card p { font-size: 14px; }
+  .sub-press-teaser .sub-press-badge { font-size: 11px; }
   .sub-contact-grid { grid-template-columns: 1fr; gap: 30px; }
   .sub-form-row { grid-template-columns: 1fr; }
   .sub-people { grid-template-columns: 1fr; gap: 24px; }

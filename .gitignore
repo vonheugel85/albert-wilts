@@ -9,6 +9,10 @@ node_modules/
 # Legacy Contao-Assets (nicht deployed)
 css/
 
+# Audit-Screenshots (regenerierbar)
+site/audit-mobile/
+site/*.txt
+
 # macOS
 .DS_Store
 **/.DS_Store
@@ -21,7 +25,9 @@ css/
 *.log
 npm-debug.log*
 
-# Environment
+# Environment / Secrets
 .env
 .env.*
 !.env.example
+env.local
+*.local
