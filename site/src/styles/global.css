@@ -6,8 +6,10 @@
 html, body { overflow-x: hidden; max-width: 100%; }
 
 /* Footer: Markttabelle und mobiles Spalten-Layout */
-.footer-markttabelle { width: 100%; table-layout: fixed; border-collapse: collapse; }
-.footer-markttabelle td { word-break: break-word; }
+.footer-markttabelle { width: 100%; border-collapse: collapse; }
+.footer-markttabelle td { white-space: nowrap; }
+.footer-markttabelle td:first-child { min-width: 110px; width: 110px; }
+.footer-markttabelle td:last-child { white-space: normal; }
 @media (max-width: 768px) {
   .footer-cols { flex-direction: column; }
   .footer-cols > * { flex: 1 1 100%; width: 100%; max-width: 100%; }
