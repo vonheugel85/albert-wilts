@@ -108,7 +108,7 @@ const navItems = [
               href={item.href}
               data-mobile-nav-link
               style={[
-                'display:block; padding:12px 0; font-family:Arimo,Arial,sans-serif;',
+                'display:block; padding:12px 0; font-family:var(--font-sans);',
                 'font-size:18px; border-bottom:1px solid #E5E5E5;',
                 isItemActive(item) ? 'color:#EF7F1A;' : 'color:#555;',
               ].join('')}
@@ -116,7 +116,7 @@ const navItems = [
           ) : (
             <span
               style={[
-                'display:block; padding:12px 0; font-family:Arimo,Arial,sans-serif;',
+                'display:block; padding:12px 0; font-family:var(--font-sans);',
                 'font-size:18px; border-bottom:1px solid #E5E5E5; color:#555;',
               ].join('')}
             >{item.label}</span>
@@ -129,7 +129,7 @@ const navItems = [
                     href={sub.href}
                     data-mobile-nav-link
                     style={[
-                      'display:block; padding:8px 0; font-family:Arial,Helvetica,sans-serif;',
+                      'display:block; padding:8px 0; font-family: var(--font-sans);',
                       'font-size:16px; border-bottom:1px solid #E5E5E5;',
                       isActive(sub.href) ? 'color:#EF7F1A;' : 'color:#7F7F7F;',
                     ].join('')}
@@ -149,7 +149,7 @@ const navItems = [
       style="
         display:inline-block; margin-top:24px;
         background:#EF7F1A; color:#fff;
-        font-family:Arial,Helvetica,sans-serif; font-size:16px;
+        font-family: var(--font-sans); font-size:16px;
         padding:10px 20px; border-radius:5px;
         text-decoration:none;
       "
@@ -251,7 +251,7 @@ const navItems = [
         style="
           display:flex; align-items:center; gap:6px;
           background:none; border:none; cursor:pointer;
-          font-family:Arial,Helvetica,sans-serif; font-size:14px;
+          font-family: var(--font-sans); font-size:14px;
           color:#4F7146; font-weight:400;
           padding:0;
         "
@@ -407,7 +407,7 @@ const navItems = [
   /* ── Level-1-Links ────────────────────────────────────────────────── */
   .hd-l1 {
     display: block;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px; /* gemessen: span_fontSize 18px auf Staging (Contao setzt 16px am <a>, 18px am inneren <span>) */
     font-weight: 400;
     color: #696969;
@@ -430,7 +430,7 @@ const navItems = [
     display: block;
     background: #EF7F1A;
     color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px; /* Staging: span_fontSize 18px, identisch mit hd-l1 */
     font-weight: 400;
     padding: 0 15px;
@@ -468,7 +468,7 @@ const navItems = [
 
   .hd-dd-link {
     display: block;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px;
     font-weight: 400;
     color: #555;
@@ -543,7 +543,7 @@ const navItems = [
   /* Sticky Level-1-Links */
   .sticky-l1 {
     display: block;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px; /* identisch mit hd-l1 */
     font-weight: 400;
     color: #fff;

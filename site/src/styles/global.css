@@ -38,10 +38,19 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 @import "tailwindcss";
 
+/* Webfonts selbst gehostet (R4), kein CDN */
+@font-face { font-family: 'Caladea'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/caladea-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Caladea'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/caladea-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Caladea'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/caladea-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Arimo';   font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/arimo-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Arimo';   font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/arimo-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Arimo';   font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/arimo-latin-700-normal.woff2') format('woff2'); }
+
+
 @theme {
   /* Schriften ---------------------------------------------------------------- */
-  --font-sans:    Arial, Helvetica, sans-serif;
-  --font-display: Cambria, Georgia, 'Times New Roman', Times, serif;
+  --font-sans:    'Arimo', Arial, Helvetica, sans-serif;
+  --font-display: 'Caladea', Cambria, Georgia, serif;
 
   /* Neutrale Tokens ---------------------------------------------------------- */
   --color-ink:     #555555;   /* Haupttext */
