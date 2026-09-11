@@ -447,7 +447,7 @@
 .sub-contact-method-val { font-size: 18px; line-height: 1.4; color: #3B3C42; }
 .sub-contact-method-val a { color: #3B3C42; text-decoration: none; }
 .sub-contact-method-val a:hover { color: #4F7146; }
-.sub-contact-phone a { font-family: var(--font-display); font-size: 30px; font-weight: 500; color: #4F7146; text-decoration: none; }
+.sub-contact-phone a { font-family: var(--font-display); font-size: 30px; font-weight: 400; color: #4F7146; text-decoration: none; }
 .sub-contact-phone a:hover { text-decoration: underline; }
 .sub-contact-sub { font-size: 15px; color: #777; margin: 4px 0 0; }
 
@@ -489,7 +489,7 @@
 .sub-tl-item { position: relative; padding-left: 40px; padding-bottom: 40px; }
 .sub-tl-item:last-child { padding-bottom: 0; }
 .sub-tl-item::before { content: ''; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: #EF7F1A; }
-.sub-tl-year { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: #4F7146; margin-bottom: 4px; }
+.sub-tl-year { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: #4F7146; margin-bottom: 4px; }
 .sub-tl-item h3 { font-size: 22px; margin: 0 0 8px; }
 .sub-tl-item p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 

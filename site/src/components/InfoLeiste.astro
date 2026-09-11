@@ -83,8 +83,9 @@ const cols = [
 
   /* ── Icon: SVG-Bild, weiss, 48px, oben ausrichten ── */
   .il-icon {
-    width: auto;
+    width: 85px; /* SVG 170x150 bei 75px Hoehe = 84.75px → auf ganze Pixel */
     height: 75px;
+    object-fit: contain;
     display: block;
     flex-shrink: 0;
     margin-top: 4px;
@@ -104,7 +105,7 @@ const cols = [
   /* ── Titel: Caladea 700, weiss ── */
   .il-title {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.4rem;
     line-height: 1.2;
     color: #fff;
