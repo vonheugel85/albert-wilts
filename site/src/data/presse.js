@@ -17,6 +17,17 @@ export const zugangLabel = {
   offline: 'Nicht abrufbar',
 };
 
+// Reihenfolge der Medienleiste (Gewichtung, nicht alphabetisch). Muss alle medium-Werte enthalten.
+export const medienReihenfolge = [
+  'NDR',
+  'Ostfriesen-Zeitung',
+  'NWZ / Emder Zeitung',
+  'Ostfriesischer Kurier',
+  'Norderney Nordsee-Magazin',
+  'Ferien Ahoi',
+  'Freshplaza',
+];
+
 export const pressebeitraege = [
   // ── Fernsehen ──────────────────────────────────────────────────────────
   {

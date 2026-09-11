@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section    from '../components/Section.astro';
 import Button     from '../components/Button.astro';
 import PresseCard from '../components/PresseCard.astro';
-import { pressebeitraege, kategorien, zugangLabel } from '../data/presse.js';
+import { pressebeitraege, kategorien, zugangLabel, medienReihenfolge } from '../data/presse.js';
 
 const sortiert = [...pressebeitraege].sort((a, b) => (a.datum < b.datum ? 1 : -1));
 const tvBeitraege = sortiert.filter((p) => p.kategorie === 'tv');
@@ -12,6 +12,11 @@ const tvBeitraege = sortiert.filter((p) => p.kategorie === 'tv');
 const anzahl     = sortiert.length;
 const anzahlTv   = sortiert.filter((p) => p.kategorie === 'tv').length;
 const redaktionen = [...new Set(sortiert.map((p) => p.medium))];
+// Leiste in fester Reihenfolge; Medien ohne Eintrag in medienReihenfolge haengen hinten an
+const medienLeiste = [
+  ...medienReihenfolge.filter((m) => redaktionen.includes(m)),
+  ...redaktionen.filter((m) => !medienReihenfolge.includes(m)),
+];
 const seitJahr   = Math.min(...sortiert.map((p) => Number(p.datum.slice(0, 4))));
 const zahlen = [
   { wert: anzahl,             label: 'Beiträge' },
@@ -76,7 +81,7 @@ const tabs = Object.entries(kategorien).map(([key, k]) => ({
   <Section bg="#fff">
     <p class="sub-lead-center presse-medien-lead">Gesehen und gelesen bei</p>
     <ul class="presse-medien">
-      {redaktionen.map((m) => <li>{m}</li>)}
+      {medienLeiste.map((m) => <li>{m}</li>)}
     </ul>
   </Section>
 

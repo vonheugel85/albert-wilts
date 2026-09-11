@@ -506,18 +506,26 @@
 .presse-zahl dd { font-family: var(--font-display); font-size: 40px; line-height: 1; color: #fff; margin: 0; }
 .presse-zahl dt { font-family: var(--font-sans); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); margin-top: 6px; }
 
-/* Medienleiste: Wortmarken in Text */
+/* Medienleiste: bewusstes 4+3-Layout, kein automatischer Umbruch */
 .presse-medien-lead { margin-bottom: 18px; }
 .presse-medien {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 40px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px 0;
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  max-width: 1000px;
 }
-.presse-medien li { font-family: var(--font-display); font-size: 24px; color: #9A9A9A; white-space: nowrap; }
+.presse-medien li { font-family: var(--font-display); font-size: 22px; color: #9A9A9A; white-space: nowrap; text-align: center; grid-column: span 3; }
+/* Zweite Zeile: drei Eintraege, um 1.5 Spalten eingerueckt = zentriert */
+.presse-medien li:nth-child(5) { grid-column: 3 / span 3; }
+.presse-medien li:nth-child(6) { grid-column: 6 / span 3; }
+.presse-medien li:nth-child(7) { grid-column: 9 / span 3; }
+@media (max-width: 768px) {
+  .presse-medien { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; }
+  .presse-medien li { font-size: 18px; grid-column: auto; }
+}
 
 /* Filter-Tabs mit Zaehler */
 .presse-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 18px; }
