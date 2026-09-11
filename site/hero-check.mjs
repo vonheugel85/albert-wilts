@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 const browser = await chromium.launch();
-for (const w of [1280, 1536, 390]) {
+for (const w of [1024, 1280, 1536, 390]) {
   const ctx = await browser.newContext({ viewport: { width: w, height: 800 } });
   const page = await ctx.newPage();
   await page.addInitScript(() => localStorage.setItem('aw_consent', JSON.stringify({ v: 1, necessary: true, analytics: false, maps: false })));
