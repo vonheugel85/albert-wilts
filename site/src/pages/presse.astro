@@ -3,9 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section    from '../components/Section.astro';
 import Button     from '../components/Button.astro';
 import PresseCard from '../components/PresseCard.astro';
-import { pressebeitraege, kategorien } from '../data/presse.js';
+import { pressebeitraege, kategorien, zugangLabel } from '../data/presse.js';
 
 const sortiert = [...pressebeitraege].sort((a, b) => (a.datum < b.datum ? 1 : -1));
+const tvBeitraege = sortiert.filter((p) => p.kategorie === 'tv');
 
 // Kennzahlen aus den Daten
 const anzahl     = sortiert.length;
@@ -39,6 +40,30 @@ const zahlen = [
       </dl>
     </div>
   </section>
+
+  <Section bg="#fff">
+    <div class="presse-tv">
+      {tvBeitraege.map((p) => (
+        <article class="presse-tv-card">
+          <span class="presse-tv-badge">{p.format}</span>
+          <p class="presse-tv-medium">{p.medium}{p.reihe ? `, ${p.reihe}` : ''} · {p.datumLabel}</p>
+          <h2 class="presse-tv-titel">{p.titel}</h2>
+          <p class="presse-tv-teaser">{p.teaser}</p>
+          <footer class="presse-tv-foot">
+            {p.url ? (
+              <a class="presse-tv-link" href={p.url} target="_blank" rel="noopener">
+                <span>Zum Beitrag</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="öffnet in neuem Tab" role="img"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            ) : (
+              <span class="presse-tv-offline">Derzeit nicht online</span>
+            )}
+            <span class={`presse-tv-zugang presse-tv-zugang--${p.zugang}`}>{zugangLabel[p.zugang]}</span>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </Section>
 
   <Section bg="#F8F8F8">
     <div class="presse-grid">

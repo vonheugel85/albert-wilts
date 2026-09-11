@@ -544,12 +544,52 @@
   align-items: stretch;
 }
 
+/* TV-Aufmacher: die einzigen farbigen Karten */
+.presse-tv { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.presse-tv-card {
+  display: flex;
+  flex-direction: column;
+  background: #4F7146;
+  color: #fff;
+  border-radius: 6px;
+  padding: 36px 36px 30px;
+}
+.presse-tv-badge {
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #EF7F1A;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.presse-tv-medium { font-family: var(--font-sans); font-size: 14px; color: rgba(255, 255, 255, 0.8); margin: 0 0 10px; }
+.presse-tv-titel { font-family: var(--font-display); font-size: 32px; line-height: 1.2; color: #fff; margin: 0 0 14px; }
+.presse-tv-teaser { font-family: var(--font-sans); font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, 0.92); margin: 0 0 26px; }
+.presse-tv-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+.presse-tv-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #fff; text-decoration: none; }
+.presse-tv-link:hover span { text-decoration: underline; }
+.presse-tv-link svg { width: 14px; height: 14px; }
+.presse-tv-offline { font-family: var(--font-sans); font-size: 14px; font-style: italic; color: rgba(255, 255, 255, 0.7); }
+.presse-tv-zugang { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 12px; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
+.presse-tv-zugang::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+.presse-tv-zugang--frei::before    { background: #fff; }
+.presse-tv-zugang--paywall::before { background: #EF7F1A; }
+.presse-tv-zugang--offline::before { background: rgba(255, 255, 255, 0.45); }
+
 @media (max-width: 1024px) {
   .presse-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   .presse-zahlen { grid-template-columns: repeat(2, auto); gap: 18px 36px; }
   .presse-zahl dd { font-size: 32px; }
+  .presse-tv { grid-template-columns: 1fr; }
+  .presse-tv-card { padding: 28px 24px 24px; }
+  .presse-tv-titel { font-size: 26px; }
 }
 @media (max-width: 640px) {
   .presse-grid { grid-template-columns: 1fr; }
