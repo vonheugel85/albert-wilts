@@ -19,6 +19,14 @@ const zahlen = [
   { wert: redaktionen.length, label: 'Redaktionen' },
   { wert: `seit ${seitJahr}`, label: 'in den Medien' },
 ];
+
+// Filter-Tabs: Anzahl je Kategorie
+const tabs = Object.entries(kategorien).map(([key, k]) => ({
+  key,
+  label: k.label,
+  hinweis: k.hinweis,
+  count: key === 'alle' ? anzahl : sortiert.filter((p) => p.kategorie === key).length,
+}));
 ---
 
 <BaseLayout
@@ -72,8 +80,24 @@ const zahlen = [
     </ul>
   </Section>
 
-  <Section bg="#F8F8F8">
-    <div class="presse-grid">
+  <Section bg="#F8F8F8" id="presse">
+    <div class="presse-filter" role="tablist" aria-label="Pressebeiträge filtern">
+      {tabs.map((t, i) => (
+        <button
+          type="button"
+          class="presse-tab"
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-filter={t.key}
+          data-hinweis={t.hinweis}
+        >
+          {t.label} <span class="presse-tab-count">{t.count}</span>
+        </button>
+      ))}
+    </div>
+    <p class="presse-hinweis" id="presse-hinweis">{tabs[0].hinweis}</p>
+
+    <div class="presse-grid" id="presse-grid">
       {sortiert.map((p) => <PresseCard eintrag={p} />)}
     </div>
   </Section>
@@ -90,3 +114,34 @@ const zahlen = [
   </section>
 
 </BaseLayout>
+
+<script>
+  const root = document.getElementById('presse');
+  if (root) {
+    const tabs = root.querySelectorAll<HTMLButtonElement>('.presse-tab');
+    const cards = root.querySelectorAll<HTMLElement>('#presse-grid .pc');
+    const hinweis = document.getElementById('presse-hinweis');
+    const FADE = 200;
+
+    const apply = (filter: string) => {
+      cards.forEach((c) => {
+        const show = filter === 'alle' || c.dataset.kategorie === filter;
+        const hidden = c.classList.contains('is-hidden');
+        if (show && hidden) {
+          c.classList.remove('is-hidden');
+          c.classList.add('is-hiding');
+          requestAnimationFrame(() => requestAnimationFrame(() => c.classList.remove('is-hiding')));
+        } else if (!show && !hidden) {
+          c.classList.add('is-hiding');
+          setTimeout(() => { if (c.classList.contains('is-hiding')) c.classList.add('is-hidden'); }, FADE);
+        }
+      });
+    };
+
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+      if (hinweis) hinweis.textContent = t.dataset.hinweis ?? '';
+      apply(t.dataset.filter ?? 'alle');
+    }));
+  }
+</script>
