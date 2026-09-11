@@ -3,8 +3,7 @@
   GeschichteSection.astro – kompakter Teaser auf der Startseite (B6).
   Die ausfuehrliche Timeline bleibt auf /ueber-uns.
 */
-import Button      from './Button.astro';
-import Placeholder from './Placeholder.astro';
+import Button from './Button.astro';
 ---
 
 <section class="geschichte-section section-pad" aria-label="Unsere Geschichte">
@@ -21,14 +20,7 @@ import Placeholder from './Placeholder.astro';
       <Button href="/ueber-uns" label="Mehr über uns" variant="link" />
     </div>
 
-    <div class="geschichte-bild">
-      <Placeholder
-        label="Betriebsgebäude Albert Wilts"
-        aspect="4/3"
-        src="/bilder/unternehmen/albert-wilts-gebaeudeaussen-hero.webp"
-        alt="Betriebsgebäude von Albert Wilts in Upgant-Schott"
-      />
-    </div>
+    <!-- Platz für historisches Familienfoto vom Kunden, dann wieder zweispaltig -->
 
   </div>
 </section>
@@ -45,11 +37,9 @@ import Placeholder from './Placeholder.astro';
     margin: 0 auto;
     padding: 0 24px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
   }
+
+  .geschichte-text { max-width: 42rem; }
 
   .geschichte-text h2 { margin-bottom: 6px; }
 
@@ -72,9 +62,6 @@ import Placeholder from './Placeholder.astro';
     .geschichte-inside {
       max-width: 100%;
       padding: 0 20px;
-      grid-template-columns: 1fr;
-      gap: 32px;
     }
-    .geschichte-bild { order: -1; }
   }
 </style>
