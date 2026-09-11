@@ -174,7 +174,7 @@
 .sub-trust-text h2 { margin-top: 0; }
 .sub-trust-text p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
-.sub-cta { background: #EDF1EA; padding: 100px 0; box-sizing: border-box; }
+.sub-cta { background: #EDF1EA; box-sizing: border-box; }
 .sub-cta-inside { text-align: center; }
 .sub-cta h2 { color: #3B3C42; margin: 0 0 16px; }
 .sub-cta p {

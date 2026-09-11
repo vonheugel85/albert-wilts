@@ -5,6 +5,12 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: hidden; max-width: 100%; }
 
+/* Einheitliches Section-Padding (N6): alle Content-Sektionen und CTA-Flaechen */
+.section-pad { padding-block: 80px; }
+@media (max-width: 768px) {
+  .section-pad { padding-block: 56px; }
+}
+
 /* Footer: Markttabelle und mobiles Spalten-Layout */
 .footer-markttabelle { width: 100%; border-collapse: collapse; }
 .footer-markttabelle td { white-space: nowrap; }

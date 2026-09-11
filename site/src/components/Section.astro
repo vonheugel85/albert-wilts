@@ -10,14 +10,12 @@
 
 interface Props {
   bg?:        string;
-  py?:        number;
   id?:        string;
   fullBleed?: boolean;
 }
 
 const {
   bg        = 'transparent',
-  py        = 70,
   id,
   fullBleed = false,
 } = Astro.props;
@@ -25,8 +23,8 @@ const {
 
 <section
   {id}
-  class="aw-section"
-  style={`background:${bg}; padding-top:${py}px; padding-bottom:${py}px;`}
+  class="aw-section section-pad"
+  style={`background:${bg};`}
 >
   {fullBleed
     ? <slot />
