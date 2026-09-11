@@ -400,7 +400,7 @@ const navItems = [
   .hd-item {
     position: relative;
     display: flex;
-    align-items: stretch;
+    align-items: center;
   }
 
   .hd-item--cta {
@@ -427,7 +427,7 @@ const navItems = [
     color: #EF7F1A;
   }
 
-  .hd-l1--trigger { appearance: none; -webkit-appearance: none; background: none; border: 0; cursor: pointer; }
+  .hd-l1--trigger { appearance: none; -webkit-appearance: none; background: none; border: 0; margin: 0; cursor: pointer; font-family: inherit; }
 
   /* ── CTA-Button ───────────────────────────────────────────────────── */
   .hd-cta {
@@ -524,21 +524,21 @@ const navItems = [
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 70px;
   }
 
   /* Sticky Logo-Zeile */
   .sticky-logo-row {
     display: flex;
     align-items: center;
-    /* Staging: Sticky-Logo-Zeile = 70px (eine Nav-Zeilenhöhe) */
-    height: 70px;
+    flex-shrink: 0;
   }
 
   /* Sticky Nav-Liste */
   .sticky-nav-list {
     display: flex;
-    align-items: stretch;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -548,10 +548,10 @@ const navItems = [
   .sticky-l1 {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px; /* identisch mit hd-l1 */
+    font-size: 17px;
     font-weight: 400;
     color: #fff;
-    padding: 0 17.5px;
+    padding: 0 16px;
     line-height: 70px;
     white-space: nowrap;
     text-decoration: none;
@@ -562,10 +562,10 @@ const navItems = [
     color: rgba(255, 255, 255, 0.75);
   }
 
-  /* Sticky CTA */
+  /* Sticky CTA: identisch mit hd-cta */
   .sticky-cta {
-    line-height: 70px;
-    border-radius: 4px 4px 0 0;
+    line-height: 1.5;
+    border-radius: 6px;
   }
 
   /* Sticky-Dropdown – selbe Optik, Offset auf 70px */
