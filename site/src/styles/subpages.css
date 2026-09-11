@@ -580,6 +580,7 @@
 }
 .presse-tab[aria-selected="true"] .presse-tab-count { background: rgba(255, 255, 255, 0.22); color: #fff; }
 .presse-hinweis { text-align: center; font-family: var(--font-sans); font-size: 15px; color: #7F7F7F; margin: 0 0 36px; min-height: 1.6em; }
+.presse-cta-mappe { margin: 22px 0 0; }
 
 .presse-grid {
   display: grid;
