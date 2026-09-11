@@ -8,20 +8,14 @@ import GeschichteSection   from '../components/GeschichteSection.astro';
 import NewsletterSection   from '../components/NewsletterSection.astro';
 import Section             from '../components/Section.astro';
 import Button              from '../components/Button.astro';
-import Placeholder         from '../components/Placeholder.astro';
 import { pressebeitraege } from '../data/presse.js';
+import PresseCard from '../components/PresseCard.astro';
 
-const presseTeaser = [...pressebeitraege].sort((a, b) => (a.datum < b.datum ? 1 : -1)).slice(0, 2);
-const pTypLabel = { zeitungsbericht: 'Zeitungsbericht', anzeige: 'Anzeige', video: 'Video' };
-const pTypBadge = { zeitungsbericht: '', anzeige: ' sub-press-badge--anzeige', video: ' sub-press-badge--video' };
-
-// Dritte Card: NDR Nordtour (noch kein Datum/Link, daher nicht in presse.js)
-const ndrNordtour = {
-  medium: 'NDR Nordtour',
-  datumLabel: 'TV-Beitrag',
-  titel: 'Ein Blick hinter die Kulissen',
-  anriss: 'Die Nordtour begleitet unsere Markt-Logistik und den Ladenverkauf in Upgant-Schott.',
-};
+// Drei neueste frei lesbare Beitraege
+const presseTeaser = [...pressebeitraege]
+  .filter((p) => p.zugang === 'frei')
+  .sort((a, b) => (a.datum < b.datum ? 1 : -1))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -43,40 +37,13 @@ const ndrNordtour = {
   <!-- Sektion 5: Unsere Geschichte (Teaser) -->
   <GeschichteSection />
 
-  <!-- Sektion 6: Bekannt aus Funk und Fernsehen (Presse + TV) -->
+  <!-- Sektion 6: Bekannt aus Funk und Fernsehen (Presse) -->
   <Section bg="#F8F8F8">
-    <div class="sub-press sub-press-teaser" style="text-align:center;">
+    <div style="text-align:center;">
       <h2>Bekannt aus Funk und Fernsehen</h2>
       <p class="sub-lead-center">Als ostfriesisches Original werden wir gerne gesehen und gelesen. Ein Einblick in unsere Pressestimmen.</p>
-      <div class="sub-press-grid sub-press-grid--teaser" style="max-width:1140px; margin:40px auto 0; text-align:left;">
-        {presseTeaser.map((p) => (
-          <div class="sub-press-card">
-            <div class="thumb">
-              <span class={`sub-press-badge${pTypBadge[p.typ]}`}>{pTypLabel[p.typ]}</span>
-              <Placeholder label={`Platzhalter Bild: ${p.medium}`} aspect="3/2" />
-            </div>
-            <div class="body">
-              <div class="sub-press-meta">{p.medium}, {p.datumLabel}</div>
-              <h3>{p.titel}</h3>
-              <p>{p.anriss}</p>
-              {p.link
-                ? <a class="more" href={p.link} target="_blank" rel="noopener">Zum Beitrag <span class="arrow">&#x203A;</span></a>
-                : <span class="sub-press-note">Derzeit nicht online verfügbar</span>}
-            </div>
-          </div>
-        ))}
-        <div class="sub-press-card">
-          <div class="thumb">
-            <span class="sub-press-badge sub-press-badge--video">TV-Beitrag</span>
-            <Placeholder label="Platzhalter Bild: NDR Nordtour Standbild" aspect="3/2" />
-          </div>
-          <div class="body">
-            <div class="sub-press-meta">{ndrNordtour.medium}, {ndrNordtour.datumLabel}</div>
-            <h3>{ndrNordtour.titel}</h3>
-            <p>{ndrNordtour.anriss}</p>
-            <span class="sub-press-note">Derzeit nicht online verfügbar</span>
-          </div>
-        </div>
+      <div class="presse-grid" style="margin-top:40px; text-align:left;">
+        {presseTeaser.map((p) => <PresseCard eintrag={p} />)}
       </div>
       <div style="margin-top:40px;">
         <Button href="/presse" label="Alle Pressestimmen" />
