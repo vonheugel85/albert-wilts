@@ -14,6 +14,8 @@ interface Props {
 }
 const { eintrag: e } = Astro.props;
 const jahr = e.datum.slice(0, 4);
+// Offline-Beitraege mit URL verlinken auf Sendungsinfo, nicht auf den Beitrag selbst
+const linkText = e.zugang === 'offline' ? 'Zur Sendungsinfo' : 'Zum Beitrag';
 ---
 
 <article class="pc" data-kategorie={e.kategorie} data-datum={e.datum}>
@@ -27,7 +29,7 @@ const jahr = e.datum.slice(0, 4);
   <footer class="pc-foot">
     {e.url ? (
       <a class="pc-link" href={e.url} target="_blank" rel="noopener">
-        <span>Zum Beitrag</span>
+        <span>{linkText}</span>
         <svg class="pc-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="öffnet in neuem Tab" role="img">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
           <polyline points="15 3 21 3 21 9"/>
