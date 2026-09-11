@@ -494,37 +494,6 @@
 .sub-tl-item h3 { font-size: 22px; margin: 0 0 8px; }
 .sub-tl-item p { font-size: 17px; line-height: 1.65; color: #555; margin: 0; }
 
-/* ── Pressebereich ── */
-.sub-medialogos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 40px; margin-top: 6px; }
-.sub-medialogos span { font-family: var(--font-display); font-size: 22px; color: #9a9a9a; letter-spacing: 0.02em; }
-
-.sub-press { max-width: 1100px; margin: 0 auto; }
-.sub-press-featured { display: grid; grid-template-columns: 1.1fr 1fr; border: 1px solid #E6E6E6; border-radius: 6px; overflow: hidden; background: #fff; margin-bottom: 50px; }
-.sub-press-featured .body { padding: 36px 40px; align-self: center; }
-.sub-press-featured .body h3 { font-size: 28px; margin: 14px 0 14px; line-height: 1.3; }
-.sub-press-featured .body p { font-size: 17px; line-height: 1.65; color: #555; margin: 0 0 20px; }
-
-.sub-press-filter { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px; }
-.sub-press-count { text-align: center; font-size: 15px; color: #777; margin: 0 0 30px; }
-
-.sub-press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.sub-press-card { display: flex; flex-direction: column; background: #F9FAFB; border: 1px solid #F3F4F6; border-radius: 6px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); overflow: hidden; }
-.sub-press-card .thumb { position: relative; }
-.sub-press-card .body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
-.sub-press-meta { font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-size: 14px; color: #777; margin: 0 0 8px; }
-.sub-press-card h3 { font-size: 20px; margin: 0 0 10px; line-height: 1.3; }
-.sub-press-card p { font-size: 16px; line-height: 1.5; color: #555; margin: 0 0 18px; }
-.sub-press-card .more { margin-top: auto; font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-weight: 700; color: #EF7F1A; text-decoration: none; }
-.sub-press-card .more .arrow { display: inline-block; transition: transform 0.18s ease; }
-.sub-press-note { margin-top: auto; font-size: 15px; color: #999; font-style: italic; }
-.sub-press-card:hover .more .arrow { transform: translateX(4px); }
-
-.sub-press-badge { position: absolute; top: 12px; left: 12px; font-family: var(--font-sans, Arial, Helvetica, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; background: #4F7146; padding: 5px 10px; border-radius: 3px; }
-.sub-press-badge--anzeige { background: #EF7F1A; }
-.sub-press-badge--video { background: #3B3C42; }
-
-.sub-press-empty { display: none; text-align: center; color: #777; font-size: 17px; padding: 40px 0; }
-
 /* ── Presseseite neu (P2 bis P7) ─────────────────────────────────────── */
 .presse-zahlen {
   display: grid;
@@ -663,13 +632,6 @@
   .sub-showcase-row--reverse .sub-showcase-media,
   .sub-showcase-row--reverse .sub-showcase-body { order: 0; }
   .sub-standort-panel { grid-template-columns: 1fr; }
-  .sub-press-featured { grid-template-columns: 1fr; }
-  .sub-press-grid { grid-template-columns: 1fr; }
-  .sub-press-teaser .sub-press-grid, .sub-press-grid--teaser { grid-template-columns: 1fr !important; }
-  .sub-press-teaser .sub-press-card h3 { font-size: 18px; line-height: 1.3; }
-  .sub-press-teaser .sub-press-card .body { padding: 16px; }
-  .sub-press-teaser .sub-press-card p { font-size: 14px; }
-  .sub-press-teaser .sub-press-badge { font-size: 11px; }
   .sub-contact-grid { grid-template-columns: 1fr; gap: 30px; }
   .sub-form-row { grid-template-columns: 1fr; }
   .sub-people { grid-template-columns: 1fr; gap: 24px; }
