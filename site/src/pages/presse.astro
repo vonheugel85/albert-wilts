@@ -65,6 +65,13 @@ const zahlen = [
     </div>
   </Section>
 
+  <Section bg="#fff">
+    <p class="sub-lead-center presse-medien-lead">Gesehen und gelesen bei</p>
+    <ul class="presse-medien">
+      {redaktionen.map((m) => <li>{m}</li>)}
+    </ul>
+  </Section>
+
   <Section bg="#F8F8F8">
     <div class="presse-grid">
       {sortiert.map((p) => <PresseCard eintrag={p} />)}

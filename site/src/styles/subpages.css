@@ -537,6 +537,19 @@
 .presse-zahl dd { font-family: var(--font-display); font-size: 40px; line-height: 1; color: #fff; margin: 0; }
 .presse-zahl dt { font-family: var(--font-sans); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); margin-top: 6px; }
 
+/* Medienleiste: Wortmarken in Text */
+.presse-medien-lead { margin-bottom: 18px; }
+.presse-medien {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.presse-medien li { font-family: var(--font-display); font-size: 24px; color: #9A9A9A; white-space: nowrap; }
+
 .presse-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
