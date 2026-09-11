@@ -168,13 +168,14 @@ const navItems = [
   <div class="hd-desktop">
     <div class="hd-inside">
 
-      <!-- Logo: Wortmarke gruen, gleicher Aufbau wie Sticky -->
+      <!-- Logo-Zeile: zentriert -->
+      <!-- Staging: .logo a bg-image = albert-wilts-logo.svg, container 180x180, background-size:100% -->
       <div class="hd-logo-row">
         <a href="/" aria-label="Albert Wilts – zur Startseite">
           <img
-            src="/logo/albert-wilts-wortmarke.svg"
+            src="/logo/albert-wilts-logo.svg"
             alt="Albert Wilts"
-            style="width:192px; height:auto; display:block;"
+            style="width:180px; height:auto; display:block;"
           />
         </a>
       </div>
@@ -347,13 +348,8 @@ const navItems = [
     margin: 0 auto;
     padding: 0 24px;
     box-sizing: content-box;
-  }  .hd-desktop .hd-inside {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    height: 90px;
   }
+
   /* ── Desktop-Block: default hidden, ab 62rem sichtbar ─────────────── */
   .hd-desktop { display: none; }
   .hd-mobile  { display: block; background: #fff; border-bottom: 1px solid #E5E5E5; }
@@ -377,20 +373,21 @@ const navItems = [
   /* ── Logo-Zeile ───────────────────────────────────────────────────── */
   .hd-logo-row {
     display: flex;
-    align-items: center;
-    flex-shrink: 0;
+    justify-content: center;
+    align-items: center; /* PNG (144px hoch) vertikal zentrieren wie Staging bg-position:50% */
+    height: 180px;       /* Staging: logoDiv.height = 180px, nav startet exakt bei y=180 */
   }
 
   /* ── Nav-Zeile ────────────────────────────────────────────────────── */
   #site-nav {
     display: block;
-    flex: 1;
+    width: 100%;
   }
 
   .hd-nav-list {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -404,19 +401,18 @@ const navItems = [
   }
 
   .hd-item--cta {
-    margin-left: 12px;
-    margin-right: 16px;
+    /* kein margin-left:auto – CTA sitzt inline direkt hinter Kontakt */
   }
 
   /* ── Level-1-Links ────────────────────────────────────────────────── */
   .hd-l1 {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
+    font-size: 18px; /* gemessen: span_fontSize 18px auf Staging (Contao setzt 16px am <a>, 18px am inneren <span>) */
     font-weight: 400;
     color: #696969;
-    padding: 0 16px;
-    line-height: 90px;
+    padding: 0 17.5px; /* gemessen: Abstand zw. Items ~35px → 17.5px je Seite */
+    line-height: 67px; /* Staging: nav.height = 67px */
     white-space: nowrap;
     text-decoration: none;
     transition: color 0.15s;
@@ -435,25 +431,25 @@ const navItems = [
     background: #EF7F1A;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
+    font-size: 18px; /* Staging: span_fontSize 18px, identisch mit hd-l1 */
     font-weight: 400;
-    padding: 10px 18px;
-    line-height: 1.5;
-    border-radius: 6px;
+    padding: 0 15px;
+    line-height: 67px; /* identisch mit hd-l1 */
+    border-radius: 4px 4px 0 0;
     white-space: nowrap;
     text-decoration: none;
-    transition: background 0.15s;
+    transition: opacity 0.15s;
   }
 
   .hd-cta:hover {
-    background: #d9700f;
+    opacity: 0.85;
   }
 
   /* ── Dropdowns ────────────────────────────────────────────────────── */
   .hd-dd {
     display: none;
     position: absolute;
-    top: 90px; /* Header-Hoehe */
+    top: 67px; /* Nav-Zeilenhöhe */
     left: 0;
     min-width: 220px;
     background: #fff;
@@ -524,21 +520,21 @@ const navItems = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
   }
 
   /* Sticky Logo-Zeile */
   .sticky-logo-row {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    /* Staging: Sticky-Logo-Zeile = 70px (eine Nav-Zeilenhöhe) */
+    height: 70px;
   }
 
   /* Sticky Nav-Liste */
   .sticky-nav-list {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -548,10 +544,10 @@ const navItems = [
   .sticky-l1 {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
+    font-size: 18px; /* identisch mit hd-l1 */
     font-weight: 400;
     color: #fff;
-    padding: 0 16px;
+    padding: 0 17.5px;
     line-height: 70px;
     white-space: nowrap;
     text-decoration: none;
@@ -562,10 +558,10 @@ const navItems = [
     color: rgba(255, 255, 255, 0.75);
   }
 
-  /* Sticky CTA: identisch mit hd-cta */
+  /* Sticky CTA */
   .sticky-cta {
-    line-height: 1.5;
-    border-radius: 6px;
+    line-height: 70px;
+    border-radius: 4px 4px 0 0;
   }
 
   /* Sticky-Dropdown – selbe Optik, Offset auf 70px */
@@ -654,7 +650,7 @@ const navItems = [
     });
 
     // Sticky einblenden wenn Original aus Viewport
-    var threshold = header.offsetHeight || 90;
+    var threshold = header.offsetHeight || 247;
     var ticking = false;
 
     function update() {
