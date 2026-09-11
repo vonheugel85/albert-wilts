@@ -1,72 +1,137 @@
 ---
-// Quicklinks (B15): mobile Bottom-Bar mit Telefon, Karte, Mail, Angebote.
-// Ab 768px ausgeblendet; die Desktop-Navigation deckt alle Ziele ab.
+// Quicklinks: schwebende Kontakt-Leiste rechts – exakt nach Staging-Probe (2026-06-20).
+// Gemessene Werte (Live-Staging, 1280px VP):
+//   Container: position fixed, top 160px, right 0, z-index 9999
+//   Container: display flex, flex-direction column, gap 4px
+//   Tab: height 48px, border-radius 5px 0 0 5px, font-size 14px
+//   Tab-Ruhezustand: translateX(calc(100% - 48px)) – nur 48px-Icon ragt heraus
+//   Tab-Hover: translateX(0) – Button faehrt vollstaendig heraus
+//   Tab-Transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)
+//   Icon: <i class="fa fa-XXX"> – Font Awesome 4.7, font-size 22px, box 48x48
+//   Label: <span class="ql-label"> – font-size 14px, padding-right 14px
+//   Gruene Tabs: bg #4F7146 / weiss
+//   Oranger Tab: bg #EF7F1A / weiss
+//   Reihenfolge: Telefon, Karte, E-Mail, Angebote
 
 const links = [
-  { label: 'Telefon',  id: 'ql-telefon',  href: 'tel:+49493491060', cta: false, faClass: 'fa fa-phone' },
-  { label: 'Karte',    id: 'ql-anfahrt',  href: 'https://maps.google.com/?q=Hansestr.+4,+26529+Upgant-Schott', cta: false, faClass: 'fa fa-map-marker' },
-  { label: 'Mail',     id: 'ql-email',    href: 'mailto:info@albert-wilts.de', cta: false, faClass: 'fa fa-envelope' },
-  { label: 'Angebote', id: 'ql-angebote', href: '/aktuelle-angebote', cta: true, faClass: 'fa fa-tag' },
+  {
+    label: 'Telefon',
+    id: 'ql-telefon',
+    href: 'tel:+49493491060',
+    cta: false,
+    faClass: 'fa fa-phone',
+  },
+  {
+    label: 'Karte',
+    id: 'ql-anfahrt',
+    href: 'https://maps.google.com/?q=Hansestr.+4,+26529+Upgant-Schott',
+    cta: false,
+    faClass: 'fa fa-map-marker',
+  },
+  {
+    label: 'E-Mail',
+    id: 'ql-email',
+    href: 'mailto:info@albert-wilts.de',
+    cta: false,
+    faClass: 'fa fa-envelope',
+  },
+  {
+    label: 'Angebote',
+    id: 'ql-angebote',
+    href: '/aktuelle-angebote',
+    cta: true,
+    faClass: 'fa fa-tag',
+  },
 ];
 ---
 
-<nav id="quicklinks-bar" class="ql-bar" aria-label="Schnellkontakt">
+<!-- Desktop-Quicklinks (≥ 769px): fix rechts am Viewport-Rand -->
+<div id="quicklinks-bar" class="ql-container" aria-label="Schnellkontakt" role="navigation">
   {links.map((item) => (
     <a
       href={item.href}
       id={item.id}
       class:list={['ql-btn', { 'ql-btn--cta': item.cta }]}
+      aria-label={item.label}
       target={item.href.startsWith('http') ? '_blank' : undefined}
       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
     >
-      <span class="ql-icon" aria-hidden="true"><i class={item.faClass}></i></span>
+      <!-- Icon-Box: bildet den sichtbaren 48px-Rest im Ruhezustand -->
+      <span class="ql-icon" aria-hidden="true">
+        <i class={item.faClass}></i>
+      </span>
+      <!-- Label: wird im Ruhezustand durch translateX verborgen -->
       <span class="ql-label">{item.label}</span>
     </a>
   ))}
-</nav>
+</div>
 
 <style>
-  .ql-bar {
+  /* Container */
+  .ql-container {
     position: fixed;
-    left: 0;
+    top: 160px;
     right: 0;
-    bottom: 0;
     z-index: 9999;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    background: #4F7146;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  @media (min-width: 768px) {
-    .ql-bar { display: none; }
-  }
-
-  .ql-btn {
     display: flex;
     flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Einzelner Tab */
+  .ql-btn {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 3px;
-    height: 60px;
+    height: 48px;
+    background: #4F7146;
     color: #fff;
     text-decoration: none;
+    white-space: nowrap;
+    border-radius: 5px 0 0 5px;
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 14px;
+    /* Ruhezustand: nur das 48px-Icon ragt am rechten Rand heraus */
+    transform: translateX(calc(100% - 48px));
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .ql-btn:hover,
+  .ql-btn:focus-visible {
+    transform: translateX(0);
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: -2px;
+  }
+
+  /* Orange Angebote-Tab */
+  .ql-btn--cta {
+    background: #EF7F1A;
+  }
+
+  /* Icon-Box: feste 48x48px, Icon zentriert */
+  .ql-icon {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ql-icon i {
+    font-size: 22px;
+    color: #fff;
     line-height: 1;
   }
-  .ql-btn + .ql-btn { border-left: 1px solid rgba(255, 255, 255, 0.15); }
-  .ql-btn--cta { background: #EF7F1A; }
-  .ql-btn:active { background: rgba(0, 0, 0, 0.12); }
 
-  .ql-icon i { font-size: 20px; color: #fff; line-height: 1; }
-  .ql-label { color: #fff; }
-</style>
-
-<style is:global>
-  /* Platz fuer die Bottom-Bar, damit Footer-Links nicht verdeckt werden */
-  @media (max-width: 767px) {
-    body { padding-bottom: 60px; }
+  /* Label rechts vom Icon */
+  .ql-label {
+    padding: 0 14px 0 0;
+    font-size: 14px;
+    line-height: 48px;
+    color: #fff;
+    font-family: var(--font-sans);
   }
 </style>
