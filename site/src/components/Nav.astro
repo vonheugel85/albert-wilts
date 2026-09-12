@@ -2,7 +2,7 @@
 /*
   Nav.astro – vollständige Überarbeitung nach probe-header.mjs (2026-06-19)
   Gemessene Werte (Live-Staging, 1280px VP):
-    Header gesamt:      247px (statisch, scrollt weg)
+    Header gesamt:      247px auf Staging → D4: 150px (Emblem 96px in 110px-Zeile + Nav 40px)
     inside:             max-width 85%, padding 0 40px, margin 0 auto
     Logo-Zeile:         180px breit (auto Höhe ~144px), zentriert, padding ~19px oben/unten
     Nav-Zeile:          Höhe 65px
@@ -175,7 +175,7 @@ const navItems = [
           <img
             src="/logo/albert-wilts-logo.svg"
             alt="Albert Wilts"
-            style="width:180px; height:auto; display:block;"
+            style="width:96px; height:auto; display:block;"
           />
         </a>
       </div>
@@ -374,8 +374,8 @@ const navItems = [
   .hd-logo-row {
     display: flex;
     justify-content: center;
-    align-items: center; /* PNG (144px hoch) vertikal zentrieren wie Staging bg-position:50% */
-    height: 180px;       /* Staging: logoDiv.height = 180px, nav startet exakt bei y=180 */
+    align-items: center;
+    height: 110px;       /* D4: Emblem 96px + Luft, gesamt 110 + 40 = 150px */
   }
 
   /* ── Nav-Zeile ────────────────────────────────────────────────────── */
@@ -412,7 +412,7 @@ const navItems = [
     font-weight: 400;
     color: #696969;
     padding: 0 17.5px; /* gemessen: Abstand zw. Items ~35px → 17.5px je Seite */
-    line-height: 67px; /* Staging: nav.height = 67px */
+    line-height: 40px; /* D4: Nav-Zeile 40px */
     white-space: nowrap;
     text-decoration: none;
     transition: color 0.15s;
@@ -434,7 +434,7 @@ const navItems = [
     font-size: 18px; /* Staging: span_fontSize 18px, identisch mit hd-l1 */
     font-weight: 400;
     padding: 0 15px;
-    line-height: 67px; /* identisch mit hd-l1 */
+    line-height: 40px; /* identisch mit hd-l1 */
     border-radius: 4px 4px 0 0;
     white-space: nowrap;
     text-decoration: none;
@@ -449,7 +449,7 @@ const navItems = [
   .hd-dd {
     display: none;
     position: absolute;
-    top: 67px; /* Nav-Zeilenhöhe */
+    top: 40px; /* Nav-Zeilenhöhe */
     left: 0;
     min-width: 220px;
     background: #fff;
@@ -650,7 +650,7 @@ const navItems = [
     });
 
     // Sticky einblenden wenn Original aus Viewport
-    var threshold = header.offsetHeight || 247;
+    var threshold = header.offsetHeight || 150;
     var ticking = false;
 
     function update() {
