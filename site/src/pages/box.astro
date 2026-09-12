@@ -1,0 +1,261 @@
+---
+// FAQ-Fakten vor Livegang von Andree Wilts freigeben lassen.
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Section      from '../components/Section.astro';
+import Button       from '../components/Button.astro';
+import Placeholder  from '../components/Placeholder.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// FAQ: eine Quelle für Sektion 8 und das FAQPage-JSON-LD
+const faq = [
+  { q: 'Wie komme ich in die Box?',
+    a: 'Karte oder Handy ans Lesegerät an der Tür halten, die Tür öffnet sich.' },
+  { q: 'Brauche ich eine App oder ein Konto?',
+    a: 'Nein. Es reicht eine EC- oder Kreditkarte oder Ihr Handy mit Apple Pay oder Google Pay.' },
+  { q: 'Kann ich bar bezahlen?',
+    a: 'Nein, die Box arbeitet ausschließlich kontaktlos.' },
+  { q: 'Wann ist die Box geöffnet?',
+    a: 'Rund um die Uhr, an sieben Tagen die Woche, auch an Feiertagen.' },
+  { q: 'Wie frisch sind die Produkte?',
+    a: 'Die Box wird täglich aus unserem Lager bestückt, aus dem auch Gastronomie und Hotels beliefert werden.' },
+  { q: 'Ist die Box barrierefrei?',
+    a: 'Ja. Eine vom Tischler gebaute Rampe führt stufenlos zur Tür.' },
+  { q: 'Was passiert bei Stromausfall?',
+    a: 'Ein Notöffner sorgt dafür, dass niemand in der Box eingeschlossen bleibt.' },
+  { q: 'Wird die Box überwacht?',
+    a: 'Ja, die Box ist videoüberwacht. Hinweise dazu finden Sie an der Tür und in unserer Datenschutzerklärung.' },
+  { q: 'Was, wenn meine Karte nicht funktioniert?',
+    a: 'Rufen Sie uns an unter 04934 91060, oder kommen Sie freitags in den Ladenverkauf, dann zeigen wir Ihnen die Box persönlich.' },
+  { q: 'Kann ich mir die Box zeigen lassen?',
+    a: 'Gern. Freitags von 8 bis 18 Uhr sind wir im Ladenverkauf nebenan und führen Sie ein.' },
+  { q: 'Ersetzt die Box den Laden oder den Markt?',
+    a: 'Nein. Die Box ergänzt Ladenverkauf und Wochenmarkt für die Zeiten, in denen beide geschlossen sind.' },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Wilts Box 24/7',
+    url: canonical,
+    telephone: '+49 4934 91060',
+    parentOrganization: { '@id': `${siteBase}#organization` },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Hansestraße 4',
+      postalCode: '26529',
+      addressLocality: 'Upgant-Schott',
+      addressCountry: 'DE',
+    },
+    openingHours: 'Mo-Su 00:00-24:00',
+    paymentAccepted: 'Credit Card, Debit Card, Apple Pay, Google Pay',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Wilts Box 24/7 | Rund um die Uhr einkaufen in Upgant-Schott | Albert Wilts"
+  description="24 Stunden einkaufen in Ostfriesland: Die Wilts Box 24/7 an der B72 in Upgant-Schott. Frische Eier, Hausgemachtes, Snacks und Getränke, kontaktlos mit Karte oder Handy. Immer geöffnet, auch sonntags."
+  jsonLd={jsonLd}
+>
+
+  <!-- 1) Hero: gruener Grund, zweispaltig ab 768px, rechts Logo-Flaeche -->
+  <section class="sub-hero sub-hero--box">
+    <div class="sub-hero-inside">
+      <div class="sub-hero-box-text">
+        <h1>Wilts Box 24/7</h1>
+        <p class="sub-hero-sub">Rund um die Uhr einkaufen in Upgant-Schott. Frisches und Hausgemachtes von Albert Wilts, kontaktlos mit Karte oder Handy, an 365 Tagen im Jahr.</p>
+        <div class="sub-hero-actions">
+          <Button href="#so-gehts" label="So funktioniert es" />
+          <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+        </div>
+      </div>
+      <div class="sub-hero-box-logo">
+        <!-- BOX-LOGO HIER -->
+        <Placeholder label="Box-Logo (setzt Manuel)" aspect="1/1" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) Trustbar -->
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">24 Stunden geöffnet</span>
+      <span class="sub-trustbar-item">Auch sonn- und feiertags</span>
+      <span class="sub-trustbar-item">Kontaktlos zahlen</span>
+      <span class="sub-trustbar-item">Keine App nötig</span>
+      <span class="sub-trustbar-item">Direkt an der B72</span>
+      <span class="sub-trustbar-item">Täglich frisch bestückt</span>
+    </div>
+  </section>
+
+  <!-- 3) Einleitung -->
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Einkaufen, wann es Ihnen passt</h2>
+      <p>Spätabends nach der Schicht, sonntags zum Frühstück oder auf dem Weg an die Küste: Die Wilts Box steht direkt an unserem Firmensitz und ist immer offen. Drinnen finden Sie eine Auswahl aus unserem Sortiment, gekühlt und frisch aus dem eigenen Lager.</p>
+      <p>Familie Wilts steht seit 1958 für Frische aus Tradition. Die Box ist unser Weg, diese Frische auch dann anzubieten, wenn Laden und Markt geschlossen sind.</p>
+    </div>
+  </Section>
+
+  <!-- 4) So funktioniert es -->
+  <Section bg="#F8F8F8" id="so-gehts">
+    <h2 class="sub-h2-center">So einfach geht es</h2>
+    <ol class="sub-steps">
+      <li class="sub-step">
+        <span class="sub-step-num" aria-hidden="true">1</span>
+        <h3>Tür öffnen</h3>
+        <p>Halten Sie Ihre Karte oder Ihr Handy an das Lesegerät neben der Tür. Die Tür entriegelt sich.</p>
+      </li>
+      <li class="sub-step">
+        <span class="sub-step-num" aria-hidden="true">2</span>
+        <h3>Aussuchen</h3>
+        <p>Nehmen Sie aus den gekühlten Fächern, was Sie brauchen. In Ruhe, ohne Zeitdruck.</p>
+      </li>
+      <li class="sub-step">
+        <span class="sub-step-num" aria-hidden="true">3</span>
+        <h3>Kontaktlos zahlen</h3>
+        <p>Karte oder Handy ans Terminal, fertig. Keine App, kein Guthaben, keine Anmeldung.</p>
+      </li>
+    </ol>
+  </Section>
+
+  <!-- 5) Sortiment -->
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Das finden Sie in der Box</h2>
+    <p class="sub-lead-center">Die Auswahl wechselt mit Saison und Nachfrage. Diese Bereiche sind immer dabei.</p>
+    <div class="sub-cards sub-cards--3">
+      <div class="sub-card">
+        <h3>Hausgemachtes</h3>
+        <p>Salate, marinierte Spezialitäten und Küchenfertiges aus unserer Manufaktur.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Frisches</h3>
+        <p>Eier aus der Region, Obst und Gemüse aus dem eigenen Lager.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Snacks</h3>
+        <p>Für unterwegs und zwischendurch.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Getränke</h3>
+        <p>Gekühlt, von Wasser bis Saft.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Kaffeespezialitäten</h3>
+        <p>Für den Start in den Tag oder die Pause auf der Fahrt.</p>
+      </div>
+      <div class="sub-card">
+        <h3>Haushalt und Drogerie</h3>
+        <p>Das Nötigste, wenn alle Geschäfte zu haben.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 6) Vertrauen -->
+  <Section bg="#F8F8F8">
+    <div class="sub-block">
+      <h2>Eine Box, dahinter eine Familie</h2>
+      <p>Hinter der Wilts Box steht kein anonymer Betreiber. Andree, Anke und Anita Wilts führen den Betrieb in dritter Generation und bestücken die Box aus demselben Lager, aus dem Gastronomie und Hotellerie in ganz Ostfriesland beliefert werden. Wer Fragen hat, erreicht uns freitags im Ladenverkauf nebenan oder telefonisch.</p>
+    </div>
+    <div class="sub-box-bild">
+      <Placeholder label="Platzhalter Bild: Wilts Box bei Nacht, beleuchtet (Querformat, echtes Foto)" aspect="16/9" />
+    </div>
+  </Section>
+
+  <!-- 7) Standort mit Consent-Karte (Muster aus ladenverkauf.astro) -->
+  <Section bg="#fff" id="anfahrt">
+    <h2 class="sub-h2-center">Standort und Anfahrt</h2>
+    <p class="sub-lead-center">Die Box steht am Firmensitz von Albert Wilts, direkt an der B72.</p>
+    <div class="sub-standort">
+      <div class="sub-standort-panel">
+        <div class="sub-standort-info">
+          <h3>Wilts Box 24/7</h3>
+          <div class="sub-standort-meta">
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Adresse</span><span class="sub-standort-meta-val">Hansestr. 4, 26529 Upgant-Schott</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Lage</span><span class="sub-standort-meta-val">Direkt an der B72, am Firmensitz</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Parken</span><span class="sub-standort-meta-val">Direkt vor der Box</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Geöffnet</span><span class="sub-standort-meta-val">Rund um die Uhr</span></div>
+          </div>
+          <p class="sub-standort-maplink"><a href="https://www.google.com/maps/search/?api=1&query=Albert+Wilts+Hansestra%C3%9Fe+4+Upgant-Schott" target="_blank" rel="noopener">Route planen ›</a></p>
+        </div>
+        <div class="sub-standort-map" id="box-map"></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const box = document.getElementById('box-map');
+        if (!box) return;
+        const QUERY = 'Albert Wilts Hansestraße 4 Upgant-Schott';
+        const render = () => {
+          const ok = window.awConsent && window.awConsent.get('maps');
+          if (ok) {
+            box.innerHTML = '';
+            const ifr = document.createElement('iframe');
+            ifr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(QUERY) + '&z=15&output=embed';
+            ifr.loading = 'lazy';
+            ifr.title = 'Karte: Wilts Box 24/7 in Upgant-Schott';
+            ifr.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            box.appendChild(ifr);
+          } else {
+            box.innerHTML = '<div class="sub-map-fallback"><p>Aufgrund Ihrer Cookie-Einstellung kann die Karte nicht geladen werden. Stimmen Sie der Kategorie Karten zu, um den Standort hier anzuzeigen.</p><button type="button" data-aw-consent-open>Cookie-Einstellungen anpassen</button></div>';
+          }
+        };
+        document.addEventListener('aw:consent-change', render);
+        render();
+      })();
+    </script>
+  </Section>
+
+  <!-- 8) FAQ -->
+  <Section bg="#F8F8F8" id="faq">
+    <h2 class="sub-h2-center">Häufige Fragen</h2>
+    <div class="sub-faq">
+      {faq.map((f) => (
+        <details class="sub-faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </Section>
+
+  <!-- 9) Cross-Teaser -->
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Lieber persönlich?</h2>
+        <p>Freitags öffnet unser Ladenverkauf direkt neben der Box, und auf den Wochenmärkten in Emden und auf Norderney treffen Sie Anke Wilts mit Schnack und Sortiment.</p>
+      </div>
+      <div class="sub-teaserband-actions">
+        <Button href="/ladenverkauf" label="Zum Ladenverkauf" />
+        <Button href="/wochenmarkt"  label="Zum Wochenmarkt" variant="link" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 10) CTA -->
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Die Box wartet auf Sie</h2>
+      <p>Hansestraße 4 in Upgant-Schott, direkt an der B72. Fahren Sie vorbei, wann immer es passt.</p>
+      <div class="sub-cta-actions">
+        <Button href="#anfahrt" label="Anfahrt planen" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
