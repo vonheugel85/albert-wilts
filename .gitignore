@@ -31,3 +31,6 @@ npm-debug.log*
 !.env.example
 env.local
 *.local
+
+# Claude Code (lokale Vorschau-Konfiguration)
+.claude/
