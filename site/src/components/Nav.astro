@@ -2,7 +2,7 @@
 /*
   Nav.astro – vollständige Überarbeitung nach probe-header.mjs (2026-06-19)
   Gemessene Werte (Live-Staging, 1280px VP):
-    Header gesamt:      247px auf Staging → D4: 150px (Emblem 96px in 110px-Zeile + Nav 40px)
+    Header gesamt:      247px auf Staging → jetzt ca. 205px (Emblem 166px + 2×16px Padding + Nav 40px)
     inside:             max-width 85%, padding 0 40px, margin 0 auto
     Logo-Zeile:         180px breit (auto Höhe ~144px), zentriert, padding ~19px oben/unten
     Nav-Zeile:          Höhe 65px
@@ -175,7 +175,7 @@ const navItems = [
           <img
             src="/logo/albert-wilts-logo.svg"
             alt="Albert Wilts"
-            style="width:96px; height:auto; display:block;"
+            style="width:166px; height:133px; display:block;"
           />
         </a>
       </div>
@@ -375,7 +375,7 @@ const navItems = [
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 110px;       /* D4: Emblem 96px + Luft, gesamt 110 + 40 = 150px */
+    padding: 16px 0;     /* Emblem 166×133 + 2×16 = 165px, gesamt mit Nav 205px */
   }
 
   /* ── Nav-Zeile ────────────────────────────────────────────────────── */
@@ -650,7 +650,7 @@ const navItems = [
     });
 
     // Sticky einblenden wenn Original aus Viewport
-    var threshold = header.offsetHeight || 150;
+    var threshold = header.offsetHeight || 205;
     var ticking = false;
 
     function update() {
