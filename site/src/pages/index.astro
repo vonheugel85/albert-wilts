@@ -10,6 +10,7 @@ import Section             from '../components/Section.astro';
 import Button              from '../components/Button.astro';
 import { pressebeitraege } from '../data/presse.js';
 import PresseCard from '../components/PresseCard.astro';
+import Rezensionen from '../components/Rezensionen.astro';
 
 // Drei neueste frei lesbare Beitraege
 const presseTeaser = [...pressebeitraege]
@@ -27,6 +28,11 @@ const presseTeaser = [...pressebeitraege]
 
   <!-- Sektion 2: Info-Leiste (grün, article-3) -->
   <InfoLeiste />
+
+  <!-- Sektion 2b: Google-Bewertungen (kuratiert, Slider, Unterseite /bewertungen) -->
+  <Section bg="#F8F8F8">
+    <Rezensionen profil="wilts" headline="Das sagen Kundinnen und Kunden über Albert Wilts" mehr={{ href: '/bewertungen', label: 'Alle Bewertungen ansehen' }} />
+  </Section>
 
   <!-- Sektion 3: Bereiche – Gewerbe & Privat (article-56) -->
   <BereicheSection />

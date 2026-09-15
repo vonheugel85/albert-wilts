@@ -4,6 +4,7 @@ import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
+import Rezensionen  from '../components/Rezensionen.astro';
 
 const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
 const canonical = new URL(Astro.url.pathname, siteBase).href;
@@ -82,8 +83,7 @@ const jsonLd = [
         </div>
       </div>
       <div class="sub-hero-box-logo">
-        <!-- BOX-LOGO HIER -->
-        <Placeholder label="Box-Logo (setzt Manuel)" aspect="1/1" />
+        <img src="/logo/RZ_AW_Logo_Wilts_Box.svg" alt="Wilts Box 24/7, Logo" width="640" height="640" loading="eager" decoding="sync" />
       </div>
     </div>
   </section>
@@ -99,6 +99,11 @@ const jsonLd = [
       <span class="sub-trustbar-item">Täglich frisch bestückt</span>
     </div>
   </section>
+
+  <!-- 2b) Google-Bewertungen (kuratiert, ohne Google-Script) -->
+  <Section bg="#fff">
+    <Rezensionen profil="box" headline="Das sagen Kundinnen und Kunden über die Box" />
+  </Section>
 
   <!-- 3) Einleitung -->
   <Section bg="#fff">

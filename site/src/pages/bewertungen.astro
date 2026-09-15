@@ -1,0 +1,56 @@
+---
+import BaseLayout    from '../layouts/BaseLayout.astro';
+import Section       from '../components/Section.astro';
+import Button        from '../components/Button.astro';
+import RezensionCard from '../components/RezensionCard.astro';
+import { profile, rezensionen } from '../data/rezensionen.js';
+
+const p = profile.wilts;
+const ratingLabel = p.rating.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const fullStars = Math.floor(p.rating);
+const halfStar = p.rating - fullStars >= 0.5;
+---
+
+<BaseLayout
+  title="Google-Bewertungen | Das sagen Kundinnen und Kunden | Albert Wilts"
+  description="Ausgewählte Google-Bewertungen zu Albert Wilts e. K. in Upgant-Schott: Wochenmarkt, Ladenverkauf, Frische und Service aus Sicht unserer Kundinnen und Kunden."
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Das sagen Kundinnen und Kunden</h1>
+      <p class="sub-hero-sub">Ausgewählte Google-Bewertungen zu Albert Wilts, vom Wochenmarkt bis zum Ladenverkauf. Wörtlich übernommen, Namen gekürzt.</p>
+      <div class="sub-hero-actions">
+        <a class="sub-rez-badge sub-rez-badge--hero" href={p.profilUrl} target="_blank" rel="noopener">
+          <span class="sub-rez-stars" role="img" aria-label={`${ratingLabel} von 5 Sternen`}>
+            {Array.from({ length: 5 }).map((_, i) => <span class:list={['sub-rez-star', { 'sub-rez-star--halb': halfStar && i === fullStars, 'sub-rez-star--leer': i > fullStars || (i === fullStars && !halfStar) }]} aria-hidden="true">★</span>)}
+          </span>
+          <span class="sub-rez-badge-text"><strong>{ratingLabel} von 5</strong> bei {p.count} Bewertungen auf Google</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-rez-grid">
+      {rezensionen.wilts.map((r) => <RezensionCard {...r} />)}
+    </div>
+    <div class="sub-rez-links" style="justify-content:center; margin-top:40px;">
+      <Button href={p.profilUrl} label="Alle Bewertungen auf Google" />
+      {p.bewertenUrl && <Button href={p.bewertenUrl} label="Bewertung schreiben" variant="link" />}
+    </div>
+  </Section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Überzeugen Sie sich selbst</h2>
+      <p>Freitags im Ladenverkauf in Upgant-Schott, mehrmals die Woche auf dem Wochenmarkt und rund um die Uhr in der Wilts Box 24/7.</p>
+      <div class="sub-cta-actions">
+        <Button href="/ladenverkauf" label="Zum Ladenverkauf" />
+        <Button href="/wochenmarkt" label="Zum Wochenmarkt" variant="link" />
+        <Button href="/box" label="Zur Wilts Box 24/7" variant="link" />
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

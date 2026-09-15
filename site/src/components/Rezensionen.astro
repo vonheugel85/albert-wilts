@@ -1,0 +1,132 @@
+---
+/*
+  Rezensionen.astro – kuratierte Google-Bewertungen als Karten-Slider.
+  Daten aus src/data/rezensionen.js (zwei Profile: 'wilts', 'box'). Kein Google-Script.
+  Props:
+    profil   – 'wilts' (Default) oder 'box'
+    headline – H2-Text
+    limit    – Anzahl Karten im Slider (Default: alle)
+    mehr     – optionaler interner Link unter dem Slider ({ href, label }),
+               sonst externer Link auf das Google-Profil
+  Verhalten: Endlos-Lauf. Die Karten sind zweimal gerendert (zweite Kopie aria-hidden),
+  ein requestAnimationFrame-Loop schiebt den Track gleichmaessig nach links und setzt
+  beim Erreichen der Haelfte unsichtbar zurueck. Laeuft nur im Viewport, pausiert bei
+  Hover, Fokus und Touch, steht still bei prefers-reduced-motion (dann Pfeile/Wischen).
+  Styles: .sub-rez-* in subpages.css.
+*/
+import RezensionCard from './RezensionCard.astro';
+import { profile, rezensionen } from '../data/rezensionen.js';
+
+interface Props {
+  profil?: 'wilts' | 'box';
+  headline?: string;
+  limit?: number;
+  mehr?: { href: string; label: string };
+}
+
+const { profil = 'wilts', headline = `Das sagen Kundinnen und Kunden über ${profile[profil].name}`, limit, mehr } = Astro.props;
+const p = profile[profil];
+const items = limit ? rezensionen[profil].slice(0, limit) : rezensionen[profil];
+
+const ratingLabel = p.rating.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const fullStars = Math.floor(p.rating);
+const halfStar = p.rating - fullStars >= 0.5;
+---
+
+<div class="sub-rez">
+  <div class="sub-rez-head">
+    <div>
+      <p class="sub-rez-eyebrow">Google-Bewertungen</p>
+      <h2>{headline}</h2>
+    </div>
+    <a class="sub-rez-badge" href={p.profilUrl} target="_blank" rel="noopener">
+      <span class="sub-rez-stars" role="img" aria-label={`${ratingLabel} von 5 Sternen`}>
+        {Array.from({ length: 5 }).map((_, i) => <span class:list={['sub-rez-star', { 'sub-rez-star--halb': halfStar && i === fullStars, 'sub-rez-star--leer': i > fullStars || (i === fullStars && !halfStar) }]} aria-hidden="true">★</span>)}
+      </span>
+      <span class="sub-rez-badge-text"><strong>{ratingLabel} von 5</strong> bei {p.count} Bewertungen auf Google</span>
+    </a>
+  </div>
+
+  <div class="sub-rez-slider" data-rez-slider>
+    <button class="sub-rez-nav" type="button" aria-label="Vorherige Bewertungen" data-rez-prev><span aria-hidden="true">‹</span></button>
+    <div class="sub-rez-track" role="group" aria-label="Google-Bewertungen" tabindex="0" data-rez-track>
+      {items.map((r) => <RezensionCard {...r} />)}
+      {items.map((r) => <div class="sub-rez-dup" aria-hidden="true"><RezensionCard {...r} /></div>)}
+    </div>
+    <button class="sub-rez-nav" type="button" aria-label="Weitere Bewertungen" data-rez-next><span aria-hidden="true">›</span></button>
+  </div>
+
+  <div class="sub-rez-links">
+    {mehr ? (
+      <a class="btn-link" href={mehr.href}><span class="btn-link-label">{mehr.label}</span> <span class="btn-link-arrow" aria-hidden="true">›</span></a>
+    ) : (
+      <a class="btn-link" href={p.profilUrl} target="_blank" rel="noopener"><span class="btn-link-label">Alle Bewertungen auf Google ansehen</span> <span class="btn-link-arrow" aria-hidden="true">›</span></a>
+    )}
+    {p.bewertenUrl && (
+      <a class="btn-link" href={p.bewertenUrl} target="_blank" rel="noopener"><span class="btn-link-label">Bewertung schreiben</span> <span class="btn-link-arrow" aria-hidden="true">›</span></a>
+    )}
+  </div>
+</div>
+
+<script>
+  const SPEED = 28; // Pixel pro Sekunde
+
+  document.querySelectorAll<HTMLElement>('[data-rez-slider]').forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>('[data-rez-track]');
+    const prev = slider.querySelector<HTMLButtonElement>('[data-rez-prev]');
+    const next = slider.querySelector<HTMLButtonElement>('[data-rez-next]');
+    if (!track || !prev || !next) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const half = () => track.scrollWidth / 2; // Breite einer Kopie inkl. Luecken
+
+    // Endlos: Position immer in der ersten Kopie halten (beide Richtungen)
+    const wrap = () => {
+      const h = half();
+      if (h <= 0) return;
+      if (track.scrollLeft >= h) track.scrollLeft -= h;
+      else if (track.scrollLeft <= 0 && track.dataset.moved === '1') track.scrollLeft += h;
+    };
+
+    // Pfeile: eine Kartenbreite plus Luecke
+    const step = () => {
+      const card = track.querySelector<HTMLElement>('.sub-rez-card');
+      return card ? card.getBoundingClientRect().width + 24 : 300;
+    };
+    prev.addEventListener('click', () => { track.dataset.moved = '1'; track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', () => { track.dataset.moved = '1'; track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', wrap, { passive: true });
+
+    if (reduced) { slider.classList.add('is-reduced'); return; }
+
+    // Sanfter Endlos-Lauf, nur im Viewport, Pause bei Hover/Fokus/Touch
+    let visible = false, paused = false, raf = 0, last = 0, carry = 0;
+    const tick = (now: number) => {
+      raf = 0;
+      if (!visible || paused) return;
+      const dt = last ? Math.min(now - last, 100) : 0;
+      last = now;
+      carry += (SPEED * dt) / 1000;
+      const px = Math.floor(carry);
+      if (px >= 1) { track.scrollLeft += px; carry -= px; track.dataset.moved = '1'; wrap(); }
+      raf = requestAnimationFrame(tick);
+    };
+    const run = () => { if (!raf && visible && !paused) { last = 0; raf = requestAnimationFrame(tick); } };
+    const stop = () => { if (raf) cancelAnimationFrame(raf); raf = 0; };
+
+    new IntersectionObserver((entries) => {
+      visible = entries.some((e) => e.isIntersecting);
+      visible ? run() : stop();
+    }, { threshold: 0.15 }).observe(slider);
+
+    const pause = () => { paused = true; stop(); };
+    const resume = () => { paused = false; run(); };
+    slider.addEventListener('mouseenter', pause);
+    slider.addEventListener('mouseleave', resume);
+    slider.addEventListener('focusin', pause);
+    slider.addEventListener('focusout', resume);
+    track.addEventListener('touchstart', pause, { passive: true });
+    track.addEventListener('touchend', () => setTimeout(resume, 1500), { passive: true });
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
+  });
+</script>
