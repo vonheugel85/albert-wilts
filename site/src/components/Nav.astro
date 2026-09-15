@@ -2,7 +2,7 @@
 /*
   Nav.astro – vollständige Überarbeitung nach probe-header.mjs (2026-06-19)
   Gemessene Werte (Live-Staging, 1280px VP):
-    Header gesamt:      247px auf Staging → jetzt ca. 205px (Emblem 166px + 2×16px Padding + Nav 40px)
+    Header gesamt:      247px auf Staging → jetzt ca. 215px (Emblem 166px + 2×16px Padding + Nav 50px)
     inside:             max-width 85%, padding 0 40px, margin 0 auto
     Logo-Zeile:         180px breit (auto Höhe ~144px), zentriert, padding ~19px oben/unten
     Nav-Zeile:          Höhe 65px
@@ -376,7 +376,7 @@ const navItems = [
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px 0;     /* Emblem 166×133 + 2×16 = 165px, gesamt mit Nav 205px */
+    padding: 16px 0;     /* Emblem 166×133 + 2×16 = 165px, gesamt mit Nav 50px = 215px */
   }
 
   /* ── Nav-Zeile ────────────────────────────────────────────────────── */
@@ -412,8 +412,8 @@ const navItems = [
     font-size: 18px; /* gemessen: span_fontSize 18px auf Staging (Contao setzt 16px am <a>, 18px am inneren <span>) */
     font-weight: 400;
     color: #696969;
-    padding: 0 17.5px; /* gemessen: Abstand zw. Items ~35px → 17.5px je Seite */
-    line-height: 40px; /* D4: Nav-Zeile 40px */
+    padding: 0 30px; /* Abstand zw. Items 60px (vorher 35px, +25px), 30px je Seite */
+    line-height: 50px; /* Nav-Zeile 50px (vorher 40px, D4): mehr Luft, CTA bleibt Reiter auf der Kante */
     white-space: nowrap;
     text-decoration: none;
     transition: color 0.15s;
@@ -435,8 +435,8 @@ const navItems = [
     font-size: 18px; /* Staging: span_fontSize 18px, identisch mit hd-l1 */
     font-weight: 400;
     padding: 0 15px;
-    line-height: 40px; /* identisch mit hd-l1 */
-    border-radius: 4px 4px 0 0;
+    line-height: 50px; /* identisch mit hd-l1 */
+    border-radius: 4px 4px 0 0; /* Reiter, liegt auf der Header-Unterkante auf */
     white-space: nowrap;
     text-decoration: none;
     transition: background 0.15s;
@@ -450,7 +450,7 @@ const navItems = [
   .hd-dd {
     display: none;
     position: absolute;
-    top: 40px; /* Nav-Zeilenhöhe */
+    top: 50px; /* Nav-Zeilenhöhe */
     left: 0;
     min-width: 220px;
     background: #fff;
@@ -651,7 +651,7 @@ const navItems = [
     });
 
     // Sticky einblenden wenn Original aus Viewport
-    var threshold = header.offsetHeight || 205;
+    var threshold = header.offsetHeight || 215;
     var ticking = false;
 
     function update() {
