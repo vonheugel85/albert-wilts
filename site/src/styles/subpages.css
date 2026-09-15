@@ -853,6 +853,7 @@
     color: #4F7146;
     font-weight: 700;
   }
+  .sub-hero--box { padding: 56px 0; } /* mobil kompakter, oben und unten gleich */
   .sub-hero--box .sub-hero-inside { grid-template-columns: 1fr; gap: 32px; }
   .sub-hero-box-logo { order: -1; justify-self: start; max-width: 220px; } /* mobil über dem Text */
   .sub-steps { grid-template-columns: 1fr; gap: 28px; }
