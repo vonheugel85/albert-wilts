@@ -1,0 +1,8 @@
+# Coolify baut mit Nixpacks. Der Default-Start waere `npx serve -s dist`. Das `-s`-Flag
+# aktiviert den SPA-Fallback: jeder unbekannte Pfad liefert die Root-index.html, die
+# Astro-MPA-Unterverzeichnisse (/presse/, /box/ ...) sind damit nie erreichbar und
+# tragen alle denselben ETag. Auslieferung deshalb ueber den eigenen, abhaengigkeits-
+# freien Node-Server (server.mjs): www-Redirect nur fuer die Live-Domain, Trailing-
+# Slash-Redirects, Cache-Header, ETag/304, 404.
+[start]
+cmd = "node server.mjs"
