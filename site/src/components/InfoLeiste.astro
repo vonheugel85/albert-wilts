@@ -1,7 +1,7 @@
 ---
 /*
   InfoLeiste.astro – Sektion 2 der Startseite (article-3 Entsprechung).
-  Fullwidth, gruen (#4F7146), vier gleich breite Spalten (992px+), 2 Spalten Tablet, 1 mobil.
+  Fullwidth, gruen (#4F7146), drei gleich breite Spalten.
   Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Arimo, weiss),
   kleiner oranger Button "Mehr Informationen".
   Keine Props, Inhalt fix.
@@ -23,13 +23,6 @@ const cols = [
     title:   ['Ladenverkauf', 'Upgant-Schott'],
     lines:   ['Immer Freitags', '08.00 - 18.00 Uhr'],
     href:    '/ladenverkauf',
-  },
-  {
-    iconSrc: '/icons/wilts-box_weiss.svg',
-    iconAlt: '',
-    title:   ['Wilts Box', '24/7'],
-    lines:   ['Immer geöffnet', 'Kontaktlos zahlen'],
-    href:    '/box',
   },
   {
     iconSrc: '/icons/aktuelle-angebote_weiss.svg',
@@ -75,7 +68,7 @@ const cols = [
     padding: 0 24px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 40px;
   }
 
@@ -133,10 +126,7 @@ const cols = [
     margin: 0;
   }
 
-  /* ── Responsive: 4 Spalten ab 992px, 2 Spalten 768 bis 992px, mobil 1 ── */
-  @media (min-width: 769px) and (max-width: 991px) {
-    .il-inside { grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
-  }
+  /* ── Responsive ── */
   @media (max-width: 768px) {
     .il-inside {
       max-width: 100%;
