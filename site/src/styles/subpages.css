@@ -833,6 +833,26 @@
   .sub-cta-inside,
   .sub-trustbar-inside,
   .sub-midcta-inside { max-width: 100%; padding: 0 20px; }
+  /* Trustbar mobil: zwei Spalten mit Häkchen statt frei umbrechender Zeile mit Trennstrichen */
+  .sub-trustbar { padding: 18px 0; }
+  .sub-trustbar-inside { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; justify-content: start; }
+  .sub-trustbar-item {
+    position: relative;
+    padding: 0 0 0 22px;
+    border-right: 0;
+    white-space: normal;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .sub-trustbar-item::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #4F7146;
+    font-weight: 700;
+  }
   .sub-hero--box .sub-hero-inside { grid-template-columns: 1fr; gap: 32px; }
   .sub-hero-box-logo { order: -1; justify-self: start; max-width: 220px; } /* mobil über dem Text */
   .sub-steps { grid-template-columns: 1fr; gap: 28px; }
