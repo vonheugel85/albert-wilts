@@ -3,7 +3,7 @@
   InfoLeiste.astro – Sektion 2 der Startseite (article-3 Entsprechung).
   Fullwidth, gruen (#4F7146), drei gleich breite Spalten.
   Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Arimo, weiss),
-  kleiner oranger Button "Mehr Informationen".
+  oranger Button "Mehr Informationen" (B4 hatte weissen Textlink, seit N5 wieder Button).
   Keine Props, Inhalt fix.
 */
 
@@ -46,7 +46,7 @@ const cols = [
           {col.lines.map((line) => (
             <p class="il-line">{line}</p>
           ))}
-          <Button href={col.href} label="Mehr Informationen" variant="link" class="btn-link--white il-link" />
+          <Button href={col.href} label="Mehr Informationen" class="il-link" />
         </div>
       </div>
     ))}
@@ -99,6 +99,7 @@ const cols = [
     gap: 4px;
     min-width: 0;
     flex: 1;
+    align-self: stretch; /* volle Spaltenhoehe, damit margin-top:auto den Button unten buendig setzt */
   }
   .il-text :global(.il-link) { margin-top: auto; padding-top: 12px; }
 
@@ -138,6 +139,10 @@ const cols = [
       flex-direction: column;
       align-items: center;
       text-align: center;
+    }
+    .il-text {
+      align-self: auto;
+      align-items: center; /* mobil zentriert wie das Icon */
     }
   }
 </style>
