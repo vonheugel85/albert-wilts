@@ -814,6 +814,33 @@
   .sub-rez-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ── Herstellerlinks (Sortimentsseite): klein, gruen, dezenter External-Pfeil ── */
+.sub-brandlinks {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #7F7F7F;
+  margin: 14px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: baseline;
+}
+.sub-brandlink {
+  color: #4F7146;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.sub-brandlink::after {
+  content: '\2197';
+  font-size: 11px;
+  margin-left: 3px;
+  opacity: 0.7;
+}
+.sub-brandlink:hover { text-decoration: underline; }
+.sub-card .sub-brandlinks { margin-top: 12px; }
+
 @media (max-width: 768px) {
   .sub-cards, .sub-cards--3 { grid-template-columns: 1fr; }
   .sub-featcols { grid-template-columns: 1fr; }
@@ -862,4 +889,5 @@
   .sub-rez-grid { grid-template-columns: 1fr; }
   .sub-rez-nav { display: none; }
   .sub-rez-badge { white-space: normal; }
+  .sub-brandlinks { font-size: 13px; gap: 2px 12px; }
 }
