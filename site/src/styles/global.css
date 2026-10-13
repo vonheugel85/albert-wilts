@@ -38,18 +38,18 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 @import "tailwindcss";
 
-/* Webfonts selbst gehostet (R4), kein CDN */
+/* Webfonts selbst gehostet (R4), kein CDN. Caladea fuer Headlines, IBM Plex Sans fuer Fliesstext (T2). */
 @font-face { font-family: 'Caladea'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/caladea-latin-400-normal.woff2') format('woff2'); }
 @font-face { font-family: 'Caladea'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/caladea-latin-400-italic.woff2') format('woff2'); }
 @font-face { font-family: 'Caladea'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/caladea-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Arimo';   font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/arimo-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Arimo';   font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/arimo-latin-400-italic.woff2') format('woff2'); }
-@font-face { font-family: 'Arimo';   font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/arimo-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/ibm-plex-sans-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/ibm-plex-sans-latin-700-normal.woff2') format('woff2'); }
 
 
 @theme {
   /* Schriften ---------------------------------------------------------------- */
-  --font-sans:    'Arimo', Arial, Helvetica, sans-serif;
+  --font-sans:    'IBM Plex Sans', Arial, Helvetica, sans-serif; /* seit T2 (2026-10-13) Plex statt Arimo, Entscheidung Manuel nach Schriftvergleich */
   --font-display: 'Caladea', Cambria, Georgia, serif;
 
   /* Neutrale Tokens ---------------------------------------------------------- */
@@ -117,12 +117,15 @@ html, body { overflow-x: hidden; max-width: 100%; }
     line-height: 28px;
   }
 
-  /* ── Typo-Hierarchie (verbindlich) ── */
+  /* ── Typo-Hierarchie (verbindlich, T3 2026-10-13): acht Rollen, jede Rolle genau eine Groesse ──
+     H1 Caladea 44/52 · H2 Caladea 38/49 · H3 Caladea 22/29 (alle Karten, Titel, Labels in Listen)
+     Lead Plex 18/27 · Body Plex 17/28 · Meta Plex 15/24 · Label Plex 13/20 700 Versalien · Link Plex 17/28 700
+     Einzige Ausnahmen: Hero-Subline 20/30 (Entscheidung Manuel), Navigation 18, Cresco-Textlogo 30. */
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 44px;
-    line-height: 53px;
+    line-height: 52px;
     color: #3B3C42;
     margin: 0 0 20px 0;
   }
@@ -139,8 +142,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 30px;
-    line-height: 39px;
+    font-size: 22px;
+    line-height: 29px;
     color: #3B3C42;
     margin: 0 0 12px 0;
   }

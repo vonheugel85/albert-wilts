@@ -2,7 +2,7 @@
 /*
   InfoLeiste.astro – Sektion 2 der Startseite (article-3 Entsprechung).
   Fullwidth, gruen (#4F7146), drei gleich breite Spalten.
-  Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Arimo, weiss),
+  Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Plex (bis T2 Arimo), weiss),
   oranger Button "Mehr Informationen" (B4 hatte weissen Textlink, seit N5 wieder Button).
   Keine Props, Inhalt fix.
 */
@@ -108,7 +108,7 @@ const cols = [
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 22px;
-    line-height: 26px;
+    line-height: 29px;
     color: #fff;
     margin: 0 0 4px 0;
   }
@@ -116,13 +116,14 @@ const cols = [
   .il-title-line {
     display: block;
     font-size: 22px;
-}
+    line-height: 29px;
+  }
 
-  /* ── Info-Zeilen: Arimo, weiss ── */
+  /* ── Info-Zeilen: Plex (bis T2 Arimo), weiss ── */
   .il-line {
     font-family: var(--font-sans);
-    font-size: 18px;
-    line-height: 27px;
+    font-size: 17px;
+    line-height: 28px;
     color: rgba(255, 255, 255, 0.9);
     margin: 0;
   }

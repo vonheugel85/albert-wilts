@@ -39,7 +39,7 @@ freigegebenen Contao-Entwurf und dem Marken-Sheet extrahiert. Punkte mit
 ## Schriften
 
 - **Headlines:** Caladea (700) — metrisch kompatibel zu Cambria
-- **Fließtext:** Arimo (400 / 500 / 700, plus italic) — metrisch kompatibel zu Arial
+- **Fließtext:** IBM Plex Sans (400 / 700, plus 400 italic). Bis 13.10.2026 Arimo (Arial-Metrik); Wechsel nach Schriftvergleich, weil Arimo bei DPR 1 zu schwer wirkte.
 - Lokal via `@fontsource`, keine Google-CDN (DSGVO). Im Build bereits so umgesetzt.
 
 ## Seiten

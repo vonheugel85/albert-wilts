@@ -54,15 +54,15 @@ const marktzeiten = [
 
       <!--
         Spalte 1: Kontakt
-        Spaltentitel: Arimo 400 22.5px weiß (Quelle: computed font-family + font-size + font-weight).
-        Fliesstext: Arimo 18px / 27px rgba(255,255,255,0.6) (Quelle: computed).
+        Spaltentitel: Plex (bis T2 Arimo) 400 22.5px weiß (Quelle: computed font-family + font-size + font-weight).
+        Fliesstext: Plex (bis T2 Arimo) 18px / 27px rgba(255,255,255,0.6) (Quelle: computed).
         Drei distinkte Icons: Telefon (fa-phone), Fax (fa-fax), E-Mail (fa-envelope) als Inline-SVG.
       -->
       <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
-        <div class="footer-coltitle" style="font-family: var(--font-sans); font-weight:400; font-size:22.5px; line-height: 34px; color:#fff; margin-bottom:20px;">
+        <div class="footer-coltitle" style="font-family: var(--font-display); font-weight:400; font-size:22px; line-height:29px; color:#fff; margin-bottom:20px;">
           Kontakt
         </div>
-        <div style="font-family: var(--font-sans); font-size:18px; line-height:27px; color:rgba(255,255,255,0.6);">
+        <div style="font-family: var(--font-sans); font-size:17px; line-height:28px; color:rgba(255,255,255,0.6);">
           <p style="margin:0 0 4px;">Albert Wilts e.K.</p>
           <p style="margin:0 0 4px;">Hansestr. 4</p>
           <p style="margin:0 0 12px;">26529 Upgant-Schott</p>
@@ -108,10 +108,10 @@ const marktzeiten = [
         Bindestrich im Uhrzeitbereich (kein En-Dash), Inhalt exakt wie Staging.
       -->
       <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
-        <div class="footer-coltitle" style="font-family: var(--font-sans); font-weight:400; font-size:22.5px; line-height: 34px; color:#fff; margin-bottom:20px;">
+        <div class="footer-coltitle" style="font-family: var(--font-display); font-weight:400; font-size:22px; line-height:29px; color:#fff; margin-bottom:20px;">
           Ladenverkauf
         </div>
-        <div style="font-family: var(--font-sans); font-size:18px; line-height:27px; color:rgba(255,255,255,0.6);">
+        <div style="font-family: var(--font-sans); font-size:17px; line-height:28px; color:rgba(255,255,255,0.6);">
           <p style="margin:0 0 4px;"><strong style="font-weight:700; color:rgba(255,255,255,0.6);">Wann:</strong></p>
           <p style="margin:0 0 4px;">Jeden Freitag</p>
           <p style="margin:0 0 4px;">08.00 - 18.00 Uhr</p>
@@ -130,10 +130,10 @@ const marktzeiten = [
         Erste Zeile pt=0, letzte Zeile kein border-bottom.
       -->
       <div style="flex: 1 1 200px; padding:0 15px; box-sizing:border-box;">
-        <div class="footer-coltitle" style="font-family: var(--font-sans); font-weight:400; font-size:22.5px; line-height: 34px; color:#fff; margin-bottom:20px;">
+        <div class="footer-coltitle" style="font-family: var(--font-display); font-weight:400; font-size:22px; line-height:29px; color:#fff; margin-bottom:20px;">
           Wochenmarkt
         </div>
-        <table class="footer-markttabelle" style="width:100%; border-collapse:collapse; font-size:18px; font-family: var(--font-sans);">
+        <table class="footer-markttabelle" style="width:100%; border-collapse:collapse; font-size:17px; line-height:28px; font-family: var(--font-sans);">
           <tbody>
             {marktzeiten.map((m, i) => (
               <tr>
