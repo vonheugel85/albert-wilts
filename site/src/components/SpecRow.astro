@@ -1,0 +1,17 @@
+---
+/*
+  SpecRow.astro – eine Sortimentszeile auf den Warengruppen-Seiten:
+  Label links (Caladea), Einzelposten rechts als Fliesstext mit Mittelpunkt getrennt.
+  Props wie ChipRow: label, items. Styles: .sub-spec* in subpages.css.
+*/
+interface Props {
+  label: string;
+  items: string[];
+}
+const { label, items } = Astro.props;
+---
+
+<div class="sub-spec">
+  <p class="sub-spec-label">{label}</p>
+  <p class="sub-spec-items">{items.map((it, i) => <>{i > 0 && <span class="sub-spec-sep" aria-hidden="true"> · </span>}<span>{it}</span></>)}</p>
+</div>

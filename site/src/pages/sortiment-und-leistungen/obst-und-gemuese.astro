@@ -1,0 +1,87 @@
+---
+import BaseLayout   from '../../layouts/BaseLayout.astro';
+import Section      from '../../components/Section.astro';
+import Button       from '../../components/Button.astro';
+import SpecRow      from '../../components/SpecRow.astro';
+import HighlightBox from '../../components/HighlightBox.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// BreadcrumbList: Startseite > Sortiment und Leistungen > diese Seite
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteBase.href },
+    { '@type': 'ListItem', position: 2, name: 'Sortiment und Leistungen', item: new URL('/sortiment-und-leistungen/', siteBase).href },
+    { '@type': 'ListItem', position: 3, name: "Obst und Gemüse", item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title="Obst und Gemüse für die Gastronomie | Großhandel Ostfriesland | Albert Wilts"
+  description="Kartoffeln aus der Leybucht, über 20 Tomatensorten, Saisonware und Exoten. Albert Wilts liefert Obst und Gemüse an sechs Tagen die Woche in ganz Ostfriesland."
+  jsonLd={jsonLd}
+>
+
+  {/* BILDPLATZ: Gemüselager oder Warenannahme, Querformat */}
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Obst und Gemüse</h1>
+      <p class="sub-hero-sub">Von der Kiste Leybucht-Kartoffeln bis zur Flugananas. An sechs Tagen die Woche frisch geliefert.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Das Herzstück unseres Betriebs</h2>
+      <p>Angefangen hat alles mit Eiern, gewachsen sind wir mit Obst und Gemüse. Wir kaufen bevorzugt bei langjährigen Partnern aus der Region ein und ergänzen um internationale Ware, wo die Saison es verlangt. Entscheidend ist für uns dabei weniger der Katalog als die Frage, was heute wirklich gut ist.</p>
+      <p>Deshalb lohnt sich der Anruf: Sagen Sie uns, was auf die Karte soll, und wir sagen Ihnen, was gerade dafür spricht.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Was wir liefern</h2>
+    <div class="sub-specs">
+      <SpecRow label="Aus der Region" items={['Kartoffeln aus der Leybucht', 'Kohlsorten', 'Spargel in der Saison', 'Beeren']} />
+      <SpecRow label="Tomaten" items={['Über 20 Sorten', 'Cherry und Rispe', 'Fleischtomaten', 'Mini-Sorten']} />
+      <SpecRow label="Das ganze Jahr" items={['Salate', 'Zitrusfrüchte', 'Wurzelgemüse', 'Zwiebeln']} />
+      <SpecRow label="Besonderes" items={['Flugananas', 'Chili und Paprika', 'Exoten auf Anfrage']} />
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Frische ist eine Frage der Wege</h2>
+      <p>Kurze Wege sind der eigentliche Qualitätsfaktor. Unsere Lkw sind an sechs Tagen in Ostfriesland unterwegs, auf dem Festland und auf den Inseln. Ware, die morgens im Lager steht, ist am selben Tag bei Ihnen in der Küche, und zwar in dem Zustand, in dem sie angekommen ist.</p>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Das ganze Sortiment</h2>
+        <p>Acht Warengruppen liefern wir aus einer Hand, von Eiern über Kartoffeln bis zu küchenfertig vorbereiteter Ware.</p>
+      </div>
+      <Button href="/sortiment-und-leistungen" label="Zur Sortimentsübersicht" />
+    </div>
+  </section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Sagen Sie uns, was Sie brauchen</h2>
+      <p>Wir stellen Ihre Lieferung zusammen, saisonal angepasst und in den Mengen, die zu Ihrem Betrieb passen.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Sortimentsliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

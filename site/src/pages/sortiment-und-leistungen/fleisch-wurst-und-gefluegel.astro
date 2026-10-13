@@ -1,0 +1,110 @@
+---
+import BaseLayout   from '../../layouts/BaseLayout.astro';
+import Section      from '../../components/Section.astro';
+import Button       from '../../components/Button.astro';
+import SpecRow      from '../../components/SpecRow.astro';
+import HighlightBox from '../../components/HighlightBox.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// BreadcrumbList: Startseite > Sortiment und Leistungen > diese Seite
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteBase.href },
+    { '@type': 'ListItem', position: 2, name: 'Sortiment und Leistungen', item: new URL('/sortiment-und-leistungen/', siteBase).href },
+    { '@type': 'ListItem', position: 3, name: "Fleisch, Wurst und Geflügel", item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title="Fleisch, Geflügel und Wild für die Gastronomie | Großhandel | Albert Wilts"
+  description="Kikok Maishähnchen, Südoldenburger Ente und Gans, Wild aus heimischen Forsten und Norderneyer Seeluftschinken. Albert Wilts liefert Fleisch in Metzgerqualität."
+  jsonLd={jsonLd}
+>
+
+  {/* BILDPLATZ: Kühlraum oder Fleischtheke, Querformat */}
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Fleisch, Wurst und Geflügel</h1>
+      <p class="sub-hero-sub">Qualität, die man am Ergebnis merkt. Mit Marken, die Ihre Gäste wiedererkennen.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Qualität entsteht vor der Küche</h2>
+      <p>Bei Fleisch entscheidet sich die Qualität lange bevor die Pfanne heiß wird: bei der Fütterung, bei der Haltung und bei der Verarbeitung. Deshalb arbeiten wir mit Betrieben, die darüber Auskunft geben können, und nicht mit der nächstbesten Lieferung.</p>
+      <p>Geliefert wird in den Zuschnitten, die Sie brauchen, portioniert oder am Stück, auf Wunsch küchenfertig vorbereitet.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Was wir liefern</h2>
+    <div class="sub-specs">
+      <SpecRow label="Rind und Schwein" items={['Diverse Zuschnitte', 'Portioniert oder am Stück', 'Küchenfertig gewürzt auf Wunsch']} />
+      <SpecRow label="Geflügel" items={['Kikok Maishähnchen', 'Hähnchen und Pute', 'Ente und Gans', 'Hähnchen-Gyros']} />
+      <SpecRow label="Wild" items={['Aus heimischen Forsten', 'Saisonal verfügbar']} />
+      <SpecRow label="Wurst und Schinken" items={['Aufschnitt', 'Wurstspezialitäten', 'Norderneyer Seeluftschinken']} />
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <HighlightBox badge="Saison" title="Gans und Ente rechtzeitig planen">
+      Zwischen Martinstag und Weihnachten ist Gänsesaison, und in dieser Zeit ist die Ware knapp. Wer früh disponiert, bekommt die Gewichtsklasse, die er braucht. Sprechen Sie uns im Spätsommer an, dann planen wir gemeinsam.
+    </HighlightBox>
+  </Section>
+
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Mit wem wir arbeiten</h2>
+    <div class="sub-brands">
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/kikok.png" alt="Kikok" loading="lazy" /></div>
+        <h3>Kikok</h3>
+        <p>Kikok, das ganz besondere Maishähnchen. Mindestens die Hälfte des Futters ist Mais, daher die goldgelbe Haut, die man auf dem Teller sofort sieht. Die Tiere wachsen deutlich langsamer als üblich und stehen weniger dicht, als es die Vorschrift verlangt. Beides schmeckt man.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://kikok.de/" target="_blank" rel="noopener noreferrer">Zur Website von Kikok</a></p>
+      </div>
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/gefluegelhof-nobis.svg" alt="Geflügelhof Nobis" loading="lazy" /></div>
+        <h3>Geflügelhof Nobis</h3>
+        <p>Südoldenburger Ente und Gans aus Bakum, ein Familienbetrieb in vierter Generation. Dort wird trocken gerupft, also ohne Brühwasser und ohne Dampf. Die Oberhaut bleibt dadurch intakt, und genau das merken Sie beim Braten an der Kruste.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://gefluegelhof-nobis.de/" target="_blank" rel="noopener noreferrer">Zur Website von Geflügelhof Nobis</a></p>
+      </div>
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/norderneyer-seeluftschinken.png" alt="Norderneyer Seeluftschinken" loading="lazy" /></div>
+        <h3>Norderneyer Seeluftschinken</h3>
+        <p>Von Hand mit Meersalz gesalzen und auf Norderney in der Nordseeluft gereift. Ein Rohschinken, der als Vorspeise, auf Brot oder zu Spargel und Melone funktioniert. Im Großhandel bekommen Sie ihn am Stück oder geschnitten, im Ladenverkauf aufgeschnitten.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.norderneyer-seeluftschinken.de/" target="_blank" rel="noopener noreferrer">Zur Website von Norderneyer Seeluftschinken</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Das ganze Sortiment</h2>
+        <p>Acht Warengruppen liefern wir aus einer Hand, von Eiern über Kartoffeln bis zu küchenfertig vorbereiteter Ware.</p>
+      </div>
+      <Button href="/sortiment-und-leistungen" label="Zur Sortimentsübersicht" />
+    </div>
+  </section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Wir schneiden, wie Sie es brauchen</h2>
+      <p>Sagen Sie uns Gewicht, Zuschnitt und Liefertag, dann stellen wir Ihre Fleischbestellung passend zusammen.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Sortimentsliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

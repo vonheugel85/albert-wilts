@@ -1,0 +1,110 @@
+---
+import BaseLayout   from '../../layouts/BaseLayout.astro';
+import Section      from '../../components/Section.astro';
+import Button       from '../../components/Button.astro';
+import SpecRow      from '../../components/SpecRow.astro';
+import HighlightBox from '../../components/HighlightBox.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// BreadcrumbList: Startseite > Sortiment und Leistungen > diese Seite
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteBase.href },
+    { '@type': 'ListItem', position: 2, name: 'Sortiment und Leistungen', item: new URL('/sortiment-und-leistungen/', siteBase).href },
+    { '@type': 'ListItem', position: 3, name: "Säfte und Fruchtpürees", item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title="Frisch gepresste Säfte und Fruchtpürees für die Gastronomie | Albert Wilts"
+  description="Frisch gepresste Säfte von ELKA im 3-Liter-Gastro-Gebinde und über 55 Fruchtpürees von Ponthier für Patisserie und Bar. Albert Wilts liefert in ganz Ostfriesland."
+  jsonLd={jsonLd}
+>
+
+  {/* BILDPLATZ: Saftgläser oder Frühstücksbuffet, Querformat */}
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Säfte und Fruchtpürees</h1>
+      <p class="sub-hero-sub">Frisch gepresst für den Offenausschank, Pürees mit festen Werten für Patisserie und Bar.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Was im Glas landet, soll nach Frucht schmecken</h2>
+      <p>Beim Saft trennt sich schnell, wer frisch presst und wer Konzentrat auflöst. Und in der Patisserie entscheidet sich an der Fruchtbasis, ob ein Dessert konstant gelingt oder jedes Mal anders schmeckt. Beide Warengruppen haben wir deshalb bewusst besetzt.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Was wir liefern</h2>
+    <div class="sub-specs">
+      <SpecRow label="Säfte" items={['Orange', 'Weitere Sorten auf Anfrage', '3-Liter-Gebinde', 'Gekühlt geliefert']} />
+      <SpecRow label="Fruchtpürees" items={['Über 55 Sorten', 'Gekühlt oder tiefgekühlt', '500 g bis 5 kg']} />
+      <SpecRow label="Einsatz" items={['Frühstücksbuffet', 'Bar und Cocktails', 'Patisserie und Dessert']} />
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <h2>Zwei Produkte, ein Anspruch</h2>
+    <div class="sub-featcols sub-featcols--2">
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Frisch gepresste Säfte</h3>
+        <p>Der Klassiker ist Orange, dazu liefern wir das weitere Sortiment. Gepresst statt aus Konzentrat, nicht erhitzt, gekühlt geliefert. Für die Gastronomie kommen die Säfte im 3-Liter-Gebinde für den Offenausschank, nicht in kleinen Flaschen.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Fruchtpürees und Coulis</h3>
+        <p>Über 55 Sorten, von Passionsfrucht über Yuzu bis Sanddorn, gekühlt oder tiefgekühlt. Jede Sorte hat einen festen Zuckerwert und ein Geschmacksprofil, mit dem sich Süße und Säure im Rezept kalkulieren lassen. Gebinde von 500 Gramm bis fünf Kilo.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Mit wem wir arbeiten</h2>
+    <div class="sub-brands">
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/elka-frische.png" alt="ELKA" loading="lazy" /></div>
+        <h3>ELKA</h3>
+        <p>Ein Spezialist, der ausschließlich Frischsäfte für die Gastronomie herstellt. Die Früchte werden gepresst und abgefüllt, ohne Erhitzen und ohne Konzentrat. Für Hotels, Frühstücksbuffets und Systemgastronomie kommen die Säfte im Kanister für den Offenausschank.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.elka-frische.de/" target="_blank" rel="noopener noreferrer">Zur Website von ELKA</a></p>
+      </div>
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/ponthier.svg" alt="Ponthier" loading="lazy" /></div>
+        <h3>Ponthier</h3>
+        <p>Fruchtpürees aus der französischen Corrèze, seit 1946 in Familienhand. Für Küchen entscheidend: Jede Sorte ist mit festen Werten für Zuckergehalt und Geschmacksprofil dokumentiert, inklusive Säure und Süße. Damit lässt sich eine Rezeptur sauber nachrechnen, statt sie jedes Mal neu abzuschmecken.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.ponthier.fr/en/" target="_blank" rel="noopener noreferrer">Zur Website von Ponthier</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Das ganze Sortiment</h2>
+        <p>Acht Warengruppen liefern wir aus einer Hand, von Eiern über Kartoffeln bis zu küchenfertig vorbereiteter Ware.</p>
+      </div>
+      <Button href="/sortiment-und-leistungen" label="Zur Sortimentsübersicht" />
+    </div>
+  </section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Sprechen Sie uns auf Ihre Karte an</h2>
+      <p>Ob Frühstücksbuffet, Barkarte oder Dessert: Wir sagen Ihnen, welche Sorte sich dafür bewährt hat.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Sortimentsliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

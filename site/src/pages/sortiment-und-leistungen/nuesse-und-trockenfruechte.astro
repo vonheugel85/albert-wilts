@@ -1,0 +1,92 @@
+---
+import BaseLayout   from '../../layouts/BaseLayout.astro';
+import Section      from '../../components/Section.astro';
+import Button       from '../../components/Button.astro';
+import SpecRow      from '../../components/SpecRow.astro';
+import HighlightBox from '../../components/HighlightBox.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// BreadcrumbList: Startseite > Sortiment und Leistungen > diese Seite
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteBase.href },
+    { '@type': 'ListItem', position: 2, name: 'Sortiment und Leistungen', item: new URL('/sortiment-und-leistungen/', siteBase).href },
+    { '@type': 'ListItem', position: 3, name: "Nüsse und Trockenfrüchte", item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title="Nüsse und Trockenfrüchte für Küche und Buffet | Albert Wilts"
+  description="Mandeln, Pistazien, Pekannüsse, Datteln und Feigen von Tovano. Rohware für Küche und Patisserie, fertige Schalen für Bar und Buffet, geliefert in ganz Ostfriesland."
+  jsonLd={jsonLd}
+>
+
+  {/* BILDPLATZ: Nüsse und Trockenfrüchte in Schalen, Querformat */}
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Nüsse und Trockenfrüchte</h1>
+      <p class="sub-hero-sub">Rohware für Küche und Patisserie, fertig verpackt für Bar und Buffet.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Die Warengruppe, die man erst vermisst, wenn sie fehlt</h2>
+      <p>Nüsse und getrocknete Früchte tauchen überall auf: im Salat, in der Patisserie, auf dem Frühstücksbuffet und in der Hotelbar. Weil sie selten im Mittelpunkt stehen, werden sie gern bei irgendwem mitbestellt. Dabei merkt man den Unterschied sofort, wenn die Qualität nicht stimmt.</p>
+      <p>Wir liefern beides: Rohware zum Weiterverarbeiten und fertig verpackte Ware, die Sie direkt hinstellen können.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Was wir liefern</h2>
+    <div class="sub-specs">
+      <SpecRow label="Nüsse" items={['Mandeln', 'Cashew', 'Haselnuss', 'Pistazien', 'Pekannüsse', 'Walnüsse', 'Macadamia']} />
+      <SpecRow label="Kerne und Saaten" items={['Kürbiskerne', 'Pinienkerne', 'Sonnenblumenkerne']} />
+      <SpecRow label="Trockenfrüchte" items={['Datteln', 'Feigen', 'Aprikosen', 'Mango', 'Ananas']} />
+      <SpecRow label="Fertig verpackt" items={['Schalen fürs Buffet', 'Snacks für die Bar', 'Backsortiment']} />
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Mit wem wir arbeiten</h2>
+    <div class="sub-brands">
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/tovano.png" alt="Tovano" loading="lazy" /></div>
+        <h3>Tovano</h3>
+        <p>Ein niederländischer Familienbetrieb, der seit 1950 nichts anderes macht als Nüsse, Kerne und getrocknete Früchte. Eingekauft wird direkt bei den Erzeugern, mit Herkunftsnachweis bis zur Partie. Neben der Rohware gibt es Trockenfrüchte ohne Zuckerzusatz und fertige Schalen für Buffet und Bar.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.tovano.nl/de/" target="_blank" rel="noopener noreferrer">Zur Website von Tovano</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Das ganze Sortiment</h2>
+        <p>Acht Warengruppen liefern wir aus einer Hand, von Eiern über Kartoffeln bis zu küchenfertig vorbereiteter Ware.</p>
+      </div>
+      <Button href="/sortiment-und-leistungen" label="Zur Sortimentsübersicht" />
+    </div>
+  </section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Ein Muster vorab?</h2>
+      <p>Wenn Sie wissen wollen, ob die Qualität zu Ihrer Karte passt, legen wir Ihnen bei der nächsten Lieferung gern ein Muster dazu.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Sortimentsliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

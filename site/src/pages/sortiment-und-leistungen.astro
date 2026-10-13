@@ -2,12 +2,25 @@
 import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
-import Placeholder  from '../components/Placeholder.astro';
+import Logobar      from '../components/Logobar.astro';
+
+const hersteller = [
+  { name: 'Koppert Cress', url: 'https://www.koppertcress.com/de/', logo: 'koppert-cress.svg' },
+  { name: 'Cresco', url: 'https://crescobv.com/', logo: null },
+  { name: 'Van Vugt Kruiden', url: 'https://www.vanvugtkruiden.nl/?lang=de', logo: 'van-vugt-kruiden.png' },
+  { name: 'Van der Plas', url: 'https://happysprouts.nl/de/', logo: 'van-der-plas.svg' },
+  { name: 'Kikok', url: 'https://kikok.de/', logo: 'kikok.png' },
+  { name: 'Geflügelhof Nobis', url: 'https://gefluegelhof-nobis.de/', logo: 'gefluegelhof-nobis.svg' },
+  { name: 'Norderneyer Seeluftschinken', url: 'https://www.norderneyer-seeluftschinken.de/', logo: 'norderneyer-seeluftschinken.png' },
+  { name: 'Tovano', url: 'https://www.tovano.nl/de/', logo: 'tovano.png' },
+  { name: 'ELKA', url: 'https://www.elka-frische.de/', logo: 'elka-frische.png' },
+  { name: 'Ponthier', url: 'https://www.ponthier.fr/en/', logo: 'ponthier.svg' },
+];
 ---
 
 <BaseLayout
-  title="Sortiment und Leistungen | Obst, Gemüse, Fleisch und Logistik | Albert Wilts"
-  description="Entdecken Sie das Vollsortiment von Albert Wilts: frisches Obst und Gemüse, Fleisch, Ready-Cut-Produkte und flexible Logistik für Ostfriesland."
+  title="Sortiment und Leistungen | Lebensmittel-Großhandel Ostfriesland | Albert Wilts"
+  description="Acht Warengruppen aus einer Hand: Obst und Gemüse, Kräuter und Kresse, Fleisch und Geflügel, Nüsse, Säfte und Küchenfertiges. Albert Wilts liefert an sechs Tagen in ganz Ostfriesland."
 >
 
   <section class="sub-hero sub-hero--image" style="--hero-img: url('/bilder/unternehmen/eierkartons-braune-eier-ladenverkauf.webp')">
@@ -38,105 +51,50 @@ import Placeholder  from '../components/Placeholder.astro';
     </div>
   </Section>
 
-  <Section bg="#F8F8F8">
-    <h2 class="sub-h2-center">Unsere Produktwelten</h2>
-    <p class="sub-lead-center">Acht Sortimente, eine Lieferung. Ein Blick auf das, was bei uns täglich frisch bereitsteht.</p>
-    <div class="sub-showcase">
+  <!-- Logo-Abbinder: Endlos-Lauf, Textbox wo kein Logo beschaffbar (Cresco) -->
+  <Logobar title="Marken, die Ihre Küche kennt" items={hersteller} />
 
-      <div class="sub-showcase-row">
-        <div class="sub-showcase-media">
-          <Placeholder label="KI-Bild, wird durch echtes Foto ersetzt" aspect="4/3" src="/bilder/mit-ki/obst-und-gemuese.webp" alt="Frische Obst- und Gemüseauswahl in Marktoptik" />
-        </div>
-        <div class="sub-showcase-body">
-          <h3>Obst und Gemüse</h3>
-          <p>Das Herzstück unseres Unternehmens. Wir beziehen unsere Ware bevorzugt von langjährigen Partnern aus der Region, ergänzt durch internationale Top-Qualität, von regionalen Klassikern über Exoten bis zu täglich frischen Kräutern und Salaten.</p>
-          <ul class="sub-chips">
-            <li>Kartoffeln aus der Leybucht</li>
-            <li>Saisonaler Spargel</li>
-            <li>Beeren und Kohlsorten</li>
-            <li>Flugananas</li>
-            <li>Tomaten- und Paprikaspezialitäten</li>
-          </ul>
-          <p class="sub-brandlinks">Hersteller: <a class="sub-brandlink" href="https://eminentfood.nl/de" target="_blank" rel="noopener noreferrer">Eminent Food</a></p>
-        </div>
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Unsere Sortimente</h2>
+    <p class="sub-lead-center">Acht Warengruppen, eine Lieferung. Fünf davon stellen wir Ihnen ausführlich vor.</p>
+    <div class="sub-cards sub-cards--3">
+      <div class="sub-card sub-catcard">
+        <h3>Obst und Gemüse</h3>
+        <p>Kartoffeln aus der Leybucht, Saisonware aus der Region und über 20 Tomatensorten. Dazu Exoten, wenn die Karte sie verlangt.</p>
+        <a class="sub-catcard-more" href="/sortiment-und-leistungen/obst-und-gemuese">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
       </div>
-
-      <div class="sub-showcase-row sub-showcase-row--reverse">
-        <div class="sub-showcase-media">
-          <Placeholder label="Platzhalter Bild: Kresse von Koppert Cress (Querformat, echtes Foto)" aspect="4/3" />
-        </div>
-        <div class="sub-showcase-body">
-          <h3>Kräuter, Kresse und Sprossen</h3>
-          <p>Für die feine Küche und den Gasthof. Wir liefern die Zutaten, mit denen Sie einem Teller das letzte Prozent geben.</p>
-          <ul class="sub-chips">
-            <li>Wildkräuter</li>
-            <li>Blattsalatmischungen</li>
-            <li>Kresse-Sorten</li>
-            <li>Sprossen</li>
-          </ul>
-          <p class="sub-brandlinks">Hersteller: <a class="sub-brandlink" href="https://www.koppertcress.com/de/" target="_blank" rel="noopener noreferrer">Koppert Cress</a> <a class="sub-brandlink" href="https://crescobv.com/" target="_blank" rel="noopener noreferrer">Cresco</a> <a class="sub-brandlink" href="https://www.vanvugtkruiden.nl/?lang=de" target="_blank" rel="noopener noreferrer">Van Vugt Kruiden</a> <a class="sub-brandlink" href="https://happysprouts.nl/de/" target="_blank" rel="noopener noreferrer">Van der Plas</a></p>
-        </div>
+      <div class="sub-card sub-catcard">
+        <h3>Kräuter, Kresse und Sprossen</h3>
+        <p>Für die feine Küche und für den Gasthof: Wildkräuter, Kresse-Sorten, Blattsalatmischungen und Sprossen.</p>
+        <a class="sub-catcard-more" href="/sortiment-und-leistungen/kraeuter-kresse-und-sprossen">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
       </div>
-
-      <div class="sub-showcase-row">
-        <div class="sub-showcase-media">
-          <Placeholder label="KI-Bild, wird durch echtes Foto ersetzt" aspect="4/3" src="/bilder/mit-ki/fleisch-wurst-gefluegel.webp" alt="Fleisch-, Wurst- und Geflügelauswahl in Metzger-Qualität" />
-        </div>
-        <div class="sub-showcase-body">
-          <h3>Fleisch, Wurst und Geflügel</h3>
-          <p>Qualität, die man schmeckt. Wir liefern Fleischwaren, die höchsten gastronomischen Ansprüchen genügen, in diversen Zuschnitten und auf Wunsch küchenfertig gewürzt.</p>
-          <ul class="sub-chips">
-            <li>Rind und Schwein</li>
-            <li>Kikok Maishähnchen</li>
-            <li>Ente und Wild</li>
-            <li>Norderneyer Seeluftschinken</li>
-            <li>Aufschnitt</li>
-          </ul>
-          <p class="sub-brandlinks">Hersteller: <a class="sub-brandlink" href="https://kikok.de/" target="_blank" rel="noopener noreferrer">Kikok</a> <a class="sub-brandlink" href="https://gefluegelhof-nobis.de/" target="_blank" rel="noopener noreferrer">Geflügelhof Nobis</a> <a class="sub-brandlink" href="https://www.norderneyer-seeluftschinken.de/" target="_blank" rel="noopener noreferrer">Norderneyer Seeluftschinken</a></p>
-        </div>
+      <div class="sub-card sub-catcard">
+        <h3>Fleisch, Wurst und Geflügel</h3>
+        <p>Rind und Schwein, Kikok Maishähnchen, Ente und Gans, Wild aus heimischen Forsten und Norderneyer Seeluftschinken.</p>
+        <a class="sub-catcard-more" href="/sortiment-und-leistungen/fleisch-wurst-und-gefluegel">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
       </div>
-
-      <div class="sub-showcase-row sub-showcase-row--reverse">
-        <div class="sub-showcase-media">
-          <Placeholder
-            label="Platzhalter Bild: Frische Eier (Querformat, echtes Foto)"
-            aspect="4/3"
-            src="/bilder/unternehmen/eierkartons-braune-eier-ladenverkauf.webp"
-            alt="Gestapelte Eierkartons mit frischen braunen Eiern im Ladenverkauf von Albert Wilts"
-          />
-        </div>
-        <div class="sub-showcase-body">
-          <h3>Eier</h3>
-          <p>Hier liegen unsere Wurzeln. Frische ist bei diesen sensiblen Produkten unser oberstes Gebot, in bedarfsgerechten Gebinden für die Profi-Küche.</p>
-          <ul class="sub-chips">
-            <li>Frische Eier aus der Region</li>
-            <li>Stangenware und Karton</li>
-            <li>Bedarfsgerechte Gebinde</li>
-          </ul>
-        </div>
+      <div class="sub-card sub-catcard">
+        <h3>Nüsse und Trockenfrüchte</h3>
+        <p>Nüsse, Kerne und getrocknete Früchte für Küche, Patisserie und Buffet.</p>
+        <a class="sub-catcard-more" href="/sortiment-und-leistungen/nuesse-und-trockenfruechte">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
       </div>
-
-    </div>
-
-    <div class="sub-cards sub-cards--3 sub-cards--start" style="margin-top: 64px;">
-      <div class="sub-card">
+      <div class="sub-card sub-catcard">
+        <h3>Säfte und Fruchtpürees</h3>
+        <p>Frisch gepresste Säfte im Gastro-Gebinde und über 55 Fruchtpürees für Patisserie und Bar.</p>
+        <a class="sub-catcard-more" href="/sortiment-und-leistungen/saefte-und-fruchtpuerees">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
+      </div>
+      <div class="sub-card sub-catcard">
+        <h3>Eier</h3>
+        <p>Hier liegen unsere Wurzeln. Frische Eier aus der Region, als Stangenware oder im Karton, in bedarfsgerechten Gebinden.</p>
+      </div>
+      <div class="sub-card sub-catcard">
         <h3>Kartoffeln und Ready Cut</h3>
         <p>Geschälte und geschnittene Kartoffeln sowie küchenfertige Schnittware in Großgebinden.</p>
       </div>
-      <div class="sub-card">
-        <h3>Nüsse und Trockenfrüchte</h3>
-        <p>Nüsse, Kerne und getrocknete Früchte für Küche, Buffet und Patisserie.</p>
-        <p class="sub-brandlinks">Hersteller: <a class="sub-brandlink" href="https://www.tovano.nl/de/" target="_blank" rel="noopener noreferrer">Tovano</a></p>
-      </div>
-      {/* TODO: konkrete ELKA-Saftsorten vom Kunden nachtragen, damit erkennbar wird, dass es frisch gepresste Säfte sind und keine Industrieware. */}
-      <div class="sub-card">
-        <h3>Säfte und Fruchtpürees</h3>
-        <p>Frisch gepresste Säfte sowie Fruchtpürees für Desserts, Bar und Patisserie.</p>
-        <p class="sub-brandlinks">Hersteller: <a class="sub-brandlink" href="https://www.elka-frische.de/" target="_blank" rel="noopener noreferrer">ELKA</a> <a class="sub-brandlink" href="https://www.ponthier.fr/en/" target="_blank" rel="noopener noreferrer">Ponthier</a></p>
-      </div>
-      <div class="sub-card">
+      <div class="sub-card sub-catcard">
         <h3>Küchenfertig vorbereitet</h3>
-        <p>Marinierte Pfannengerichte, Feinkost und Schnittware. <a href="#kuechenfertig">Mehr dazu weiter unten</a>.</p>
+        <p>Feinkost, Schnittware und marinierte Pfannengerichte, die Ihrem Team Arbeit abnehmen.</p>
+        <a class="sub-catcard-more" href="#kuechenfertig">Mehr erfahren <span class="arrow" aria-hidden="true">&#x203A;</span></a>
       </div>
     </div>
   </Section>

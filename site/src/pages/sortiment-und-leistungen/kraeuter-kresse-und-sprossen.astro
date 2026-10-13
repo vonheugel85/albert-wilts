@@ -1,0 +1,127 @@
+---
+import BaseLayout   from '../../layouts/BaseLayout.astro';
+import Section      from '../../components/Section.astro';
+import Button       from '../../components/Button.astro';
+import SpecRow      from '../../components/SpecRow.astro';
+import HighlightBox from '../../components/HighlightBox.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+// BreadcrumbList: Startseite > Sortiment und Leistungen > diese Seite
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteBase.href },
+    { '@type': 'ListItem', position: 2, name: 'Sortiment und Leistungen', item: new URL('/sortiment-und-leistungen/', siteBase).href },
+    { '@type': 'ListItem', position: 3, name: "Kräuter, Kresse und Sprossen", item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title="Kresse, Wildkräuter und Sprossen für die Gastronomie | Albert Wilts"
+  description="Kresse-Sorten von Koppert Cress und Cresco, Kräuter und essbare Blüten von Van Vugt, Sprossen von Van der Plas. Albert Wilts liefert in ganz Ostfriesland."
+  jsonLd={jsonLd}
+>
+
+  {/* BILDPLATZ: Kresse-Schalen oder Kräuter in der Kühlung, Querformat */}
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Kräuter, Kresse und Sprossen</h1>
+      <p class="sub-hero-sub">Die Zutaten, mit denen Sie einem Teller das letzte Prozent geben. Für die feine Küche und für den Gasthof.</p>
+      <div class="sub-hero-actions">
+        <Button href="#kontakt" label="Sortimentsliste anfordern" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <div class="sub-block">
+      <h2>Vier Lieferanten, drei verschiedene Aufgaben</h2>
+      <p>Diese Warengruppe ist für viele Küchen der eigentliche Grund, bei uns zu bestellen. Dahinter stehen vier Betriebe aus den Niederlanden, die ganz unterschiedliche Dinge gut können: Spezialitäten mit eigenem Aroma, das tägliche Grundsortiment an Kräutern und Salaten, und Sprossen in Mengen, die eine Küche wirklich braucht.</p>
+      <p>Alle vier liegen per Lkw einen Tag von Upgant-Schott entfernt. Genau das macht den Unterschied bei Ware, die nach drei Tagen nichts mehr taugt.</p>
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Was wir liefern</h2>
+    <div class="sub-specs">
+      <SpecRow label="Kresse und Mikrogrün" items={['Kresse-Sorten', 'Essbare Blüten', 'Spezialblätter']} />
+      <SpecRow label="Kräuter" items={['Frische Küchenkräuter', 'Wildkräuter', 'Bio-Kräuter']} />
+      <SpecRow label="Salate" items={['Blattsalatmischungen', 'Baby Leaf', 'Wiesenkräutermischungen']} />
+      <SpecRow label="Sprossen" items={['Alfalfa', 'Taugé', 'Rettich- und Kohlsprossen', 'Aromasprossen']} />
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <h2>Drei Aufgaben, drei Lösungen</h2>
+    <div class="sub-featcols">
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Aroma statt Deko</h3>
+        <p>Kresse ist kein Streugut. Die Sorten unterscheiden sich klar im Geschmack, von Anis über Wasabi bis zu einer Austernnote, und lassen sich damit als Baustein einsetzen statt nur als Dekoration.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Das tägliche Grundsortiment</h3>
+        <p>Kräuter, essbare Blüten und Blattsalat decken Sie bei uns ganzjährig ab, auch im Winter, wenn der eigene Garten nichts hergibt.</p>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Menge für die Pfanne</h3>
+        <p>Sprossen sind kein Garnierprodukt, sondern Volumen: für Wok, Bowl und vegetarische Gerichte, und als rohe Aromaquelle für Zwiebel- und Knoblauchnoten.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Mit wem wir arbeiten</h2>
+    <div class="sub-brands">
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/koppert-cress.svg" alt="Koppert Cress" loading="lazy" /></div>
+        <h3>Koppert Cress</h3>
+        <p>Die Kressen und Blüten kommen als lebende Pflanze zu Ihnen, nicht als Schnittgut. Sie ernten über mehrere Tage frisch, und der Schwund ist entsprechend gering. Das Sortiment ist nach Geschmacksrichtung geordnet, von bitter über salzig bis umami. Wir sind Vertriebspartner von Koppert Cress.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.koppertcress.com/de/" target="_blank" rel="noopener noreferrer">Zur Website von Koppert Cress</a></p>
+      </div>
+      <div class="sub-brand">
+        <h3>Cresco</h3>
+        <p>Ein Familienbetrieb aus dem Westland, der Mischungen nach Wunsch zusammenstellt, statt dass Sie Standardschalen kombinieren. Dazu kommen Farbsorten für den Kontrast auf dem Teller und eine eigene Linie Bio-Küchenkräuter.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://crescobv.com/" target="_blank" rel="noopener noreferrer">Zur Website von Cresco</a></p>
+      </div>
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/van-vugt-kruiden.png" alt="Van Vugt Kruiden" loading="lazy" /></div>
+        <h3>Van Vugt Kruiden</h3>
+        <p>Das Grundsortiment: rund 25 frische Kräuter, etwa 20 essbare Blüten und knapp 20 Baby-Leaf-Sorten, ganzjährig verfügbar. Wild- und Wiesenkräutermischungen gibt es fertig, ohne dass jemand selbst sammeln muss.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://www.vanvugtkruiden.nl/?lang=de" target="_blank" rel="noopener noreferrer">Zur Website von Van Vugt Kruiden</a></p>
+      </div>
+      <div class="sub-brand">
+        <div class="sub-brand-logo"><img src="/logo/hersteller/van-der-plas.svg" alt="Van der Plas" loading="lazy" /></div>
+        <h3>Van der Plas</h3>
+        <p>Einer der größten Sprossenbetriebe Europas, in dritter Generation. Neben Alfalfa und Taugé auch Aromasprossen, mit denen sich Lauch- und Knoblauchnoten roh setzen lassen. Weil Sprossen mikrobiologisch heikel sind, zählt hier die Prüfkette, und die ist dort entsprechend streng.</p>
+        <p class="sub-brandlinks"><a class="sub-brandlink" href="https://happysprouts.nl/de/" target="_blank" rel="noopener noreferrer">Zur Website von Van der Plas</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-teaserband">
+    <div class="sub-teaserband-inside">
+      <div class="sub-teaserband-text">
+        <h2>Das ganze Sortiment</h2>
+        <p>Acht Warengruppen liefern wir aus einer Hand, von Eiern über Kartoffeln bis zu küchenfertig vorbereiteter Ware.</p>
+      </div>
+      <Button href="/sortiment-und-leistungen" label="Zur Sortimentsübersicht" />
+    </div>
+  </section>
+
+  <section class="sub-cta section-pad" id="kontakt">
+    <div class="sub-cta-inside">
+      <h2>Erzählen Sie uns von Ihrer Karte</h2>
+      <p>Wir schauen gemeinsam, welche Sorten zu Ihren Gerichten passen, und legen die Liefermenge so an, dass nichts verdirbt.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Sortimentsliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

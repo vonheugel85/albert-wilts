@@ -1,0 +1,61 @@
+---
+/*
+  Logobar.astro – Herstellerlogos als Endlos-Lauf (gleiche Mechanik wie Rezensionen.astro):
+  Eintraege doppelt gerendert, rAF schiebt den Track, Pause bei Hover/Fokus/Touch,
+  nur im Viewport, still bei prefers-reduced-motion (dann umbrechende Zeile).
+  Marken ohne Logo erscheinen als Textbox in gleicher Groesse.
+  Props: items – [{ name, url, logo | null }], title – Zeile ueber der Leiste
+*/
+interface Item { name: string; url: string; logo: string | null }
+interface Props { items: Item[]; title: string }
+const { items, title } = Astro.props;
+---
+
+<section class="sub-logobar-section" aria-label="Unsere Marken">
+  <div class="sub-logobar-inside">
+    <h2 class="sub-logobar-title">{title}</h2>
+    <div class="sub-logobar" data-logobar>
+      {items.map((it) => it.logo
+        ? <a class="sub-logobar-item" href={it.url} target="_blank" rel="noopener noreferrer"><img src={`/logo/hersteller/${it.logo}`} alt={it.name} loading="lazy" /></a>
+        : <a class="sub-logobar-item sub-logobar-item--text" href={it.url} target="_blank" rel="noopener noreferrer">{it.name}</a>
+      )}
+      {items.map((it) => <div class="sub-logobar-dup" aria-hidden="true">{it.logo
+        ? <a class="sub-logobar-item" href={it.url} target="_blank" rel="noopener noreferrer" tabindex="-1"><img src={`/logo/hersteller/${it.logo}`} alt="" loading="lazy" /></a>
+        : <a class="sub-logobar-item sub-logobar-item--text" href={it.url} target="_blank" rel="noopener noreferrer" tabindex="-1">{it.name}</a>
+      }</div>)}
+    </div>
+  </div>
+</section>
+
+<script>
+  const SPEED = 24; // Pixel pro Sekunde
+  document.querySelectorAll<HTMLElement>('[data-logobar]').forEach((track) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { track.classList.add('is-reduced'); return; }
+    const half = () => track.scrollWidth / 2;
+    const wrap = () => { const h = half(); if (h > 0 && track.scrollLeft >= h) track.scrollLeft -= h; };
+    track.addEventListener('scroll', wrap, { passive: true });
+    let visible = false, paused = false, raf = 0, last = 0, carry = 0;
+    const tick = (now: number) => {
+      raf = 0;
+      if (!visible || paused) return;
+      const dt = last ? Math.min(now - last, 100) : 0;
+      last = now;
+      carry += (SPEED * dt) / 1000;
+      const px = Math.floor(carry);
+      if (px >= 1) { track.scrollLeft += px; carry -= px; wrap(); }
+      raf = requestAnimationFrame(tick);
+    };
+    const run = () => { if (!raf && visible && !paused) { last = 0; raf = requestAnimationFrame(tick); } };
+    const stop = () => { if (raf) cancelAnimationFrame(raf); raf = 0; };
+    new IntersectionObserver((es) => { visible = es.some((e) => e.isIntersecting); visible ? run() : stop(); }, { threshold: 0.2 }).observe(track);
+    const pause = () => { paused = true; stop(); };
+    const resume = () => { paused = false; run(); };
+    track.addEventListener('mouseenter', pause);
+    track.addEventListener('mouseleave', resume);
+    track.addEventListener('focusin', pause);
+    track.addEventListener('focusout', resume);
+    track.addEventListener('touchstart', pause, { passive: true });
+    track.addEventListener('touchend', () => setTimeout(resume, 1500), { passive: true });
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
+  });
+</script>
