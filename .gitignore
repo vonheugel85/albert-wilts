@@ -34,3 +34,6 @@ env.local
 
 # Claude Code (lokale Vorschau-Konfiguration)
 .claude/
+
+# Bildarchiv vom Kunden, noch nicht eingebaut (nicht deployen)
+bilder-archiv/
