@@ -1,0 +1,26 @@
+---
+/*
+  test-chefslist.astro: interne Testseite zur Abnahme des Chefslist-Blocks (K5b, 2026-10-16).
+  Nicht verlinkt, nicht in der Navigation, trägt noindex. Nach Abnahme wandert ChefslistCta
+  auf die vier Gewerbeseiten; diese Seite kann dann entfallen.
+*/
+import BaseLayout  from '../layouts/BaseLayout.astro';
+import ChefslistCta from '../components/ChefslistCta.astro';
+---
+
+<BaseLayout title="Testseite Chefslist | nicht veröffentlichen" noindex={true}>
+  <div class="cl-testhinweis">Interne Testseite. Dieser Stand ist nicht freigegeben und nicht verlinkt.</div>
+  <ChefslistCta />
+</BaseLayout>
+
+<style>
+  .cl-testhinweis {
+    background: #3B3C42;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+    padding: 8px 20px;
+  }
+</style>

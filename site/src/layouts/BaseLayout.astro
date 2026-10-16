@@ -13,6 +13,7 @@ interface Props {
   ogImageAlt?: string;
   ogType?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean; // true: Seite traegt robots noindex, nofollow (Testseiten, K5b 2026-10-16)
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   ogImageAlt = '',
   ogType = 'website',
   jsonLd,
+  noindex = false,
 } = Astro.props;
 
 // Kanonische URL aus aktuellem Pfad + Site-Basis
@@ -69,6 +71,7 @@ const extraJsonLd = jsonLd
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Favicon + Theme-Color -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
