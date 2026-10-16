@@ -21,10 +21,11 @@ const appLink = 'http://onelink.to/z56nkd';
       <div class="cl-kopf">
         {/* BILDPLATZ: Chefslist-Logo, Breite maximal 160 Pixel, transparenter Hintergrund */}
         <p class="cl-dach">Für Gewerbekunden</p>
-        <h2 class="cl-title">Bestellen Sie, wenn Sie Zeit haben</h2>
-        <p class="cl-unterzeile">Nicht dann, wenn bei uns jemand am Telefon sitzt.</p>
+        <h2 class="cl-title">24/7 bestellen,<br>wenn Sie Bedarf haben</h2>
+        <p class="cl-unterzeile">Nach Feierabend, am Wochenende,<br>mitten in der Vorbereitung.</p>
       </div>
 
+      <div class="cl-rechts">
       <div class="cl-card">
         <h3 class="cl-card-titel">Zugang anfordern</h3>
         <p class="cl-card-sub">Fünf kurze Fragen, etwa eine Minute. Ihren persönlichen Zugangscode schicken wir Ihnen danach zu.</p>
@@ -92,21 +93,22 @@ const appLink = 'http://onelink.to/z56nkd';
           <p><a href={appLink} target="_blank" rel="noopener noreferrer">Laden Sie jetzt schon die Chefslist App.</a></p>
         </div>
       </div>
+      <div class="cl-abbinder">
+        <p>Lieber telefonisch? <a href="tel:+49493491060" class="sub-phone">04934 91060</a></p>
+        <p>Chefslist ist die Bestellplattform, über die wir unsere Gewerbekunden digital beliefern.</p>
+      </div>
+      </div>
 
       <div class="cl-text">
-        <p class="cl-fliesstext">Mit Chefslist bestellen Sie Ihr Wilts-Sortiment rund um die Uhr, auch spät abends und am Wochenende. Ihre Standardbestellung legen Sie einmal als Favoritenliste an und geben sie danach in Sekunden auf.</p>
+        <p class="cl-fliesstext">Chefslist ist die Bestell-App, über die Sie unser Sortiment direkt erreichen. Einmal eingerichtet, geht Ihre Wochenbestellung in wenigen Sekunden raus.</p>
         <ul class="cl-nutzen">
-          <li>Rund um die Uhr, auch am Wochenende</li>
-          <li>Wiederkehrende Bestellungen in Sekunden</li>
+          <li>Ihre Standardbestellung als Favoritenliste</li>
+          <li>Zutaten und Allergene zu jedem Artikel</li>
           <li>Für Ihren Betrieb kostenfrei</li>
         </ul>
         <p class="cl-neukunden">Noch nicht Kunde bei uns? Tragen Sie sich trotzdem ein, wir melden uns persönlich.</p>
       </div>
 
-      <div class="cl-abbinder">
-        <p>Lieber telefonisch? <a href="tel:+49493491060" class="sub-phone">04934 91060</a></p>
-        <p>Chefslist ist die Bestellplattform, über die wir unsere Gewerbekunden digital beliefern.</p>
-      </div>
 
     </div>
   </div>
@@ -187,16 +189,15 @@ const appLink = 'http://onelink.to/z56nkd';
   .cl-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: 'kopf card' 'text card' '. abbinder';
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'kopf rechts' 'text rechts';
     column-gap: 64px;
     row-gap: 0;
-    align-items: stretch;
+    align-items: start;
   }
   .cl-kopf { grid-area: kopf; }
-  .cl-card { grid-area: card; }
-  .cl-text { grid-area: text; align-self: start; }
-  .cl-abbinder { grid-area: abbinder; }
+  .cl-rechts { grid-area: rechts; display: flex; flex-direction: column; }
+  .cl-text { grid-area: text; }
 
   /* Linke Spalte */
   .cl-dach { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); margin: 0 0 14px; }
@@ -251,7 +252,11 @@ const appLink = 'http://onelink.to/z56nkd';
   @media (max-width: 900px) {
     .cl-cta { padding: 48px 0; }
     .cl-inside { padding: 0 16px; }
+    /* Mobil: Wrapper auflösen, damit Karte und Abbinder einzeln platziert werden */
     .cl-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: 'kopf' 'card' 'text' 'abbinder'; row-gap: 0; }
+    .cl-rechts { display: contents; }
+    .cl-card { grid-area: card; }
+    .cl-abbinder { grid-area: abbinder; }
     .cl-unterzeile { margin-bottom: 22px; }
     .cl-card { padding: 22px 18px 24px; }
     .cl-text { margin-top: 28px; }
