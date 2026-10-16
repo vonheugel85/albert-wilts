@@ -6,11 +6,22 @@
 */
 import BaseLayout  from '../layouts/BaseLayout.astro';
 import ChefslistZugang from '../components/ChefslistZugang.astro';
+import Button from '../components/Button.astro';
 ---
 
 <BaseLayout title="Testseite Chefslist | nicht veröffentlichen" noindex={true}>
   <div class="cl-testhinweis">Interne Testseite. Dieser Stand ist nicht freigegeben und nicht verlinkt.</div>
-  <ChefslistZugang />
+  <ChefslistZugang flaeche="hell" karte="weiss" />
+  <section class="sub-cta sub-cta--weiss section-pad">
+    <div class="sub-cta-inside">
+      <h2>Werden Sie Partner</h2>
+      <p>Profitieren Sie von kurzen Entscheidungswegen und einem Lebensmittel-Großhandel für Gewerbekunden, bei dem Sie keine Nummer sind, sondern ein Partner.</p>
+      <div class="sub-cta-actions">
+        <Button href="mailto:info@albert-wilts.de" label="Preisliste anfordern" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>

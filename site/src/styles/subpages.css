@@ -177,6 +177,7 @@
 .sub-trust-text p { font-size: 17px; line-height: 28px; color: #555; margin: 0; }
 
 .sub-cta { background: #EDF1EA; box-sizing: border-box; }
+.sub-cta--weiss { background: #fff; } /* nach dem hellgruenen Chefslist-Block (K5b-6) */
 .sub-cta-inside { text-align: center; }
 .sub-cta h2 { color: #3B3C42; margin: 0 0 16px; }
 .sub-cta p {

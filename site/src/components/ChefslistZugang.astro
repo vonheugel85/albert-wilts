@@ -2,7 +2,7 @@
 /*
   ChefslistZugang.astro: Bestelleinstieg über Chefslist mit eigenem Schrittformular (K5b, 2026-10-16,
   überarbeitet am 16.10.2026 nach Textfreigabe: weniger Text, Formular erklärt sich selbst).
-  Keine Props. Eigenes CSS im <style>-Block, Klassenpräfix cl-, damit nichts mit sub-* kollidiert.
+  Props flaeche und karte für Farbvarianten (16.10.2026). Eigenes CSS im <style>-Block, Klassenpräfix cl-, damit nichts mit sub-* kollidiert.
   Links Dachzeile, Überschrift und Nutzen, rechts die Formularkarte. Fünf Schritte in beiden Pfaden:
   Unternehmen, Bestandskunde ja/nein (bei Ja mit optionaler Kundennummer im selben Schritt), Name,
   Handynummer, E-Mail. Felder entsprechen dem Chefslist-Typeform (Isi7MsIh, ausgelesen am 16.10.2026).
@@ -10,11 +10,16 @@
   Versand: gleicher Platzhalter-Endpunkt wie das Kontaktformular (kontakt.astro), Backend noch offen.
   Noch nicht auf den Gewerbeseiten eingebunden, Abnahme über /test-chefslist.
 */
+interface Props {
+  flaeche?: 'gruen' | 'hell' | 'weiss';   // Hintergrund der Sektion: Dunkelgrün (Standard), Hellgrün wie sub-cta oder Weiß
+  karte?: 'weiss' | 'gruen';    // Farbe der Formularkarte: Weiß (Standard) oder Dunkelgrün
+}
+const { flaeche = 'gruen', karte = 'weiss' } = Astro.props;
 const endpunkt = 'https://FORMULAR-ENDPUNKT-EINTRAGEN';
 const appLink = 'http://onelink.to/z56nkd';
 ---
 
-<section class="cl-cta">
+<section class:list={['cl-cta', `cl-cta--flaeche-${flaeche}`, `cl-cta--karte-${karte}`]}>
   <div class="cl-inside">
     <div class="cl-grid">
 
@@ -247,6 +252,41 @@ const appLink = 'http://onelink.to/z56nkd';
   .cl-abbinder { margin-top: auto; padding-top: 18px; border-top: 1px solid #E5E5E5; }
   .cl-abbinder p { display: block; margin: 0; color: #3B3C42; font-family: var(--font-sans); font-size: 15px; line-height: 24px; }
   .cl-abbinder :global(.sub-phone) { color: #3B3C42; }
+
+  /* Variante Fläche hell: Sektion in Hellgrün (wie sub-cta), Text dunkel */
+  .cl-cta--flaeche-hell { background: #EDF1EA; color: #3B3C42; }
+  .cl-cta--flaeche-hell .cl-dach { color: #4F7146; }
+  .cl-cta--flaeche-hell .cl-title, .cl-cta--flaeche-hell .cl-unterzeile, .cl-cta--flaeche-hell .cl-nutzen li, .cl-cta--flaeche-hell .cl-neukunden { color: #3B3C42; }
+  .cl-cta--flaeche-hell .cl-fliesstext { color: #555; }
+  .cl-cta--flaeche-hell .cl-nutzen li::before { color: #4F7146; }
+
+  .cl-cta--flaeche-weiss { background: #fff; color: #3B3C42; }
+  .cl-cta--flaeche-weiss .cl-dach { color: #4F7146; }
+  .cl-cta--flaeche-weiss .cl-title, .cl-cta--flaeche-weiss .cl-unterzeile, .cl-cta--flaeche-weiss .cl-nutzen li, .cl-cta--flaeche-weiss .cl-neukunden { color: #3B3C42; }
+  .cl-cta--flaeche-weiss .cl-fliesstext { color: #555; }
+  .cl-cta--flaeche-weiss .cl-nutzen li::before { color: #4F7146; }
+  .cl-cta--flaeche-weiss.cl-cta--karte-weiss .cl-card { border: 1px solid #E5E5E5; }
+
+  /* Variante Karte grün: Formularkarte in Dunkelgrün, Felder bleiben weiß */
+  .cl-cta--karte-gruen .cl-card { background: #4F7146; color: #fff; }
+  .cl-cta--karte-gruen .cl-card-titel, .cl-cta--karte-gruen .cl-legende, .cl-cta--karte-gruen .cl-danke-titel, .cl-cta--karte-gruen .cl-danke p { color: #fff; }
+  .cl-cta--karte-gruen .cl-card-sub, .cl-cta--karte-gruen .cl-schrittzahl, .cl-cta--karte-gruen .cl-feldhinweis, .cl-cta--karte-gruen .cl-optional { color: rgba(255, 255, 255, 0.8); }
+  .cl-cta--karte-gruen .cl-schritt.sub-field :global(label) { color: #fff; }
+  .cl-cta--karte-gruen .cl-balken { background: rgba(255, 255, 255, 0.3); }
+  .cl-cta--karte-gruen .cl-balken-fuellung { background: #fff; }
+  .cl-cta--karte-gruen .cl-wahl-option span { color: #fff; border-color: rgba(255, 255, 255, 0.55); }
+  .cl-cta--karte-gruen .cl-wahl-option input:checked + span { background: #fff; color: #4F7146; border-color: #fff; }
+  .cl-cta--karte-gruen .cl-wahl-option input:focus-visible + span { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4); }
+  .cl-cta--karte-gruen .cl-schritt.sub-field :global(input:focus) { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35); }
+  .cl-cta--karte-gruen .cl-schritt.sub-field .cl-consent { color: rgba(255, 255, 255, 0.9); }
+  .cl-cta--karte-gruen .cl-consent :global(a) { color: #fff; }
+  .cl-cta--karte-gruen .cl-fehler { color: #FFE1DC; }
+  .cl-cta--karte-gruen .cl-zurueck { color: #fff; }
+  .cl-cta--karte-gruen .cl-weiter { background: #fff; color: #4F7146; }
+  .cl-cta--karte-gruen .cl-weiter:hover { background: #EDF1EA; }
+  .cl-cta--karte-gruen .cl-abbinder { border-top-color: rgba(255, 255, 255, 0.3); }
+  .cl-cta--karte-gruen .cl-abbinder p, .cl-cta--karte-gruen .cl-abbinder :global(.sub-phone) { color: #fff; }
+  .cl-cta--karte-gruen .cl-danke a { color: #fff; }
 
   @media (max-width: 900px) {
     .cl-cta { padding: 48px 0; }
