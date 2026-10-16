@@ -1,0 +1,260 @@
+---
+/*
+  ChefslistZugang.astro: Bestelleinstieg über Chefslist mit eigenem Schrittformular (K5b, 2026-10-16,
+  überarbeitet am 16.10.2026 nach Textfreigabe: weniger Text, Formular erklärt sich selbst).
+  Keine Props. Eigenes CSS im <style>-Block, Klassenpräfix cl-, damit nichts mit sub-* kollidiert.
+  Links Dachzeile, Überschrift und Nutzen, rechts die Formularkarte. Fünf Schritte in beiden Pfaden:
+  Unternehmen, Bestandskunde ja/nein (bei Ja mit optionaler Kundennummer im selben Schritt), Name,
+  Handynummer, E-Mail. Felder entsprechen dem Chefslist-Typeform (Isi7MsIh, ausgelesen am 16.10.2026).
+  Ohne JavaScript stehen alle Felder untereinander, mit JavaScript läuft das Formular schrittweise.
+  Versand: gleicher Platzhalter-Endpunkt wie das Kontaktformular (kontakt.astro), Backend noch offen.
+  Noch nicht auf den Gewerbeseiten eingebunden, Abnahme über /test-chefslist.
+*/
+const endpunkt = 'https://FORMULAR-ENDPUNKT-EINTRAGEN';
+const appLink = 'http://onelink.to/z56nkd';
+---
+
+<section class="cl-cta">
+  <div class="cl-inside">
+    <div class="cl-grid">
+
+      <div class="cl-kopf">
+        {/* BILDPLATZ: Chefslist-Logo, Breite maximal 160 Pixel, transparenter Hintergrund */}
+        <p class="cl-dach">Für Gewerbekunden</p>
+        <h2 class="cl-title">Bestellen Sie, wenn Sie Zeit haben</h2>
+        <p class="cl-unterzeile">Nicht dann, wenn bei uns jemand am Telefon sitzt.</p>
+      </div>
+
+      <div class="cl-card">
+        <h3 class="cl-card-titel">Zugang anfordern</h3>
+        <p class="cl-card-sub">Fünf kurze Fragen, etwa eine Minute. Ihren persönlichen Zugangscode schicken wir Ihnen danach zu.</p>
+
+        <form class="cl-form" action={endpunkt} method="POST" novalidate data-cl-form>
+          <input type="text" name="_gotcha" class="sub-form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="cl-fortschritt">
+            <span class="cl-schrittzahl" data-cl-zahl aria-live="polite"></span>
+            <span class="cl-balken" aria-hidden="true"><span class="cl-balken-fuellung" data-cl-balken></span></span>
+          </div>
+
+          <fieldset class="cl-schritt sub-field" data-cl-schritt="unternehmen">
+            <label for="cl-unternehmen">Ihr Unternehmen</label>
+            <input id="cl-unternehmen" name="unternehmen" type="text" autocomplete="organization" required data-cl-fehler="Bitte nennen Sie uns Ihr Unternehmen.">
+          </fieldset>
+
+          <fieldset class="cl-schritt sub-field" data-cl-schritt="bestandskunde">
+            <legend class="cl-legende">Sind Sie bereits Kunde bei uns?</legend>
+            <div class="cl-wahl">
+              <label class="cl-wahl-option"><input type="radio" name="bestandskunde" value="ja" required data-cl-fehler="Bitte wählen Sie Ja oder Nein."><span>Ja</span></label>
+              <label class="cl-wahl-option"><input type="radio" name="bestandskunde" value="nein"><span>Nein</span></label>
+            </div>
+            <div class="cl-kundennummer" data-cl-kundennummer>
+              <label for="cl-kundennummer">Ihre Kundennummer <span class="cl-optional">(Optional)</span></label>
+              <input id="cl-kundennummer" name="kundennummer" type="text" inputmode="numeric">
+            </div>
+          </fieldset>
+
+          <fieldset class="cl-schritt sub-field" data-cl-schritt="name">
+            <label for="cl-name">Ihr Name</label>
+            <input id="cl-name" name="name" type="text" autocomplete="name" required data-cl-fehler="Bitte nennen Sie uns Ihren Namen.">
+          </fieldset>
+
+          <fieldset class="cl-schritt sub-field" data-cl-schritt="handy">
+            <label for="cl-handy">Ihre Handynummer <span class="cl-optional">(Optional)</span></label>
+            <input id="cl-handy" name="handy" type="tel" autocomplete="tel">
+          </fieldset>
+
+          <fieldset class="cl-schritt sub-field" data-cl-schritt="email">
+            <label for="cl-email">Ihre E-Mail-Adresse</label>
+            <p class="cl-feldhinweis">Wohin dürfen wir Ihren Registrierungscode senden?</p>
+            <input id="cl-email" name="email" type="email" autocomplete="email" required data-cl-fehler="Bitte geben Sie eine gültige E-Mail-Adresse an.">
+            <label class="sub-form-consent cl-consent">
+              <input type="checkbox" name="datenschutz" required data-cl-fehler="Bitte bestätigen Sie die Datenschutzerklärung.">
+              <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Einrichtung des Zugangs einverstanden.</span>
+            </label>
+          </fieldset>
+
+          <p class="cl-fehler" data-cl-fehlertext role="alert" hidden></p>
+
+          <div class="cl-fuss">
+            <button type="button" class="cl-zurueck" data-cl-zurueck hidden>Zurück</button>
+            <button type="button" class="cl-weiter" data-cl-weiter hidden>Weiter</button>
+            <button type="submit" class="cl-senden" data-cl-senden>
+              <span class="cl-senden-chevron" aria-hidden="true">&#x203A;</span>
+              <span>Zugang anfordern</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="cl-danke" data-cl-danke hidden>
+          <p class="cl-danke-titel">Danke!</p>
+          <p>Wir schicken Ihnen in Kürze Ihren Registrierungscode zu.</p>
+          <p><a href={appLink} target="_blank" rel="noopener noreferrer">Laden Sie jetzt schon die Chefslist App.</a></p>
+        </div>
+      </div>
+
+      <div class="cl-text">
+        <p class="cl-fliesstext">Mit Chefslist bestellen Sie Ihr Wilts-Sortiment rund um die Uhr, auch spät abends und am Wochenende. Ihre Standardbestellung legen Sie einmal als Favoritenliste an und geben sie danach in Sekunden auf.</p>
+        <ul class="cl-nutzen">
+          <li>Rund um die Uhr, auch am Wochenende</li>
+          <li>Wiederkehrende Bestellungen in Sekunden</li>
+          <li>Für Ihren Betrieb kostenfrei</li>
+        </ul>
+        <p class="cl-neukunden">Noch nicht Kunde bei uns? Tragen Sie sich trotzdem ein, wir melden uns persönlich.</p>
+      </div>
+
+      <div class="cl-abbinder">
+        <p>Lieber telefonisch? <a href="tel:+49493491060" class="sub-phone">04934 91060</a></p>
+        <p>Chefslist ist die Bestellplattform, über die wir unsere Gewerbekunden digital beliefern.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  /* Schrittformular: ein Schritt pro Frage, Kundennummer erscheint im Ja-Fall innerhalb des zweiten
+     Schritts, Enter führt weiter. Versand per fetch an das action-Ziel; schlägt es fehl, bleibt das
+     Formular stehen und nennt Telefon und Mail. Ohne JavaScript bleibt das normale Formular. */
+  for (const form of document.querySelectorAll('[data-cl-form]')) {
+    const card = form.closest('.cl-card');
+    const schritte = [...form.querySelectorAll('[data-cl-schritt]')];
+    const zahl = form.querySelector('[data-cl-zahl]');
+    const balken = form.querySelector('[data-cl-balken]');
+    const fehlertext = form.querySelector('[data-cl-fehlertext]');
+    const zurueck = form.querySelector('[data-cl-zurueck]');
+    const weiter = form.querySelector('[data-cl-weiter]');
+    const senden = form.querySelector('[data-cl-senden]');
+    const danke = card.querySelector('[data-cl-danke]');
+    const kundennummer = form.querySelector('[data-cl-kundennummer]');
+    let aktuell = 0;
+    form.classList.add('cl-js');
+
+    const fehler = (text) => { fehlertext.textContent = text || ''; fehlertext.hidden = !text; };
+    const pruefe = (schritt) => {
+      for (const el of schritt.querySelectorAll('input')) {
+        if (!el.required) continue;
+        if (el.type === 'radio') { if (!form.querySelector(`[name="${el.name}"]:checked`)) return el.dataset.clFehler; continue; }
+        if (el.type === 'checkbox') { if (!el.checked) return el.dataset.clFehler; continue; }
+        if (!el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))) return el.dataset.clFehler;
+      }
+      return '';
+    };
+    const zeige = (i) => {
+      aktuell = Math.max(0, Math.min(i, schritte.length - 1));
+      for (const s of schritte) s.hidden = s !== schritte[aktuell];
+      const letzter = aktuell === schritte.length - 1;
+      zahl.textContent = `Schritt ${aktuell + 1} von ${schritte.length}`;
+      balken.style.width = `${((aktuell + 1) / schritte.length) * 100}%`;
+      zurueck.hidden = aktuell === 0;
+      weiter.hidden = letzter;
+      senden.hidden = !letzter;
+      fehler('');
+      const erstes = schritte[aktuell].querySelector('input');
+      if (erstes && aktuell > 0) erstes.focus({ preventScroll: true });
+    };
+    const vor = () => { const f = pruefe(schritte[aktuell]); if (f) { fehler(f); return; } zeige(aktuell + 1); };
+    const kundennummerZeigen = () => { const ja = form.querySelector('[name="bestandskunde"][value="ja"]'); kundennummer.hidden = !ja.checked; };
+
+    weiter.addEventListener('click', vor);
+    zurueck.addEventListener('click', () => zeige(aktuell - 1));
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox' && !weiter.hidden) { e.preventDefault(); vor(); }
+    });
+    for (const r of form.querySelectorAll('[name="bestandskunde"]')) r.addEventListener('change', kundennummerZeigen);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = pruefe(schritte[aktuell]); if (f) { fehler(f); return; }
+      senden.disabled = true;
+      try {
+        const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!r.ok) throw new Error(String(r.status));
+        form.hidden = true; danke.hidden = false;
+      } catch {
+        fehler('Das Senden hat nicht geklappt. Rufen Sie uns an unter 04934 91060 oder schreiben Sie an info@albert-wilts.de.');
+        senden.disabled = false;
+      }
+    });
+    kundennummerZeigen();
+    zeige(0);
+  }
+</script>
+
+<style>
+  .cl-cta { background: #4F7146; color: #fff; width: 100%; box-sizing: border-box; padding: 64px 0; }
+  .cl-inside { max-width: 1280px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+  /* Desktop: links Kopf und Text, rechts die Karte über beide Zeilen, darunter der Abbinder */
+  .cl-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 'kopf card' 'text card' '. abbinder';
+    column-gap: 64px;
+    row-gap: 0;
+    align-items: stretch;
+  }
+  .cl-kopf { grid-area: kopf; }
+  .cl-card { grid-area: card; }
+  .cl-text { grid-area: text; align-self: start; }
+  .cl-abbinder { grid-area: abbinder; }
+
+  /* Linke Spalte */
+  .cl-dach { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); margin: 0 0 14px; }
+  .cl-title { color: #fff; margin: 0; }
+  .cl-unterzeile { color: #fff; font-family: var(--font-sans); font-size: 20px; line-height: 30px; font-weight: 600; margin: 6px 0 28px; }
+  .cl-fliesstext { color: #fff; font-family: var(--font-sans); font-size: 17px; line-height: 28px; margin: 0 0 20px; }
+  .cl-nutzen { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 6px; }
+  .cl-nutzen li { position: relative; padding-left: 28px; color: #fff; font-family: var(--font-sans); font-size: 17px; line-height: 28px; }
+  .cl-nutzen li::before { content: '\2713'; position: absolute; left: 0; top: 0; font-weight: 700; }
+  .cl-neukunden { color: #fff; font-family: var(--font-sans); font-size: 17px; line-height: 28px; margin: 0; }
+
+  /* Formularkarte */
+  .cl-card { background: #fff; border-radius: 6px; padding: 28px 32px 32px; color: #3B3C42; box-sizing: border-box; display: flex; flex-direction: column; }
+  .cl-card-titel { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 700; color: #3B3C42; margin: 0 0 6px; }
+  .cl-card-sub { font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: #555; margin: 0 0 22px; }
+  .cl-form { display: flex; flex-direction: column; gap: 18px; flex: 1 1 auto; }
+  .cl-fortschritt { display: flex; flex-direction: column; gap: 6px; }
+  .cl-schrittzahl { font-family: var(--font-sans); font-size: 13px; line-height: 20px; color: #7F7F7F; }
+  .cl-balken { display: block; height: 3px; background: #EDEDED; border-radius: 2px; overflow: hidden; }
+  .cl-balken-fuellung { display: block; height: 100%; width: 0; background: #4F7146; transition: width 0.25s ease-out; }
+  .cl-schritt { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .cl-legende { font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #3B3C42; padding: 0; margin: 0 0 8px; }
+  .cl-optional { font-weight: 400; color: #7F7F7F; }
+  .cl-feldhinweis { margin: -2px 0 2px; font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: #7F7F7F; }
+  .cl-kundennummer { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+  .cl-kundennummer[hidden] { display: none; }
+  .cl-schritt.sub-field .cl-consent { margin-top: 14px; font-size: 14px; line-height: 21px; font-weight: 400; color: #555; }
+  .cl-wahl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cl-wahl-option { position: relative; display: block; }
+  .cl-wahl-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .cl-wahl-option span { display: block; text-align: center; font-family: var(--font-sans); font-size: 17px; line-height: 28px; font-weight: 700; color: #3B3C42; border: 2px solid #D1D5DB; border-radius: 6px; padding: 10px 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+  .cl-wahl-option input:checked + span { border-color: #4F7146; background: #EDF1EA; color: #4F7146; }
+  .cl-wahl-option input:focus-visible + span { box-shadow: 0 0 0 3px rgba(79, 113, 70, 0.25); }
+  .cl-fehler { margin: -6px 0 0; font-family: var(--font-sans); font-size: 15px; line-height: 24px; font-weight: 700; color: #B23B2E; }
+  .cl-fuss { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; margin-top: auto; }
+  .cl-zurueck { background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--font-sans); font-size: 17px; line-height: 28px; color: #4F7146; text-decoration: underline; }
+  .cl-weiter { margin-left: auto; font-family: var(--font-sans); font-size: 17px; line-height: 28px; font-weight: 700; color: #fff; background: #4F7146; border: 0; border-radius: 6px; padding: 11px 24px; cursor: pointer; transition: background 0.18s; }
+  .cl-weiter:hover { background: #3f5c38; }
+  .cl-senden { margin-left: auto; display: inline-flex; align-items: center; font-family: var(--font-sans); font-size: 17px; line-height: 28px; font-weight: 400; color: #fff; background: #EF7F1A; border: 0; border-radius: 6px; padding: 12px 20px; cursor: pointer; transition: background 0.18s ease-out; }
+  .cl-senden:hover { background: #d9700f; }
+  .cl-senden:disabled { opacity: 0.7; cursor: default; }
+  .cl-senden-chevron { margin-right: 6px; line-height: 1; }
+  .cl-danke-titel { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 700; margin: 0 0 8px; }
+  .cl-danke p { margin: 0 0 8px; font-family: var(--font-sans); font-size: 17px; line-height: 28px; color: #3B3C42; }
+  .cl-danke a { color: #4F7146; font-weight: 700; text-decoration: underline; }
+
+  /* Abbinder unter der Karte: zwei Sätze, immer untereinander */
+  .cl-abbinder { margin-top: 16px; }
+  .cl-abbinder p { display: block; margin: 0; color: rgba(255, 255, 255, 0.8); font-family: var(--font-sans); font-size: 15px; line-height: 24px; }
+  .cl-abbinder :global(.sub-phone) { color: #fff; }
+
+  @media (max-width: 900px) {
+    .cl-cta { padding: 48px 0; }
+    .cl-inside { padding: 0 16px; }
+    .cl-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: 'kopf' 'card' 'text' 'abbinder'; row-gap: 0; }
+    .cl-unterzeile { margin-bottom: 22px; }
+    .cl-card { padding: 22px 18px 24px; }
+    .cl-text { margin-top: 28px; }
+    .cl-abbinder { margin-top: 24px; }
+  }
+</style>
