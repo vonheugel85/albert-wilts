@@ -3,6 +3,7 @@ import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
 import Placeholder  from '../components/Placeholder.astro';
+import LiefergebietKarte from '../components/LiefergebietKarte.astro';
 ---
 
 <BaseLayout
@@ -94,10 +95,10 @@ import Placeholder  from '../components/Placeholder.astro';
     </div>
   </Section>
 
-  {/* BILDPLATZ: Karte Liefergebiet Ostfriesland mit Inseln, Querformat */}
   <Section bg="#F8F8F8">
     <h2>Ostfriesland und die Inseln</h2>
     <p class="sub-lead">Unsere Lkw sind an sechs Tagen die Woche unterwegs, auf dem Festland und über die Fähren. Diese Orte fahren wir regelmäßig an. Ihr Standort ist nicht dabei? Fragen Sie trotzdem, oft lässt sich eine Route erweitern.</p>
+    <LiefergebietKarte />
     <div class="sub-featcols sub-featcols--2">
       <div class="sub-featcol sub-featcol-top">
         <h3>Auf dem Festland</h3>

@@ -1013,3 +1013,26 @@
   .sub-brands { grid-template-columns: 1fr; gap: 18px; }
   .sub-brand { padding: 22px; }
 }
+
+/* ---------- Liefergebiet-Karte (K5b-Karte, 16.10.2026): Inline-SVG in LiefergebietKarte.astro ---------- */
+.sub-map { margin: 36px 0 44px; }
+.sub-map svg { display: block; width: 100%; height: auto; border: 1px solid #E5E5E5; background: #E6EDF1; }
+.sub-map-meer-flaeche { fill: #E6EDF1; }
+.sub-map-land path { fill: #FFFFFF; stroke: #B9C6CE; stroke-width: 1.5; stroke-linejoin: round; }
+.sub-map-ort { fill: #4F7146; stroke: #FFFFFF; stroke-width: 2.5; }
+.sub-map-haefen circle { fill: #4F7146; }
+.sub-map-faehren line, .sub-map-legende-linie { stroke: #4F7146; stroke-width: 2.5; stroke-dasharray: 7 6; stroke-linecap: round; opacity: 0.85; }
+.sub-map-standort rect, .sub-map-standort-swatch { fill: #EF7F1A; stroke: #FFFFFF; stroke-width: 2.5; }
+.sub-map-label { font-family: var(--font-sans); font-size: 19px; font-weight: 400; fill: #3B3C42; }
+.sub-map-label--fett { font-weight: 700; }
+.sub-map-label--leise { fill: #7F7F7F; }
+.sub-map-meer { font-family: var(--font-sans); font-size: 19px; font-weight: 400; fill: #7F7F7F; letter-spacing: 3px; text-transform: uppercase; }
+.sub-map-legende rect:first-child { fill: rgba(255, 255, 255, 0.92); stroke: #E5E5E5; }
+.sub-map-credit { margin: 10px 0 0; font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: #7F7F7F; }
+.sub-map-credit a { color: #7F7F7F; font-weight: 400; font-size: 15px; line-height: 24px; text-decoration: underline; }
+@media (max-width: 640px) {
+  .sub-map { margin: 28px 0 32px; }
+  .sub-map-label, .sub-map-meer { font-size: 28px; }
+  .sub-map-ort { r: 10px; }
+  .sub-map-legende, .sub-map-label--nebenzeile, .sub-map-label--leise { display: none; }
+}
