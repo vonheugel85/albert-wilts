@@ -91,6 +91,7 @@
 }
 
 .sub-block { max-width: 820px; }
+.sub-block-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; margin-top: 28px; }
 .sub-lead {
   font-size: 18px;
   line-height: 27px;
