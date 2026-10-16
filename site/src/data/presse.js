@@ -157,6 +157,18 @@ export const pressebeitraege = [
     format: 'Online-Magazin',
   },
   {
+    id: 'ferien-ahoi-44',
+    kategorie: 'norderney',
+    medium: 'Ferien Ahoi',
+    datum: '2026-07-23',
+    datumLabel: 'Ausgabe 44, 2026',
+    titel: 'Mit der ersten Fähre',
+    teaser: 'Das Norderneyer Reisemagazin begleitet einen kompletten Auslieferungstag, von der Bestellannahme am Donnerstag bis zurück aufs Festland am Freitagmittag.',
+    url: '/presse/ahoi-magazin-44-mit-der-ersten-faehre.pdf',
+    zugang: 'frei',
+    format: 'Reisemagazin, PDF',
+  },
+  {
     id: 'ferien-ahoi-39',
     kategorie: 'norderney',
     medium: 'Ferien Ahoi',
@@ -164,8 +176,7 @@ export const pressebeitraege = [
     datumLabel: 'Ausgabe 39, 2024',
     titel: 'Von Generation zu Generation',
     teaser: 'Das Norderneyer Reisemagazin begleitet den Wechsel im Familienbetrieb und den Blick nach vorn.',
-    url: 'https://issuu.com/ferien.ahoi/docs/39/s/42389929',
-    zugang: 'frei',
+    zugang: 'offline',
     format: 'Reisemagazin',
   },
   {
@@ -190,8 +201,7 @@ export const pressebeitraege = [
     datumLabel: '21.08.2024',
     titel: 'Eine Familie, eine Mission: Frische und Qualität',
     teaser: 'Ausführliches Porträt über den Familienbetrieb aus Upgant-Schott, seine Wurzeln im Brookmerland und den Alltag heute.',
-    url: 'https://nachrichten.ostfriesischer-kurier.de/nachrichten/eine-familie-eine-mission-frische-und-qualitaet-5449.html',
-    zugang: 'frei',
+    zugang: 'offline',
     format: 'Zeitungsbericht',
   },
   {
