@@ -14,7 +14,9 @@ const marktzeiten = [
   Bogen: data-URI 1:1 aus customize.css ::before-Regel (Quelle: ../css/customize.css Z. 618-640).
   viewBox 0 0 1920 50, oranges Rechteck #EF7F1A + grüne Ellipse cx=960 cy=50 rx=960 ry=50.
 -->
-<div aria-hidden="true" class="overflow-hidden leading-none -mb-px">
+<!-- Bogen liegt 50px ueber dem letzten Abschnitt der Seite (margin-top negativ), damit die Flaeche
+     ueber der Ellipse dessen Farbe zeigt, egal ob weiss oder hellgruen (K5b-7, 16.10.2026). -->
+<div aria-hidden="true" class="overflow-hidden leading-none -mb-px" style="margin-top:-50px; position:relative; z-index:1;">
   <svg
     viewBox="0 0 1920 50"
     preserveAspectRatio="none"
@@ -22,7 +24,6 @@ const marktzeiten = [
     style="height:50px"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect fill="#EDF1EA" width="1920" height="50"/>
     <ellipse cx="960" cy="50" rx="960" ry="50" fill="#4F7146"/>
   </svg>
 </div>
