@@ -25,7 +25,6 @@ const appLink = 'http://onelink.to/z56nkd';
         <p class="cl-unterzeile">Nach Feierabend, am Wochenende,<br>mitten in der Vorbereitung.</p>
       </div>
 
-      <div class="cl-rechts">
       <div class="cl-card">
         <h3 class="cl-card-titel">Zugang anfordern</h3>
         <p class="cl-card-sub">Fünf kurze Fragen, etwa eine Minute. Ihren persönlichen Zugangscode schicken wir Ihnen danach zu.</p>
@@ -92,11 +91,11 @@ const appLink = 'http://onelink.to/z56nkd';
           <p>Wir schicken Ihnen in Kürze Ihren Registrierungscode zu.</p>
           <p><a href={appLink} target="_blank" rel="noopener noreferrer">Laden Sie jetzt schon die Chefslist App.</a></p>
         </div>
-      </div>
-      <div class="cl-abbinder">
-        <p>Lieber telefonisch? <a href="tel:+49493491060" class="sub-phone">04934 91060</a></p>
-        <p>Chefslist ist die Bestellplattform, über die wir unsere Gewerbekunden digital beliefern.</p>
-      </div>
+
+        <div class="cl-abbinder">
+          <p>Lieber telefonisch? <a href="tel:+49493491060" class="sub-phone">04934 91060</a></p>
+          <p>Chefslist ist die Bestellplattform, über die wir unsere Gewerbekunden digital beliefern.</p>
+        </div>
       </div>
 
       <div class="cl-text">
@@ -190,14 +189,14 @@ const appLink = 'http://onelink.to/z56nkd';
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
-    grid-template-areas: 'kopf rechts' 'text rechts';
+    grid-template-areas: 'kopf card' 'text card';
     column-gap: 64px;
     row-gap: 0;
-    align-items: start;
+    align-items: stretch;
   }
   .cl-kopf { grid-area: kopf; }
-  .cl-rechts { grid-area: rechts; display: flex; flex-direction: column; }
-  .cl-text { grid-area: text; }
+  .cl-card { grid-area: card; }
+  .cl-text { grid-area: text; align-self: start; }
 
   /* Linke Spalte */
   .cl-dach { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); margin: 0 0 14px; }
@@ -210,10 +209,10 @@ const appLink = 'http://onelink.to/z56nkd';
   .cl-neukunden { color: #fff; font-family: var(--font-sans); font-size: 17px; line-height: 28px; margin: 0; }
 
   /* Formularkarte */
-  .cl-card { background: #fff; border-radius: 6px; padding: 28px 32px 32px; color: #3B3C42; box-sizing: border-box; display: flex; flex-direction: column; }
+  .cl-card { background: #fff; border-radius: 6px; padding: 28px 32px 26px; color: #3B3C42; box-sizing: border-box; display: flex; flex-direction: column; }
   .cl-card-titel { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 700; color: #3B3C42; margin: 0 0 6px; }
   .cl-card-sub { font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: #555; margin: 0 0 22px; }
-  .cl-form { display: flex; flex-direction: column; gap: 18px; flex: 1 1 auto; }
+  .cl-form { display: flex; flex-direction: column; gap: 18px; }
   .cl-fortschritt { display: flex; flex-direction: column; gap: 6px; }
   .cl-schrittzahl { font-family: var(--font-sans); font-size: 13px; line-height: 20px; color: #7F7F7F; }
   .cl-balken { display: block; height: 3px; background: #EDEDED; border-radius: 2px; overflow: hidden; }
@@ -244,22 +243,18 @@ const appLink = 'http://onelink.to/z56nkd';
   .cl-danke p { margin: 0 0 8px; font-family: var(--font-sans); font-size: 17px; line-height: 28px; color: #3B3C42; }
   .cl-danke a { color: #4F7146; font-weight: 700; text-decoration: underline; }
 
-  /* Abbinder unter der Karte: zwei Sätze, immer untereinander */
-  .cl-abbinder { margin-top: 16px; }
-  .cl-abbinder p { display: block; margin: 0; color: rgba(255, 255, 255, 0.8); font-family: var(--font-sans); font-size: 15px; line-height: 24px; }
-  .cl-abbinder :global(.sub-phone) { color: #fff; }
+  /* Abbinder am Kartenfuß: zwei Sätze, immer untereinander, dunkel auf Weiß */
+  .cl-abbinder { margin-top: auto; padding-top: 18px; border-top: 1px solid #E5E5E5; }
+  .cl-abbinder p { display: block; margin: 0; color: #3B3C42; font-family: var(--font-sans); font-size: 15px; line-height: 24px; }
+  .cl-abbinder :global(.sub-phone) { color: #3B3C42; }
 
   @media (max-width: 900px) {
     .cl-cta { padding: 48px 0; }
     .cl-inside { padding: 0 16px; }
-    /* Mobil: Wrapper auflösen, damit Karte und Abbinder einzeln platziert werden */
-    .cl-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: 'kopf' 'card' 'text' 'abbinder'; row-gap: 0; }
-    .cl-rechts { display: contents; }
-    .cl-card { grid-area: card; }
-    .cl-abbinder { grid-area: abbinder; }
+    .cl-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: 'kopf' 'card' 'text'; row-gap: 0; }
+    .cl-abbinder { margin-top: 22px; }
     .cl-unterzeile { margin-bottom: 22px; }
     .cl-card { padding: 22px 18px 24px; }
     .cl-text { margin-top: 28px; }
-    .cl-abbinder { margin-top: 24px; }
   }
 </style>
