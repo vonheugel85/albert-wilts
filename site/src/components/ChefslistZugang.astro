@@ -31,6 +31,9 @@ const appLink = 'http://onelink.to/z56nkd';
       </div>
 
       <div class="cl-card">
+        <span class="cl-siegel">
+          <img src="/logo/partner/chefslist.svg" alt="Chefslist" width="117" height="34">
+        </span>
         <h3 class="cl-card-titel">Zugang anfordern</h3>
         <p class="cl-card-sub">Fünf kurze Fragen, etwa eine Minute. Ihren persönlichen Zugangscode schicken wir Ihnen danach zu.</p>
 
@@ -187,7 +190,7 @@ const appLink = 'http://onelink.to/z56nkd';
 </script>
 
 <style>
-  .cl-cta { background: #4F7146; color: #fff; width: 100%; box-sizing: border-box; padding: 64px 0; }
+  .cl-cta { background: #4F7146; color: #fff; width: 100%; box-sizing: border-box; padding: 72px 0 64px; }
   .cl-inside { max-width: 1280px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
   /* Desktop: links Kopf und Text, rechts die Karte über beide Zeilen, darunter der Abbinder */
   .cl-grid {
@@ -214,7 +217,10 @@ const appLink = 'http://onelink.to/z56nkd';
   .cl-neukunden { color: #fff; font-family: var(--font-sans); font-size: 17px; line-height: 28px; margin: 0; }
 
   /* Formularkarte */
-  .cl-card { background: #fff; border-radius: 6px; padding: 28px 32px 26px; color: #3B3C42; box-sizing: border-box; display: flex; flex-direction: column; }
+  .cl-card { position: relative; background: #fff; border-radius: 6px; padding: 48px 32px 26px; color: #3B3C42; box-sizing: border-box; display: flex; flex-direction: column; }
+  /* Partnersiegel halb über der Kartenkante; das Chefslist-Logo (Mütze orange, Wortmarke weiß) braucht die grüne Fläche */
+  .cl-siegel { position: absolute; top: -33px; right: 32px; z-index: 2; display: inline-flex; align-items: center; background: #4F7146; border-radius: 6px; padding: 16px 28px; }
+  .cl-siegel img { height: 34px; width: auto; display: block; }
   .cl-card-titel { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 700; color: #3B3C42; margin: 0 0 6px; }
   .cl-card-sub { font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: #555; margin: 0 0 22px; }
   .cl-form { display: flex; flex-direction: column; gap: 18px; }
@@ -294,7 +300,9 @@ const appLink = 'http://onelink.to/z56nkd';
     .cl-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: 'kopf' 'card' 'text'; row-gap: 0; }
     .cl-abbinder { margin-top: 22px; }
     .cl-unterzeile { margin-bottom: 22px; }
-    .cl-card { padding: 22px 18px 24px; }
+    .cl-card { padding: 40px 18px 24px; }
+    .cl-siegel { top: -26px; right: 18px; padding: 13px 23px; }
+    .cl-siegel img { height: 26px; }
     .cl-text { margin-top: 28px; }
   }
 </style>
