@@ -7,8 +7,11 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* Einheitliches Section-Padding (N6): alle Content-Sektionen und CTA-Flaechen */
 .section-pad { padding-block: 80px; }
+/* Letzter Abschnitt vor dem Footer: die Footer-Welle ragt 50px hinein (Footer.astro), daher 50px mehr unten (K5b-10) */
+main > section.section-pad:last-of-type { padding-bottom: 130px; }
 @media (max-width: 768px) {
   .section-pad { padding-block: 56px; }
+  main > section.section-pad:last-of-type { padding-bottom: 106px; }
 }
 
 /* Footer: Markttabelle und mobiles Spalten-Layout */
