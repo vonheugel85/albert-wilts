@@ -1,5 +1,6 @@
 ---
 import BaseLayout          from '../layouts/BaseLayout.astro';
+import HeroBuehne          from '../components/HeroBuehne.astro';
 import HeroSection         from '../components/HeroSection.astro';
 import InfoLeiste          from '../components/InfoLeiste.astro';
 import BereicheSection     from '../components/BereicheSection.astro';
@@ -23,11 +24,11 @@ const presseTeaser = [...pressebeitraege]
   title="Albert Wilts – Frische aus Tradition"
   description="Albert Wilts e. K. – Frischwarengroßhandel seit 1958 in Upgant-Schott. Frische für Gastronomie, Hotellerie und Familientisch."
 >
-  <!-- Sektion 1: Hero -->
-  <HeroSection />
-
-  <!-- Sektion 2: Info-Leiste (grün, article-3) -->
-  <InfoLeiste />
+  <!-- Sektion 1 und 2: Hero und Info-Leiste auf gemeinsamer Video-Bühne -->
+  <HeroBuehne>
+    <HeroSection />
+    <InfoLeiste />
+  </HeroBuehne>
 
   <!-- Sektion 2b: Google-Bewertungen (kuratiert, Slider, Unterseite /bewertungen) -->
   <Section bg="#F8F8F8">

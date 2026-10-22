@@ -1,0 +1,66 @@
+---
+/*
+  HeroBuehne.astro: gemeinsame Bühne für Hero und Info-Leiste der Startseite (V1, 2026-10-22).
+  Hintergrund: Foto (Poster und Fallback) plus stummes Schleifenvideo ab 769 px, darüber Markengrün
+  im unteren Zehntel deckend, nach oben linear transparenter bis 85 % an der Oberkante; Hero und Leiste liegen beide darauf. Die
+  Kinder (HeroSection, InfoLeiste) sind transparent und liegen auf dem Video.
+  Quelle: Drohnenflug 10/2026, 20,5 s nahtlos, 720p, stark komprimiert (die Abdunklung schluckt Details).
+  Smartphone und Tablet hochkant: kein Video, kein MP4-Download. Reduzierte Bewegung: kein Video.
+*/
+---
+
+<div class="hero-buehne">
+  <img
+    src="/bilder/unternehmen/albert-wilts-gebaeudeaussen-hero.webp"
+    alt=""
+    aria-hidden="true"
+    class="hero-buehne-bild"
+    loading="eager"
+    decoding="sync"
+    fetchpriority="high"
+  />
+  <video
+    class="hero-buehne-video"
+    autoplay muted loop playsinline
+    preload="metadata"
+    poster="/video/gelaende-hero-poster.webp"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <source src="/video/gelaende-hero.mp4" type="video/mp4" media="(min-width: 769px) and (prefers-reduced-motion: no-preference)" />
+  </video>
+  <div class="hero-buehne-scrim" aria-hidden="true"></div>
+  <div class="hero-buehne-inhalt">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .hero-buehne { position: relative; width: 100%; overflow: hidden; background: #4F7146; }
+  .hero-buehne-bild,
+  .hero-buehne-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    z-index: 0;
+  }
+  .hero-buehne-bild { object-position: 50% 55%; }
+  /* Markengrün über der gesamten Bühne: unteres Zehntel deckend, nach oben linear transparenter bis 85 % an der Oberkante (Wert von Manuel, 22.10.2026) */
+  .hero-buehne-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #4F7146 10%, rgba(79, 113, 70, 0.85) 100%);
+    z-index: 1;
+  }
+  .hero-buehne-inhalt { position: relative; z-index: 2; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-buehne-video { display: none; }
+  }
+  @media (max-width: 768px) {
+    .hero-buehne-video { display: none; }
+  }
+</style>

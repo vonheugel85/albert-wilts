@@ -1,7 +1,7 @@
 ---
 /*
   InfoLeiste.astro – Sektion 2 der Startseite (article-3 Entsprechung).
-  Fullwidth, gruen (#4F7146), drei gleich breite Spalten.
+  Fullwidth, transparent auf der HeroBuehne (seit V1 2026-10-22, vorher gruen #4F7146), drei gleich breite Spalten.
   Je: FA-Icon oben, Titel (Caladea, weiss), zwei Info-Zeilen (Plex (bis T2 Arimo), weiss),
   oranger Button "Mehr Informationen" (B4 hatte weissen Textlink, seit N5 wieder Button).
   Keine Props, Inhalt fix.
@@ -57,7 +57,7 @@ const cols = [
   /* ── Section: fullwidth, gruen ── */
   .info-leiste {
     width: 100%;
-    background: #4F7146;
+    background: transparent; /* liegt auf HeroBuehne.astro, Gruen kommt vom Verlauf dort */
     box-sizing: border-box;
   }
 

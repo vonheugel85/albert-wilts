@@ -10,7 +10,7 @@
  * - 301 auf Trailing-Slash-Form für Verzeichnisrouten (/presse -> /presse/ -> dist/presse/index.html).
  * - Cache-Control: immutable für gehashte Assets (/_astro/) und Fonts, kurz für /bilder/ und /logo/,
  *   no-cache für HTML/XML/TXT, sonst eine Stunde.
- * - ETag + Last-Modified + 304, Path-Traversal-Schutz, nur GET/HEAD (sonst 405).
+ * - ETag + Last-Modified + 304, Range-Anfragen (206, fuer Video), Path-Traversal-Schutz, nur GET/HEAD (sonst 405).
  * - 404 über dist/404.html, falls vorhanden, sonst Text-Fallback.
  *
  * Bewusst NICHT enthalten (anders als KVS Nordsee): Legacy-Redirect-Tabelle und
@@ -32,11 +32,13 @@ const MIME = {
   '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.avif': 'image/avif', '.ico': 'image/x-icon', '.woff': 'font/woff', '.woff2': 'font/woff2',
   '.pdf': 'application/pdf', '.webmanifest': 'application/manifest+json',
+  '.mp4': 'video/mp4', '.webm': 'video/webm',
 };
 
 function cacheControl(urlPath, ext) {
   if (urlPath.startsWith('/_astro/') || ext === '.woff2' || ext === '.woff') return 'public, max-age=31536000, immutable';
   if (urlPath.startsWith('/bilder/') || urlPath.startsWith('/logo/')) return 'public, max-age=300';
+  if (urlPath.startsWith('/video/')) return 'public, max-age=86400';
   if (ext === '.html' || ext === '.xml' || ext === '.txt') return 'no-cache';
   return 'public, max-age=3600';
 }
@@ -124,6 +126,26 @@ const server = http.createServer(async (req, res) => {
   if ((inm && inm === etag) || (!inm && ims && new Date(ims).getTime() >= Math.floor(info.mtimeMs / 1000) * 1000)) {
     res.writeHead(304, headers);
     return res.end();
+  }
+
+  // Range-Anfragen (Video): Safari spielt <video> nur, wenn der Server 206 mit Content-Range liefert.
+  headers['Accept-Ranges'] = 'bytes';
+  const range = req.headers.range;
+  if (range) {
+    const m = /^bytes=(\d*)-(\d*)$/.exec(range);
+    let start = m && m[1] !== '' ? Number(m[1]) : NaN;
+    let end = m && m[2] !== '' ? Number(m[2]) : info.size - 1;
+    if (m && m[1] === '' && m[2] !== '') { start = Math.max(0, info.size - Number(m[2])); end = info.size - 1; }
+    if (!m || Number.isNaN(start) || start >= info.size || start > end) {
+      res.writeHead(416, { 'Content-Range': `bytes */${info.size}` });
+      return res.end();
+    }
+    end = Math.min(end, info.size - 1);
+    headers['Content-Range'] = `bytes ${start}-${end}/${info.size}`;
+    headers['Content-Length'] = end - start + 1;
+    res.writeHead(206, headers);
+    if (req.method === 'HEAD') return res.end();
+    return createReadStream(filePath, { start, end }).pipe(res);
   }
 
   headers['Content-Length'] = info.size;
