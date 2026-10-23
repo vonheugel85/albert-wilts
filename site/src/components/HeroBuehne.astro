@@ -5,7 +5,7 @@
   im unteren Zehntel deckend, nach oben linear transparenter bis 85 % an der Oberkante; Hero und Leiste liegen beide darauf. Die
   Kinder (HeroSection, InfoLeiste) sind transparent und liegen auf dem Video.
   Quelle: Drohnenflug 10/2026, 20,5 s nahtlos, 720p, stark komprimiert (die Abdunklung schluckt Details).
-  Smartphone und Tablet hochkant: kein Video, kein MP4-Download. Reduzierte Bewegung: kein Video.
+  Mobil laeuft das Video nur hinter dem Hero, die Leiste darunter ist deckend gruen (seit 23.10.2026). Reduzierte Bewegung: nur Foto.
 */
 ---
 
@@ -27,13 +27,24 @@
     aria-hidden="true"
     tabindex="-1"
   >
-    <source src="/video/gelaende-hero.mp4" type="video/mp4" media="(min-width: 769px) and (prefers-reduced-motion: no-preference)" />
+    <source src="/video/gelaende-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
   </video>
   <div class="hero-buehne-scrim" aria-hidden="true"></div>
   <div class="hero-buehne-inhalt">
     <slot />
   </div>
 </div>
+
+<script>
+  /* Mobil: Hintergrundhoehe der Buehne auf die Hero-Hoehe begrenzen (CSS allein kennt die Kinderhoehe nicht). */
+  for (const b of document.querySelectorAll('.hero-buehne')) {
+    const hero = b.querySelector('.hero-section');
+    if (!hero) continue;
+    const setzen = () => b.style.setProperty('--buehne-hero-hoehe', `${hero.getBoundingClientRect().height}px`);
+    setzen();
+    new ResizeObserver(setzen).observe(hero);
+  }
+</script>
 
 <style>
   .hero-buehne { position: relative; width: 100%; overflow: hidden; background: #4F7146; }
@@ -60,7 +71,12 @@
   @media (prefers-reduced-motion: reduce) {
     .hero-buehne-video { display: none; }
   }
+  /* Mobil: Buehne nur hinter dem Hero (Hintergrund auf dessen Hoehe begrenzt), die Info-Leiste darunter
+     bekommt ihr eigenes deckendes Gruen; sonst wuerde das Video auf 1500px Hoehe gezogen und zeigt nur einen Streifen. */
   @media (max-width: 768px) {
-    .hero-buehne-video { display: none; }
+    .hero-buehne-bild,
+    .hero-buehne-video,
+    .hero-buehne-scrim { height: var(--buehne-hero-hoehe, 100%); }
+    .hero-buehne-inhalt > :global(.info-leiste) { background: #4F7146; }
   }
 </style>
