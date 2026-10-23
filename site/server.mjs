@@ -13,8 +13,18 @@
  * - ETag + Last-Modified + 304, Range-Anfragen (206, fuer Video), Path-Traversal-Schutz, nur GET/HEAD (sonst 405).
  * - 404 über dist/404.html, falls vorhanden, sonst Text-Fallback.
  *
- * Bewusst NICHT enthalten (anders als KVS Nordsee): Legacy-Redirect-Tabelle und
- * Proxy /api/kontakt. Das Kontaktformular-Backend ist für Wilts noch nicht entschieden.
+ * - POST /api/formular: nimmt Kontakt-, Chefslist- und Newsletter-Formular entgegen und schickt eine Mail
+ *   ueber die Brevo-HTTP-API (F3, 2026-10-23). Umgebungsvariablen:
+ *     BREVO_API_KEY    Pflicht, Brevo "API keys" (v3), ohne Key antwortet der Endpunkt 503
+ *     FORM_TO          Empfaenger, Default info@albert-wilts.de
+ *     FORM_FROM_EMAIL  Absender, muss in Brevo als Sender/Domain verifiziert sein, Default website@albert-wilts.de
+ *     FORM_FROM_NAME   Absendername, Default "Albert Wilts Website"
+ *     BREVO_API_URL    nur fuer Tests (lokaler Mock), Default https://api.brevo.com/v3/smtp/email
+ *   Schutz: Honeypot-Feld _gotcha, Groessenlimit 32 KB, Ratenbegrenzung 8 Anfragen je IP und 10 Minuten,
+ *   Pflichtfelder und E-Mail-Format je Formulartyp. Antwort JSON bei Accept: application/json,
+ *   sonst eine kleine HTML-Bestaetigungsseite (Formular ohne JavaScript).
+ *
+ * Bewusst NICHT enthalten (anders als KVS Nordsee): Legacy-Redirect-Tabelle.
  */
 import http from 'node:http';
 import { createReadStream, statSync } from 'node:fs';
@@ -69,6 +79,114 @@ function send404(req, res) {
   res.end('Seite nicht gefunden.');
 }
 
+// ---------------------------------------------------------------------------------------------
+// Formularversand ueber Brevo
+// ---------------------------------------------------------------------------------------------
+const FORM = {
+  to: process.env.FORM_TO || 'info@albert-wilts.de',
+  fromEmail: process.env.FORM_FROM_EMAIL || 'website@albert-wilts.de',
+  fromName: process.env.FORM_FROM_NAME || 'Albert Wilts Website',
+  apiKey: process.env.BREVO_API_KEY || '',
+  apiUrl: process.env.BREVO_API_URL || 'https://api.brevo.com/v3/smtp/email',
+  maxBytes: 32 * 1024,
+  rateLimit: 8,
+  rateWindowMs: 10 * 60 * 1000,
+};
+const FORMULARE = {
+  kontakt: {
+    betreff: (d) => `Anfrage über die Website: ${d.anliegen || 'Kontakt'}`,
+    pflicht: ['name', 'email', 'nachricht', 'datenschutz'],
+    felder: [['name', 'Name'], ['firma', 'Firma'], ['email', 'E-Mail'], ['telefon', 'Telefon'], ['anliegen', 'Anliegen'], ['nachricht', 'Nachricht']],
+    danke: 'Vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich.',
+  },
+  chefslist: {
+    betreff: (d) => `Chefslist-Zugang angefordert: ${d.unternehmen || ''}`,
+    pflicht: ['unternehmen', 'bestandskunde', 'name', 'email', 'datenschutz'],
+    felder: [['unternehmen', 'Unternehmen'], ['bestandskunde', 'Bereits Kunde'], ['kundennummer', 'Kundennummer'], ['name', 'Name'], ['handy', 'Handynummer'], ['email', 'E-Mail']],
+    danke: 'Danke! Wir schicken Ihnen in Kürze Ihren Registrierungscode zu.',
+  },
+  newsletter: {
+    betreff: () => 'Newsletter-Anmeldung über die Website',
+    pflicht: ['email'],
+    felder: [['email', 'E-Mail']],
+    danke: 'Vielen Dank. Wir haben Ihre Anmeldung erhalten.',
+  },
+};
+const rateMap = new Map(); // ip -> [timestamps]
+function rateOk(ip) {
+  const now = Date.now();
+  const list = (rateMap.get(ip) || []).filter((t) => now - t < FORM.rateWindowMs);
+  if (list.length >= FORM.rateLimit) { rateMap.set(ip, list); return false; }
+  list.push(now); rateMap.set(ip, list);
+  if (rateMap.size > 5000) for (const [k, v] of rateMap) if (!v.length || now - v[v.length - 1] > FORM.rateWindowMs) rateMap.delete(k);
+  return true;
+}
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = []; let size = 0;
+    req.on('data', (c) => { size += c.length; if (size > FORM.maxBytes) { chunks.length = 0; reject(new Error('zu gross')); } else chunks.push(c); });
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+function parseBody(raw, contentType) {
+  const d = {};
+  if (contentType.includes('application/json')) {
+    const j = JSON.parse(raw || '{}');
+    for (const [k, v] of Object.entries(j)) d[k] = String(v ?? '').trim().slice(0, 4000);
+  } else {
+    for (const [k, v] of new URLSearchParams(raw)) d[k] = String(v).trim().slice(0, 4000);
+  }
+  return d;
+}
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function antwort(req, res, status, ok, text, zurueck = '/') {
+  const wantsJson = (req.headers.accept || '').includes('application/json');
+  if (wantsJson) {
+    const body = JSON.stringify({ ok, text });
+    res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'Content-Length': Buffer.byteLength(body) });
+    return res.end(body);
+  }
+  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${ok ? 'Nachricht gesendet' : 'Senden fehlgeschlagen'} | Albert Wilts</title><style>body{font-family:system-ui,sans-serif;background:#F8F8F8;color:#3B3C42;margin:0;display:grid;place-items:center;min-height:100vh;padding:24px;box-sizing:border-box}main{background:#fff;border:1px solid #E9E9E9;border-radius:6px;padding:32px;max-width:560px}h1{font-size:24px;margin:0 0 12px;color:${ok ? '#4F7146' : '#B23B2E'}}p{font-size:17px;line-height:28px;margin:0 0 20px}a{color:#4F7146;font-weight:700}</style></head><body><main><h1>${ok ? 'Vielen Dank' : 'Das hat nicht geklappt'}</h1><p>${esc(text)}</p><p><a href="${esc(zurueck)}">Zurück zur Seite</a></p></main></body></html>`;
+  res.writeHead(status, { 'Content-Type': MIME['.html'], 'Cache-Control': 'no-store', 'Content-Length': Buffer.byteLength(html) });
+  res.end(html);
+}
+async function handleFormular(req, res) {
+  const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').toString().split(',')[0].trim();
+  const fallback = 'Das Senden hat nicht geklappt. Rufen Sie uns an unter 04934 91060 oder schreiben Sie an info@albert-wilts.de.';
+  let d;
+  try { d = parseBody(await readBody(req), (req.headers['content-type'] || '').toLowerCase()); }
+  catch (e) { return antwort(req, res, e.message === 'zu gross' ? 413 : 400, false, fallback); }
+  const zurueck = { kontakt: '/kontakt/', chefslist: '/fuer-gewerbekunden/', newsletter: '/' }[d.formular] || '/';
+  const def = FORMULARE[d.formular];
+  if (!def) return antwort(req, res, 400, false, fallback, zurueck);
+  if (d._gotcha) return antwort(req, res, 200, true, def.danke, zurueck); // Honeypot: still bestaetigen, nichts senden
+  if (!rateOk(ip)) return antwort(req, res, 429, false, 'Zu viele Anfragen in kurzer Zeit. Bitte versuchen Sie es in ein paar Minuten erneut.', zurueck);
+  const fehlt = def.pflicht.filter((k) => !d[k]);
+  if (fehlt.length) return antwort(req, res, 422, false, 'Bitte füllen Sie alle Pflichtfelder aus.', zurueck);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email || '')) return antwort(req, res, 422, false, 'Bitte geben Sie eine gültige E-Mail-Adresse an.', zurueck);
+  if (!FORM.apiKey) { console.error('formular: BREVO_API_KEY fehlt, Anfrage nicht gesendet'); return antwort(req, res, 503, false, fallback, zurueck); }
+  const zeilen = def.felder.filter(([k]) => d[k]).map(([k, label]) => [label, d[k]]);
+  const text = zeilen.map(([l, v]) => `${l}: ${v}`).join('\n') + `\n\nGesendet über albert-wilts.de am ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}`;
+  const html = `<table style="font-family:system-ui,sans-serif;font-size:15px;border-collapse:collapse">${zeilen.map(([l, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#666;vertical-align:top">${esc(l)}</td><td style="padding:4px 0;white-space:pre-wrap">${esc(v)}</td></tr>`).join('')}</table><p style="font-family:system-ui,sans-serif;font-size:13px;color:#888">Gesendet über albert-wilts.de</p>`;
+  const payload = {
+    sender: { name: FORM.fromName, email: FORM.fromEmail },
+    to: [{ email: FORM.to }],
+    replyTo: { email: d.email, name: d.name || d.unternehmen || d.email },
+    subject: def.betreff(d),
+    textContent: text,
+    htmlContent: html,
+    tags: ['website', d.formular],
+  };
+  try {
+    const r = await fetch(FORM.apiUrl, { method: 'POST', headers: { 'api-key': FORM.apiKey, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(10000) });
+    if (!r.ok) { console.error('formular: Brevo antwortet', r.status, (await r.text()).slice(0, 300)); return antwort(req, res, 502, false, fallback, zurueck); }
+  } catch (e) {
+    console.error('formular: Brevo nicht erreichbar', e.message); return antwort(req, res, 502, false, fallback, zurueck);
+  }
+  return antwort(req, res, 200, true, def.danke, zurueck);
+}
+
 const server = http.createServer(async (req, res) => {
   const host = (req.headers.host || '').split(':')[0].toLowerCase();
   const url = new URL(req.url || '/', `http://${host || CANONICAL_HOST}`);
@@ -79,6 +197,10 @@ const server = http.createServer(async (req, res) => {
     return redirect(res, `https://${CANONICAL_HOST}${url.pathname}${search}`);
   }
 
+  if (url.pathname === '/api/formular') {
+    if (req.method !== 'POST') { res.writeHead(405, { Allow: 'POST', 'Content-Length': '0' }); return res.end(); }
+    return handleFormular(req, res);
+  }
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.writeHead(405, { Allow: 'GET, HEAD', 'Content-Length': '0' });
     return res.end();

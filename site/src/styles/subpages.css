@@ -484,6 +484,10 @@
 .sub-form-submit { font-family: var(--font-sans); font-size: 17px; line-height: 28px; font-weight: 700; color: #fff; background: #EF7F1A; border: none; border-radius: 5px; padding: 13px 26px; cursor: pointer; align-self: flex-start; transition: background 0.18s ease; }
 .sub-form-submit:hover { background: #d96f12; }
 .sub-form-hp { position: absolute; left: -9999px; }
+.sub-form-status { margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 24px; font-weight: 700; padding: 12px 16px; border-radius: 6px; }
+.sub-form-status--ok { color: #2F5A2A; background: #EDF1EA; }
+.sub-form-status--fehler { color: #B23B2E; background: #FBECEA; }
+.nl-form .sub-form-status { margin-top: 10px; }
 
 .sub-people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
 .sub-portrait { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 6px; }

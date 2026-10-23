@@ -52,7 +52,8 @@ import Button       from '../components/Button.astro';
         </div>
       </div>
 
-      <form class="sub-form" action="https://FORMULAR-ENDPUNKT-EINTRAGEN" method="POST">
+      <form class="sub-form" action="/api/formular" method="POST" data-formular>
+        <input type="hidden" name="formular" value="kontakt">
         <input type="text" name="_gotcha" class="sub-form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="sub-form-row">
           <div class="sub-field">
@@ -91,6 +92,7 @@ import Button       from '../components/Button.astro';
           <input type="checkbox" name="datenschutz" required>
           <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.</span>
         </label>
+        <p class="sub-form-status" data-formular-status role="alert" hidden></p>
         <button type="submit" class="sub-form-submit">Nachricht senden</button>
       </form>
     </div>

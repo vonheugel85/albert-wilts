@@ -13,7 +13,9 @@
       Wissen, was die Woche bringt. Tragen Sie sich ein und erhalten Sie unsere
       aktuellen Angebote bequem per E-Mail.
     </p>
-    <form class="nl-form" action="#" method="post" aria-label="Newsletter-Anmeldung">
+    <form class="nl-form" action="/api/formular" method="post" aria-label="Newsletter-Anmeldung" data-formular>
+      <input type="hidden" name="formular" value="newsletter">
+      <input type="text" name="_gotcha" class="sub-form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="nl-row">
         <label for="nl-email" class="sr-only">E-Mail-Adresse</label>
         <input
@@ -28,6 +30,7 @@
         <button type="submit" class="nl-btn">Anmelden</button>
       </div>
       <p class="nl-hinweis">Kein Spam. Abmeldung jederzeit möglich.</p>
+      <p class="nl-hinweis sub-form-status" data-formular-status role="alert" hidden></p>
     </form>
   </div>
 </section>

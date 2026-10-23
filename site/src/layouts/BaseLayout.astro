@@ -153,5 +153,30 @@ const extraJsonLd = jsonLd
         if (v.readyState >= 2) start(); else v.addEventListener('loadeddata', start, { once: true });
       }
     </script>
+    <script>
+      /* Kontakt- und Newsletter-Formular (data-formular): per fetch an /api/formular senden, Antwort inline zeigen.
+         Ohne JavaScript schickt der Browser das Formular normal ab und bekommt eine Bestaetigungsseite. (F3, 2026-10-23) */
+      for (const form of document.querySelectorAll<HTMLFormElement>('form[data-formular]')) {
+        const status = form.querySelector<HTMLElement>('[data-formular-status]');
+        const knopf = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+          if (knopf) knopf.disabled = true;
+          const zeige = (ok: boolean, text: string) => { if (!status) return; status.textContent = text; status.hidden = false; status.classList.toggle('sub-form-status--ok', ok); status.classList.toggle('sub-form-status--fehler', !ok); };
+          try {
+            const r = await fetch(form.action, { method: 'POST', body: new URLSearchParams(new FormData(form) as any), headers: { Accept: 'application/json' } });
+            const j = await r.json().catch(() => ({}));
+            if (!r.ok || !j.ok) throw new Error(j.text || 'Das Senden hat nicht geklappt. Rufen Sie uns an unter 04934 91060 oder schreiben Sie an info@albert-wilts.de.');
+            zeige(true, j.text);
+            form.reset();
+            for (const el of form.querySelectorAll<HTMLElement>('input:not([type=hidden]), select, textarea, button')) (el as HTMLInputElement).disabled = true;
+          } catch (err) {
+            zeige(false, (err as Error).message);
+            if (knopf) knopf.disabled = false;
+          }
+        });
+      }
+    </script>
   </body>
 </html>
