@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /test-chefslist/
+
+Sitemap: https://albert-wilts.de/sitemap-index.xml

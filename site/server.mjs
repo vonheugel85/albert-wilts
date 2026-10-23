@@ -120,6 +120,8 @@ const server = http.createServer(async (req, res) => {
     'Last-Modified': lastModified,
     'X-Content-Type-Options': 'nosniff',
   };
+  // Nur die Live-Domain darf in den Index; dev.albert-wilts.de und alle anderen Hosts bekommen noindex (L1, 23.10.2026)
+  if (host !== CANONICAL_HOST) headers['X-Robots-Tag'] = 'noindex, nofollow';
 
   const inm = req.headers['if-none-match'];
   const ims = req.headers['if-modified-since'];
