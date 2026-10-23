@@ -11,7 +11,6 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 | Analytics | `ConsentBanner.astro` | GA4-Mess-ID steht auf Platzhalter. Entweder echte ID oder Statistik vorerst abschalten, dann wird der Banner schlanker. |
 | Newsletter-Tool | `datenschutz.astro`, `NewsletterSection.astro` | Anbieter nicht entschieden, Datenschutz-Absatz ist Platzhalter. |
 | Auftragsverarbeitung Hosting | `datenschutz.astro` | AVV mit dem Hoster abschließen, dann Absatz ersetzen. |
-| Testseite Chefslist | `test-chefslist.astro` | Block liegt auf den Gewerbeseiten. Seite löschen oder als noindex behalten. |
 | Bildvorrat in `public/` | `bilder/stimmung/` (rund 50), `bilder/unternehmen/` (rund 20), drei Logovarianten | Keine Seite verweist darauf, über 10 MB je Deploy. Löschen oder als Reserve behalten. |
 | Livegang | Coolify, DNS | Domain albert-wilts.de an die App hängen, DNS umstellen. www-Weiterleitung und noindex für andere Hosts sind im Server fertig. |
 

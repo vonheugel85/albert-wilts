@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      // Interne Testseiten bleiben draussen (tragen zusaetzlich noindex im Head)
+      // Falls wieder interne Testseiten unter /test-* angelegt werden: bleiben draussen (zusaetzlich noindex-Prop in BaseLayout)
       filter: (page) => !page.includes('/test-'),
     }),
   ],
