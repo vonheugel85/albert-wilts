@@ -5,7 +5,7 @@
 .sub-hero {
   position: relative;
   background: #4F7146;
-  padding: 110px 0;
+  padding: 140px 0; /* seit 23.10.2026 60px hoeher (vorher 110px), grosszuegigerer Bildausschnitt; mobil unten wieder 110px */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -174,6 +174,14 @@
   align-items: center;
 }
 .sub-trust-text h2 { margin-top: 0; }
+/* ── 50/50-Split: Text links, Galerie-Grid rechts (Box, 23.10.2026) ── */
+.sub-split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.sub-split-text h2 { margin-top: 0; }
+.sub-split-text p { font-size: 17px; line-height: 28px; color: #555; margin: 0 0 16px; }
+.sub-split-text p:last-child { margin-bottom: 0; }
+/* ── Galerie-Grid: zwei Spalten, 4:3-Kacheln, jede oeffnet die Lightbox ── */
+.sub-galerie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sub-galerie-grid img { aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; }
 .sub-trust-text p { font-size: 17px; line-height: 28px; color: #555; margin: 0; }
 
 .sub-cta { background: #EDF1EA; box-sizing: border-box; }
@@ -673,6 +681,20 @@
 /* Bildplatz unter dem Vertrauens-Text */
 .sub-box-bild { max-width: 980px; margin: 40px auto 0; }
 
+/* ── Parallax-Band (Box, 23.10.2026): Bild liegt fixed hinter einem clip-path-Fenster, dadurch bleibt es beim
+   Scrollen stehen und die Seite schiebt sich darueber. Funktioniert auch auf iOS (background-attachment: fixed nicht). ── */
+.sub-parallax { position: relative; height: 560px; clip-path: inset(0); display: grid; place-items: center; }
+.sub-parallax-bild { position: fixed; inset: 0; z-index: 0; }
+.sub-parallax-bild img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.sub-parallax-bild::after { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); }
+.sub-parallax-text { position: relative; z-index: 1; text-align: center; padding: 0 24px; }
+.sub-parallax-spruch { margin: 0; color: #fff; font-family: var(--font-display); font-size: 56px; line-height: 64px; font-weight: 400; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); }
+.sub-parallax-spruch span { display: block; font-size: inherit; line-height: inherit; } /* globale span-Regel (17px) aushebeln */
+@media (prefers-reduced-motion: reduce) {
+  .sub-parallax { clip-path: none; }
+  .sub-parallax-bild { position: absolute; }
+}
+
 /* Teaserband mit zwei Buttons */
 .sub-teaserband-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; }
 
@@ -995,7 +1017,12 @@
     color: #4F7146;
     font-weight: 700;
   }
+  .sub-hero { padding: 110px 0; }
   .sub-hero--box { padding: 56px 0; } /* mobil kompakter, oben und unten gleich */
+  .sub-parallax { height: 420px; }
+  .sub-split { grid-template-columns: 1fr; gap: 32px; }
+  .sub-galerie-grid { gap: 12px; }
+  .sub-parallax-spruch { font-size: 38px; line-height: 46px; }
   .sub-hero--box .sub-hero-inside { grid-template-columns: 1fr; gap: 32px; }
   .sub-hero-box-logo { order: -1; justify-self: start; max-width: 220px; } /* mobil über dem Text */
   .sub-steps { grid-template-columns: 1fr; gap: 28px; }

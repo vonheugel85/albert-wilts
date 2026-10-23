@@ -1,0 +1,94 @@
+---
+/*
+  Lightbox.astro: seitenweite Bildvergrößerung (23.10.2026). Einmal in BaseLayout eingebunden.
+  Auslöser: jedes <a data-lightbox="gruppe" href="/pfad/zum/grossen-bild.webp"> um ein <img>. Gleiche Gruppe
+  blättert mit Pfeiltasten und Pfeilbuttons. Bildunterschrift ist das alt des eingeschlossenen img.
+  Schließen: Escape, X, Klick auf den Hintergrund. Nativer <dialog>, kein Fremdskript.
+*/
+---
+
+<dialog class="lb" data-lightbox-dialog aria-label="Bildansicht">
+  <button type="button" class="lb-schliessen" data-lb-close aria-label="Schließen">&times;</button>
+  <button type="button" class="lb-pfeil lb-pfeil--zurueck" data-lb-prev aria-label="Vorheriges Bild">&#x2039;</button>
+  <figure class="lb-figur">
+    <img class="lb-bild" alt="" />
+    <figcaption class="lb-text" data-lb-caption></figcaption>
+  </figure>
+  <button type="button" class="lb-pfeil lb-pfeil--weiter" data-lb-next aria-label="Nächstes Bild">&#x203A;</button>
+</dialog>
+
+<script>
+  const dialog = document.querySelector('[data-lightbox-dialog]') as HTMLDialogElement | null;
+  if (dialog) {
+    const bild = dialog.querySelector('.lb-bild') as HTMLImageElement;
+    const text = dialog.querySelector('[data-lb-caption]') as HTMLElement;
+    const prev = dialog.querySelector('[data-lb-prev]') as HTMLButtonElement;
+    const next = dialog.querySelector('[data-lb-next]') as HTMLButtonElement;
+    let gruppe: HTMLAnchorElement[] = [];
+    let index = 0;
+
+    const zeige = (i: number) => {
+      index = (i + gruppe.length) % gruppe.length;
+      const a = gruppe[index];
+      const img = a.querySelector('img');
+      bild.src = a.href;
+      bild.alt = img?.alt ?? '';
+      text.textContent = img?.alt ?? '';
+      const mehrere = gruppe.length > 1;
+      prev.hidden = !mehrere;
+      next.hidden = !mehrere;
+    };
+
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest('a[data-lightbox]') as HTMLAnchorElement | null;
+      if (!a) return;
+      e.preventDefault();
+      const name = a.dataset.lightbox || '';
+      gruppe = [...document.querySelectorAll<HTMLAnchorElement>(`a[data-lightbox="${name}"]`)];
+      zeige(gruppe.indexOf(a));
+      dialog.showModal();
+      document.documentElement.classList.add('lb-offen');
+    });
+
+    const schliessen = () => dialog.close();
+    dialog.addEventListener('close', () => { document.documentElement.classList.remove('lb-offen'); bild.src = ''; });
+    dialog.querySelector('[data-lb-close]')?.addEventListener('click', schliessen);
+    prev.addEventListener('click', () => zeige(index - 1));
+    next.addEventListener('click', () => zeige(index + 1));
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) schliessen(); });
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && gruppe.length > 1) zeige(index - 1);
+      if (e.key === 'ArrowRight' && gruppe.length > 1) zeige(index + 1);
+    });
+  }
+</script>
+
+<style is:global>
+  /* Lightbox: global, weil der Dialog in BaseLayout liegt und die Ausloeser auf allen Seiten stehen */
+  .lb { border: 0; padding: 0; margin: auto; width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; background: transparent; display: none; }
+  .lb[open] { display: grid; place-items: center; }
+  .lb::backdrop { background: rgba(20, 24, 20, 0.92); }
+  .lb-figur { margin: 0; max-width: min(1400px, 92vw); max-height: 92vh; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .lb-bild { display: block; max-width: 100%; max-height: calc(92vh - 48px); width: auto; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+  .lb-text { font-family: var(--font-sans); font-size: 15px; line-height: 24px; color: rgba(255, 255, 255, 0.85); text-align: center; padding: 0 16px; }
+  .lb-schliessen, .lb-pfeil { position: fixed; z-index: 2; background: rgba(255, 255, 255, 0.12); color: #fff; border: 0; border-radius: 50%; width: 48px; height: 48px; font-size: 30px; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background 0.15s; }
+  .lb-schliessen:hover, .lb-pfeil:hover { background: rgba(255, 255, 255, 0.25); }
+  .lb-schliessen { top: 20px; right: 20px; }
+  .lb-pfeil { top: 50%; transform: translateY(-50%); font-size: 40px; }
+  .lb-pfeil--zurueck { left: 20px; }
+  .lb-pfeil--weiter { right: 20px; }
+  .lb-pfeil[hidden] { display: none; }
+  .lb-schliessen:focus-visible, .lb-pfeil:focus-visible { outline: 3px solid rgba(255, 255, 255, 0.6); outline-offset: 2px; }
+  html.lb-offen { overflow: hidden; }
+  @media (max-width: 640px) {
+    .lb-figur { max-width: 100vw; }
+    .lb-bild { border-radius: 0; max-height: calc(100vh - 120px); }
+    .lb-schliessen, .lb-pfeil { width: 42px; height: 42px; }
+    .lb-pfeil { top: auto; bottom: 20px; transform: none; }
+  }
+  /* Ausloeser: Zoom-Hinweis beim Hover */
+  a[data-lightbox] { display: block; cursor: zoom-in; }
+  a[data-lightbox] img { display: block; width: 100%; transition: opacity 0.15s; }
+  a[data-lightbox]:hover img { opacity: 0.92; }
+  a[data-lightbox]:focus-visible { outline: 3px solid rgba(79, 113, 70, 0.45); outline-offset: 2px; border-radius: 6px; }
+</style>

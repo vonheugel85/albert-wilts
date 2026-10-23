@@ -107,10 +107,20 @@ const jsonLd = [
 
   <!-- 3) Einleitung -->
   <Section bg="#fff">
-    <div class="sub-block">
-      <h2>Einkaufen, wann es Ihnen passt</h2>
-      <p>Spätabends nach der Schicht, sonntags zum Frühstück oder auf dem Weg an die Küste: Die Wilts Box steht direkt an unserem Firmensitz und ist immer offen. Drinnen finden Sie eine Auswahl aus unserem Sortiment, gekühlt und frisch aus dem eigenen Lager.</p>
-      <p>Familie Wilts steht seit 1958 für Frische aus Tradition. Die Box ist unser Weg, diese Frische auch dann anzubieten, wenn Laden und Markt geschlossen sind.</p>
+    <div class="sub-split">
+      <div class="sub-split-text">
+        <h2>Einkaufen, wann es Ihnen passt</h2>
+        <p>Spätabends nach der Schicht, sonntags zum Frühstück oder auf dem Weg an die Küste: Die Wilts Box steht direkt an unserem Firmensitz und ist immer offen. Drinnen finden Sie eine Auswahl aus unserem Sortiment, gekühlt und frisch aus dem eigenen Lager.</p>
+        <p>Familie Wilts steht seit 1958 für Frische aus Tradition. Die Box ist unser Weg, diese Frische auch dann anzubieten, wenn Laden und Markt geschlossen sind.</p>
+      </div>
+      <div class="sub-galerie-grid">
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-terminal-eingang.webp"><img src="/bilder/unternehmen/wilts-box-terminal-eingang.webp" alt="Terminal am Eingang der Wilts Box mit Bildschirm und Kartenleser" width="1600" height="1067" loading="lazy" /></a>
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-regal-feinkost.webp"><img src="/bilder/unternehmen/wilts-box-regal-feinkost.webp" alt="Regal in der Wilts Box mit Eierlikör, Pesto und Nudeln" width="1600" height="1067" loading="lazy" /></a>
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-regal-hausgemachtes.webp"><img src="/bilder/unternehmen/wilts-box-regal-hausgemachtes.webp" alt="Gläser mit Hausgemachtem in der Wilts Box: Sauce Bolognese und Butterbrotsgurken" width="1600" height="1067" loading="lazy" /></a>
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-korb-kartoffeln.webp"><img src="/bilder/unternehmen/wilts-box-korb-kartoffeln.webp" alt="Korb mit Kartoffelnetzen in der Wilts Box" width="1600" height="1067" loading="lazy" /></a>
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-regale-uebersicht.webp"><img src="/bilder/unternehmen/wilts-box-regale-uebersicht.webp" alt="Blick in die Wilts Box mit Regalen, Kühlfächern und Kaffeestation" width="1600" height="1067" loading="lazy" /></a>
+        <a data-lightbox="box" href="/bilder/unternehmen/wilts-box-kasse-kaffee.webp"><img src="/bilder/unternehmen/wilts-box-kasse-kaffee.webp" alt="Kassenterminal und Kaffeemaschine in der Wilts Box" width="1600" height="1067" loading="lazy" /></a>
+      </div>
     </div>
   </Section>
 
@@ -168,14 +178,25 @@ const jsonLd = [
     </div>
   </Section>
 
+  <!-- 5b) Panorama-Band: Bild bleibt beim Scrollen stehen, die Seite schiebt sich darueber (clip-path-Fenster).
+       Bewusst ohne loading=lazy: im fixed-Container feuert das Lazy-Loading unzuverlaessig (gemessen 23.10.2026). -->
+  <section class="sub-parallax" aria-label="Die Wilts Box von außen">
+    <div class="sub-parallax-bild">
+      <picture>
+        <source media="(max-width: 640px)" srcset="/bilder/unternehmen/wilts-box-aussen-panorama-mobil.webp" />
+        <img src="/bilder/unternehmen/wilts-box-aussen-panorama.webp" alt="Die Wilts Box 24/7 von außen, ein Verkaufscontainer mit Glasfront auf dem Hof von Albert Wilts" width="2560" height="1440" />
+      </picture>
+    </div>
+    <div class="sub-parallax-text">
+      <p class="sub-parallax-spruch"><span>Vergessen?</span><span>Haben wir!</span></p>
+    </div>
+  </section>
+
   <!-- 6) Vertrauen -->
   <Section bg="#F8F8F8">
     <div class="sub-block">
       <h2>Eine Box, dahinter eine Familie</h2>
       <p>Hinter der Wilts Box steht kein anonymer Betreiber. Andree, Anke und Anita Wilts führen den Betrieb in dritter Generation und bestücken die Box aus demselben Lager, aus dem Gastronomie und Hotellerie in ganz Ostfriesland beliefert werden. Wer Fragen hat, erreicht uns freitags im Ladenverkauf nebenan oder telefonisch.</p>
-    </div>
-    <div class="sub-box-bild">
-      <Placeholder label="Platzhalter Bild: Wilts Box bei Nacht, beleuchtet (Querformat, echtes Foto)" aspect="16/9" />
     </div>
   </Section>
 
