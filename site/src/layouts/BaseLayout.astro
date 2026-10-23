@@ -142,5 +142,16 @@ const extraJsonLd = jsonLd
     <Quicklinks />
     <ConsentBanner />
     <Lightbox />
+    <script>
+      /* Hintergrundvideos (Startseite, Box): Autoplay explizit anstossen, Safari startet muted-Videos sonst nicht
+         zuverlaessig. Bei "Bewegung reduzieren" bleibt das Poster stehen. (V3, 2026-10-23) */
+      const reduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      for (const v of document.querySelectorAll<HTMLVideoElement>('video[autoplay][muted]')) {
+        if (reduziert) { v.removeAttribute('autoplay'); v.pause(); continue; }
+        v.muted = true;
+        const start = () => v.play().catch(() => {});
+        if (v.readyState >= 2) start(); else v.addEventListener('loadeddata', start, { once: true });
+      }
+    </script>
   </body>
 </html>

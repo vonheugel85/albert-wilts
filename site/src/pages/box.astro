@@ -72,7 +72,12 @@ const jsonLd = [
 >
 
   <!-- 1) Hero: gruener Grund, zweispaltig ab 768px, rechts Logo-Flaeche -->
-  <section class="sub-hero sub-hero--box">
+  <section class="sub-hero sub-hero--box sub-hero--video">
+    <!-- Hintergrundvideo: Drohnenflug um die Box (10/2026), 20 s nahtlos, stumm, 720p; gruen ueberlagert wie sub-hero--image.
+         Poster ist das erste Bild der Schleife. Bei reduzierter Bewegung nur das Poster. -->
+    <video class="sub-hero-video" autoplay muted loop playsinline preload="metadata" poster="/video/wilts-box-hero-poster.webp" aria-hidden="true" tabindex="-1">
+      <source src="/video/wilts-box-hero.mp4" type="video/mp4" />
+    </video>
     <div class="sub-hero-inside">
       <div class="sub-hero-box-text">
         <h1>Wilts Box 24/7</h1>
