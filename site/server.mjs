@@ -169,14 +169,12 @@ async function handleFormular(req, res) {
   if (!FORM.apiKey) { console.error('formular: BREVO_API_KEY fehlt, Anfrage nicht gesendet'); return antwort(req, res, 503, false, fallback, zurueck); }
   const zeilen = def.felder.filter(([k]) => d[k]).map(([k, label]) => [label, d[k]]);
   const text = zeilen.map(([l, v]) => `${l}: ${v}`).join('\n') + `\n\nGesendet über albert-wilts.de am ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}`;
-  const html = `<table style="font-family:system-ui,sans-serif;font-size:15px;border-collapse:collapse">${zeilen.map(([l, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#666;vertical-align:top">${esc(l)}</td><td style="padding:4px 0;white-space:pre-wrap">${esc(v)}</td></tr>`).join('')}</table><p style="font-family:system-ui,sans-serif;font-size:13px;color:#888">Gesendet über albert-wilts.de</p>`;
   const payload = {
     sender: { name: FORM.fromName, email: FORM.fromEmail },
     to: [{ email: FORM.to }],
     replyTo: { email: d.email, name: d.name || d.unternehmen || d.email },
     subject: def.betreff(d),
-    textContent: text,
-    htmlContent: html,
+    textContent: text, // bewusst ohne htmlContent: Brevo haengt an HTML ein Tracking-Pixel, Mailclients fragen dann nach externen Bildern
     tags: ['website', d.formular],
   };
   try {
