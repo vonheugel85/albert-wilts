@@ -20,6 +20,7 @@
  *     FORM_FROM_EMAIL  Absender, muss in Brevo als Sender/Domain verifiziert sein, Default website@albert-wilts.de
  *     FORM_FROM_NAME   Absendername, Default "Albert Wilts Website"
  *     BREVO_API_URL    nur fuer Tests (lokaler Mock), Default https://api.brevo.com/v3/smtp/email
+ *   Keepalive: woechentliche Leseabfrage, damit der Schluessel nicht nach 90 Tagen Inaktivitaet verfaellt.
  *   Schutz: Honeypot-Feld _gotcha, Groessenlimit 32 KB, Ratenbegrenzung 8 Anfragen je IP und 10 Minuten,
  *   Pflichtfelder und E-Mail-Format je Formulartyp. Antwort JSON bei Accept: application/json,
  *   sonst eine kleine HTML-Bestaetigungsseite (Formular ohne JavaScript).
@@ -185,6 +186,16 @@ async function handleFormular(req, res) {
     console.error('formular: Brevo nicht erreichbar', e.message); return antwort(req, res, 502, false, fallback, zurueck);
   }
   return antwort(req, res, 200, true, def.danke, zurueck);
+}
+
+// Brevo laesst API-Schluessel nach 90 Tagen ohne Verwendung verfallen. Ein Kontaktformular kann so lange still sein,
+// deshalb einmal pro Woche eine harmlose Abfrage (Liste blockierter Kontakte, 1 Eintrag), nur damit der Schluessel aktiv bleibt.
+if (FORM.apiKey && !process.env.BREVO_API_URL) {
+  const anfassen = () => fetch('https://api.brevo.com/v3/smtp/blockedContacts?limit=1', { headers: { 'api-key': FORM.apiKey }, signal: AbortSignal.timeout(10000) })
+    .then((r) => { if (!r.ok) console.error('brevo keepalive:', r.status); })
+    .catch((e) => console.error('brevo keepalive:', e.message));
+  setTimeout(anfassen, 60 * 1000);
+  setInterval(anfassen, 7 * 24 * 60 * 60 * 1000).unref();
 }
 
 const server = http.createServer(async (req, res) => {
