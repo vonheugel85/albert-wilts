@@ -96,9 +96,9 @@ import Placeholder  from '../components/Placeholder.astro';
           <div class="sub-standort-meta">
             <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Wann</span><span class="sub-standort-meta-val" data-st="days">Dienstag, Freitag und Samstag</span></div>
             <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Uhrzeit</span><span class="sub-standort-meta-val" data-st="time">8 bis 13 Uhr</span></div>
-            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Wo</span><span class="sub-standort-meta-val" data-st="addr">Stadtgarten, Emden</span></div>
+            <div class="sub-standort-meta-row"><span class="sub-standort-meta-label">Wo</span><span class="sub-standort-meta-val" data-st="addr">Neuer Markt, Emden</span></div>
           </div>
-          <p class="sub-standort-maplink"><a data-st="extlink" href="https://www.google.com/maps/search/?api=1&query=Stadtgarten+Emden" target="_blank" rel="noopener">In Google Maps öffnen ›</a></p>
+          <p class="sub-standort-maplink"><a data-st="extlink" href="https://www.google.com/maps/search/?api=1&query=Neuer+Markt+Emden" target="_blank" rel="noopener">In Google Maps öffnen ›</a></p>
         </div>
         <div class="sub-standort-map" id="st-map"></div>
       </div>
@@ -106,7 +106,7 @@ import Placeholder  from '../components/Placeholder.astro';
 
     <script>
       const STANDORTE = {
-        emden:     { name: 'Wochenmarkt Emden',         days: 'Dienstag, Freitag und Samstag', time: '8 bis 13 Uhr',       addr: 'Stadtgarten, Emden',                          query: 'Stadtgarten Emden' },
+        emden:     { name: 'Wochenmarkt Emden',         days: 'Dienstag, Freitag und Samstag', time: '8 bis 13 Uhr',       addr: 'Neuer Markt, Emden',                          query: 'Neuer Markt Emden' },
         norderney: { name: 'Wochenmarkt Norderney',     days: 'Mittwoch',                      time: '7:30 bis 12:30 Uhr', addr: 'Zwischen Kurtheater und Kurplatz, Norderney', query: 'Kurplatz Norderney' },
         borssum:   { name: 'Wochenmarkt Emden-Borssum', days: 'Donnerstag',                    time: '8 bis 13 Uhr',       addr: 'Parkplatz Petkumer Straße 207, Emden',        query: 'Petkumer Straße 207 Emden' },
       };
@@ -173,13 +173,6 @@ import Placeholder  from '../components/Placeholder.astro';
       <div class="sub-trust-text">
         <h2>Warum Markt? Weil es persönlich ist.</h2>
         <p>Bei uns sind Sie keine Nummer. Anke Wilts und ihr Team kennen viele Kunden seit Jahren. Ein kleiner Schnack gehört genauso dazu wie die Petersilie zur Suppe. Wir beraten Sie gerne zur Zubereitung unserer Produkte oder verraten Ihnen, was sich gerade besonders lohnt.</p>
-        {/* ZITATPLATZ: Zitat von Anke Wilts, O-Ton vom Marktstand, zwei bis drei Zeilen. Liegt beim Kunden (Stand 23.10.2026).
-           Zum Einsetzen diesen Kommentar entfernen und Text sowie Name eintragen.
-        <blockquote class="sub-quote">
-          <p>Zitat folgt.</p>
-          <cite>Name, Albert Wilts</cite>
-        </blockquote>
-        */}
       </div>
       <div class="sub-trust-bild">
         <Placeholder label="Team am Marktstand" aspect="4/3" src="/bilder/unternehmen/wochenmarkt-verkaufswagen-team-albert-wilts.webp" alt="Familie Wilts mit Team am Verkaufswagen auf dem Wochenmarkt, davor die Frischetheke mit Geflügel und Wurst" />
