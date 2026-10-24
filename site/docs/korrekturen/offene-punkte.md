@@ -1,6 +1,6 @@
 # Offene Punkte vor dem Livegang
 
-Stand: 2026-10-23. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-10-24. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
@@ -37,3 +37,23 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 Sitemap und robots.txt, noindex außerhalb der Live-Domain, JSON-LD-Logo-Pfad, Alt-Text BereicheSection,
 vier ungenutzte Dateien entfernt, Cresco-Logo abgeleitet (Weiß durch Textgrau ersetzt, Bronze-Akzent original),
 Chefslist-Zugang auf allen vier Gewerbeseiten.
+
+## Abgleich mit Fruity Notes am 24.10.2026 (WhatsApp, Mails, Aufgaben seit April)
+
+Quelle: Vorgänge „Website Relaunch" und „Verkaufspartner Website", Aufgaben 730, 732, 891, 892, 903, 905, 957, WhatsApp-Verlauf vollständig. Nur Punkte, die im Repo noch nicht oder anders umgesetzt sind.
+
+| Datum | Wer | Aussage (wörtlich, gekürzt) | Stand im Repo |
+|---|---|---|---|
+| 23.10. | Anke | „Wir sind nun momentan am neuen Markt. Die Adresse stimmt leider nicht." | Wochenmarkt Emden steht auf „Stadtgarten, Emden" (Seite, Karte, Maps-Link). Standort offenbar saisonal wechselnd, Formulierung klären. |
+| 22.10. | Andree | „Es ist besser, du gelobest nicht, als dass du gelobest und nicht haltest." Soll irgendwo eingebaut werden. | Alle Zitate sind seit F2 ausgeblendet. Drittes Vater-Zitat neben „Glocken" (17.09.) und einem Zitat auf einem Bild (16.09., Text unbekannt). |
+| 17.10. | Andree | Chefslist-Vorteilstext „Zutaten und Allergene in jedem Artikel": „Kannst du dir irgendwas anderes einfallen lassen? Komplettes Sortiment, sichtbar oder so." | Nutzenpunkt „Zutaten und Allergene zu jedem Artikel" steht so im Block (Textfreigabe vom 23.10.). |
+| 17.10. | Andree | Bestellwege als Liste: „Telefonat gern gesehen, Mail, Fax geht auch noch, per App Chefslist." Chefslist „nicht so zentral". | Block nennt nur Telefon. Mail und Fax als Bestellwege fehlen auf den Gewerbeseiten. |
+| 17.10. | Andree | „Ich meine nicht nochmal ein weiteres Anmeldeformular … nur das Icon." und „Von mir aus können wir gerne dein Formular benutzen." | Eigenes Schrittformular plus Chefslist-Siegel, laut Manuel abgesprochen. Zur Kenntnis. |
+| 14.10. | Andree | „Da hätte ich gerne aber noch Bilder bei den Unterkategorien." Produktbilder: Heinemann-Produktion, Kresse, Nüsse, Tomate, Gurke (15.09.). | Fünf Warengruppen-Seiten ohne Bild, Plätze markiert. Kein Material. |
+| 14.10. / 15.09. | Andree | Presse: „Wie war das dann mit dem Video?" Seine Videos sollen eingebettet und anklickbar sein. | Beide TV-Einträge offline, keine Videodatei im Repo. Welche Videos gemeint sind, ist unklar. |
+| 14.10. / 23.09. / 17.09. | Andree | Historie: Familie schreibt sie „vernünftig runter", Fotos von Opa, Papa, Oma für den Zeitstrahl. | Zeitstrahl seit F2 ausgeblendet, wartet auf Text und Fotos vom Kunden. Manuel hatte am 17.09. „Historie größer, mit Galerie" zugesagt. |
+| 14.10. | Andree | Ampel „jetzt geöffnet" neben dem Burger-Menü, „ein bisschen Spielerei, aber clever". | Idee, nicht gebaut. |
+| 15.09. | Andree | Bewertungen: nicht dynamisch, daher „gelegentlich manuell aktualisieren" (Hinweis Manuel). | Daten in rezensionen.js, Stand Oktober. Vor Livegang prüfen. |
+| 14.09. | JCC Emden | Livegang: A-Record albert-wilts.de auf 178.104.134.190, www als CNAME, albertwilts.de als 301 in Plesk. „Nach der Abnahme und Ihrer Rückmeldung." | Server fertig. Manuel meldet sich bei Herrn van der Werf. |
+
+Geprüft und in Ordnung: Wochenmarkt nennt kein Obst und Gemüse, Kikok-Claim steht, Mopro nirgends, USt-IdNr im Impressum, „Frische-Vollsortimenter" an allen Stellen, Elka alle Sorten im 3-Liter-Gebinde, Tomaten ohne Markenname, Nobis nur Ente und Gans mit Wild aus heimischen Forsten getrennt, Heinemann bei geschälter Ware und Schnittware, Leybucht-Kartoffeln, Nature's Pride und Bedford mit Abgrenzung zur Eigenproduktion, Liefergebiet als Karte mit Andrees Ortsliste, ahoi-PDF, Wilts Box mit Bildern beim Klick, Vegan und Allergiker gestrichen, Ponthier nur gekühlt im 1-Kilo-Gebinde.
