@@ -33,13 +33,21 @@ Prompt kopiert werden muss.
 - Liefergebiet Festland: Emden, Aurich, Norden und Norddeich,
   Krummhörn mit Greetsiel, Esens.
 - Liefergebiet Inseln: Norderney, Baltrum, Langeoog, Spiekeroog.
-  Juist ist offen: Andree nannte die Insel am 15.10.2026, Manuel strich sie am
-  25.10.2026 ausdruecklich als Fehler. Bis zur Klaerung bleibt Juist draussen,
-  siehe site/docs/korrekturen/offene-punkte.md.
+  Juist wird nicht beliefert. Zweimal ausdruecklich bestaetigt (25. und
+  26.10.2026). Andrees Ortsliste vom 15.10.2026 nannte Juist, das war ein
+  Irrtum und darf nicht zurueckkommen.
 - Eigene Herstellung sind ausschließlich die marinierten
   Pfannengerichte. Feinkost und Schnittware kommen von Heinemann,
   essfertige Geflügelspezialitäten von Bedford. Diese Dreiteilung darf
   nicht verwischt werden.
+
+## Manufaktur und hausgemacht
+Beide Woerter sind erlaubt, sie muessen sich aber auf den richtigen
+Hersteller beziehen. Ist das Produkt bei Bedford oder Heinemann
+hausgemacht, darf das so stehen, dann aber mit Nennung des Herstellers.
+Verboten ist nur der Eindruck, Albert Wilts habe etwas selbst gemacht,
+was von einem Zulieferer kommt. Im Zweifel den Hersteller nennen oder
+die Zuordnung weglassen, nicht raten.
 
 ## Vor jedem Commit
 npm run build führt den Preflight automatisch mit aus. Schlägt er an,
