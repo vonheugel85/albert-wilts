@@ -20,6 +20,8 @@
  *     FORM_FROM_EMAIL  Absender, muss in Brevo als Sender/Domain verifiziert sein, Default website@albert-wilts.de
  *     FORM_FROM_NAME   Absendername, Default "Albert Wilts Website"
  *     BREVO_API_URL    nur fuer Tests (lokaler Mock), Default https://api.brevo.com/v3/smtp/email
+ *     LISTMONK_URL     Basis-URL der Listmonk-Instanz; nur fuer die Newsletter-Anmeldung
+ *     LISTMONK_LIST_UUID  UUID der Liste, in die eingetragen wird (Double-Opt-in dort einstellen)
  *   Keepalive: woechentliche Leseabfrage, damit der Schluessel nicht nach 90 Tagen Inaktivitaet verfaellt.
  *   Schutz: Honeypot-Feld _gotcha, Groessenlimit 32 KB, Ratenbegrenzung 8 Anfragen je IP und 10 Minuten,
  *   Pflichtfelder und E-Mail-Format je Formulartyp. Antwort JSON bei Accept: application/json,
@@ -83,6 +85,17 @@ function send404(req, res) {
 // ---------------------------------------------------------------------------------------------
 // Formularversand ueber Brevo
 // ---------------------------------------------------------------------------------------------
+// Newsletter laeuft nicht ueber Mail an Wilts, sondern ueber die selbst gehostete Listmonk-Instanz.
+// Wichtig: Die Liste muss in Listmonk oeffentlich ("public") und auf Double-Opt-in gestellt sein.
+// Eine private Liste beantwortet /api/public/subscription mit 400 "Ungueltige UUID" (gemessen 26.10.2026).
+// Deren oeffentlicher Endpunkt loest die Bestaetigungsmail (Double-Opt-in) selbst aus, sofern die Liste
+// so eingestellt ist. CORS erlaubt kein Absenden aus dem Browser, deshalb geht die Anfrage ueber diesen
+// Server. Variablen: LISTMONK_URL, LISTMONK_LIST_UUID (F8, 2026-10-26).
+const LISTMONK = {
+  url: (process.env.LISTMONK_URL || '').replace(/\/$/, ''),
+  liste: process.env.LISTMONK_LIST_UUID || '',
+};
+
 const FORM = {
   to: process.env.FORM_TO || 'info@albert-wilts.de',
   fromEmail: process.env.FORM_FROM_EMAIL || 'website@albert-wilts.de',
@@ -110,7 +123,8 @@ const FORMULARE = {
     betreff: () => 'Newsletter-Anmeldung über die Website',
     pflicht: ['email'],
     felder: [['email', 'E-Mail']],
-    danke: 'Vielen Dank. Wir haben Ihre Anmeldung erhalten.',
+    danke: 'Fast geschafft. Wir haben Ihnen eine E-Mail geschickt, bitte bestätigen Sie darin Ihre Anmeldung.',
+    ziel: 'listmonk',
   },
 };
 const rateMap = new Map(); // ip -> [timestamps]
@@ -166,6 +180,26 @@ async function handleFormular(req, res) {
   const fehlt = def.pflicht.filter((k) => !d[k]);
   if (fehlt.length) return antwort(req, res, 422, false, 'Bitte füllen Sie alle Pflichtfelder aus.', zurueck);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email || '')) return antwort(req, res, 422, false, 'Bitte geben Sie eine gültige E-Mail-Adresse an.', zurueck);
+  if (def.ziel === 'listmonk') {
+    if (!LISTMONK.url || !LISTMONK.liste) { console.error('newsletter: LISTMONK_URL oder LISTMONK_LIST_UUID fehlt'); return antwort(req, res, 503, false, fallback, zurueck); }
+    const name = (d.email || '').split('@')[0];
+    try {
+      const r = await fetch(`${LISTMONK.url}/api/public/subscription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email: d.email, name, list_uuids: [LISTMONK.liste] }),
+        signal: AbortSignal.timeout(10000),
+      });
+      const text = await r.text();
+      // Eine bereits eingetragene Adresse meldet Listmonk als Konflikt. Fuer den Besucher ist das kein
+      // Fehler, er soll nicht erfahren, wer sonst noch angemeldet ist.
+      if (!r.ok && !/bereits|already/i.test(text)) { console.error('newsletter: Listmonk antwortet', r.status, text.slice(0, 300)); return antwort(req, res, 502, false, fallback, zurueck); }
+    } catch (e) {
+      console.error('newsletter: Listmonk nicht erreichbar', e.message); return antwort(req, res, 502, false, fallback, zurueck);
+    }
+    return antwort(req, res, 200, true, def.danke, zurueck);
+  }
+
   if (!FORM.apiKey) { console.error('formular: BREVO_API_KEY fehlt, Anfrage nicht gesendet'); return antwort(req, res, 503, false, fallback, zurueck); }
   const zeilen = def.felder.filter(([k]) => d[k]).map(([k, label]) => [label, d[k]]);
   const text = zeilen.map(([l, v]) => `${l}: ${v}`).join('\n') + `\n\nGesendet über albert-wilts.de am ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}`;

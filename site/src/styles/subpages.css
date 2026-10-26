@@ -1074,3 +1074,5 @@
   .sub-map-ort { r: 10px; }
   .sub-map-legende, .sub-map-label--nebenzeile, .sub-map-label--leise { display: none; }
 }
+
+.nl-hinweis a { color: inherit; text-decoration: underline; } /* Datenschutzlink im Newsletter-Hinweis (F8) */
