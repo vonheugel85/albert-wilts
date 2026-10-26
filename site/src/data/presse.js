@@ -89,7 +89,7 @@ export const pressebeitraege = [
     datum: '2025-04-25',
     datumLabel: '25.04.2025',
     titel: 'Emder Wochenmarkt zieht dauerhaft in den Stadtgarten',
-    teaser: 'Der Rat der Stadt Emden beschliesst den dauerhaften Umzug des Wochenmarkts in den Stadtgarten.',
+    teaser: 'Der Rat der Stadt Emden beschließt den dauerhaften Umzug des Wochenmarkts in den Stadtgarten.',
     url: 'https://www.nwzonline.de/emden/emder-wochenmarkt-dauerhafte-verlegung-in-den-stadtgarten-beschlossen_a_4,2,453636943.html',
     zugang: 'paywall',
     format: 'Zeitungsbericht',

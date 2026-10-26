@@ -1,6 +1,6 @@
 # Offene Punkte vor dem Livegang
 
-Stand: 2026-10-24. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-10-26. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
@@ -57,3 +57,13 @@ Quelle: Vorgänge „Website Relaunch" und „Verkaufspartner Website", Aufgaben
 | 14.09. | JCC Emden | Livegang: A-Record albert-wilts.de auf 178.104.134.190, www als CNAME, albertwilts.de als 301 in Plesk. „Nach der Abnahme und Ihrer Rückmeldung." | Server fertig. Manuel meldet sich bei Herrn van der Werf. |
 
 Geprüft und in Ordnung: Wochenmarkt nennt kein Obst und Gemüse, Kikok-Claim steht, Mopro nirgends, USt-IdNr im Impressum, „Frische-Vollsortimenter" an allen Stellen, Elka alle Sorten im 3-Liter-Gebinde, Tomaten ohne Markenname, Nobis nur Ente und Gans mit Wild aus heimischen Forsten getrennt, Heinemann bei geschälter Ware und Schnittware, Leybucht-Kartoffeln, Nature's Pride und Bedford mit Abgrenzung zur Eigenproduktion, Liefergebiet als Karte mit Andrees Ortsliste, ahoi-PDF, Wilts Box mit Bildern beim Klick, Vegan und Allergiker gestrichen, Ponthier nur gekühlt im 1-Kilo-Gebinde.
+
+## Aus dem Auftrag vom 26.10.2026 (K6) offen geblieben
+
+| Punkt | Stand | Warum offen |
+|---|---|---|
+| Juist im Liefergebiet | Juist steht nicht auf der Seite | Andree nannte Juist am 15.10.2026 in seiner Ortsliste, Manuel strich die Insel am 25.10.2026 ausdrücklich als Fehler („liefert nicht nach Juist"). Der Auftrag vom 26.10. wollte sie wieder einfügen. Bis zur Klärung bleibt sie draußen, weil „wir liefern nach X" eine Zusage an Kunden ist. Betrifft Liste auf /fuer-gewerbekunden, Karte und CLAUDE.md. |
+| Cresco-Logo auf der Kräuter-Seite | unverändert, Logo wird angezeigt | Der Auftrag ging davon aus, die Datei existiere nicht. Sie existiert seit 23.10.2026, ist von Weiß auf Textgrau umgefärbt und wird auf der Dev mit HTTP 200 ausgeliefert. |
+| Manufaktur und hausgemacht | unverändert, 13 Fundstellen | Berührt die Abgrenzung zwischen eigener Herstellung, Heinemann und Bedford, wird separat entschieden. |
+| Vertriebspartner Koppert Cress | Satz steht unverändert auf der Kräuter-Seite | Stützt sich allein auf eine telefonische Aussage des Kunden, auf der Partnerseite nicht nachweisbar. |
+| Sortenlisten Ponthier und Tovano | stehen unverändert | Aus den Herstellersortimenten abgeleitet, vom Kunden nicht bestätigt. Ponthier: Passionsfrucht, Yuzu, Sanddorn. Tovano: sieben Nusssorten. |
