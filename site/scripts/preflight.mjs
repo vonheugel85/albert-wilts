@@ -32,14 +32,16 @@ const ALLOWLIST = [
 
 // Halbgeviert-, Geviert- und Minusstrich: alle drei sind auf dieser Website unerwuenscht (A1, 26.10.2026)
 const DASHES = /[\u2013\u2014\u2212]/;
-// Vier Platzhalter sind bekannt und stehen in docs/korrekturen/offene-punkte.md; sie warten auf
-// Entscheidungen des Kunden und duerfen den Build nicht blockieren. Neue Platzhalter tun es sehr wohl.
+// Bekannte Platzhalter aus docs/korrekturen/offene-punkte.md: sie warten auf Entscheidungen des
+// Kunden und duerfen den Build nicht blockieren. Neue Platzhalter tun es sehr wohl. Erkennung ueber
+// Datei und Textmerkmal, nicht ueber Zeilennummern, damit Verschiebungen die Liste nicht entwerten.
 const BEKANNTE_PLATZHALTER = [
-  'src/components/ConsentBanner.astro:103',   // GA4-Mess-ID, bis Analytics entschieden ist
-  'src/pages/aktuelle-angebote.astro:39',     // Wochenblatt, Material fehlt
-  'src/pages/datenschutz.astro:38',           // Auftragsverarbeitung Hosting
-  'src/pages/datenschutz.astro:78',           // Newsletter-Tool
+  { datei: 'src/components/ConsentBanner.astro', merkmal: 'GA_MEASUREMENT_ID' },  // bis Analytics live geht
+  { datei: 'src/pages/aktuelle-angebote.astro',  merkmal: 'Wochenblatt' },        // Material fehlt
+  { datei: 'src/pages/datenschutz.astro',        merkmal: 'Newsletter-Tool' },    // Anbieter noch offen
 ];
+const istBekannt = (file, zeile) =>
+  BEKANNTE_PLATZHALTER.some((b) => file.endsWith(b.datei) && zeile.includes(b.merkmal));
 
 const PLACEHOLDERS = [
   /G-XXXX+/, /\bTODO\b/, /\bFIXME\b/, /lorem ipsum/i,
@@ -132,7 +134,7 @@ function scan(file) {
       }
     }
     if (DASHES.test(work)) findings.push(`${file}:${n}  Gedankenstrich  ->  ${line.trim()}`);
-    if (!BEKANNTE_PLATZHALTER.includes(`${file}:${n}`)) {
+    if (!istBekannt(file, line)) {
       for (const p of PLACEHOLDERS) {
         if (p.test(code[i] || '')) { findings.push(`${file}:${n}  Platzhalter ${p}  ->  ${line.trim()}`); break; }
       }
