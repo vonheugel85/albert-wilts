@@ -36,6 +36,10 @@ Prompt kopiert werden muss.
   Spiekeroog wird nicht beliefert (Manuel, 26.10.2026). Juist dagegen schon,
   so auch in Andrees Ortsliste vom 15.10.2026. Eine zwischenzeitliche
   Streichung von Juist am 25.10.2026 war ein Irrtum und ist zurueckgenommen.
+- Generation: Familie Wilts führt das Unternehmen in der dritten
+  Generation. Der Beitrag im ahoi! Magazin, Ausgabe 44, nennt die sechste
+  Generation, das ist falsch (Manuel, 26.10.2026). Der Widerspruch ist
+  damit geklärt, die Website bleibt bei der dritten Generation.
 - Eigene Herstellung sind ausschließlich die marinierten
   Pfannengerichte. Feinkost und Schnittware kommen von Heinemann,
   essfertige Geflügelspezialitäten von Bedford. Diese Dreiteilung darf
