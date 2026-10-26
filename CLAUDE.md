@@ -32,10 +32,10 @@ Prompt kopiert werden muss.
 - Ladenverkauf: freitags 8 bis 18 Uhr.
 - Liefergebiet Festland: Emden, Aurich, Norden und Norddeich,
   Krummhörn mit Greetsiel, Esens.
-- Liefergebiet Inseln: Norderney, Baltrum, Langeoog, Spiekeroog.
-  Juist wird nicht beliefert. Zweimal ausdruecklich bestaetigt (25. und
-  26.10.2026). Andrees Ortsliste vom 15.10.2026 nannte Juist, das war ein
-  Irrtum und darf nicht zurueckkommen.
+- Liefergebiet Inseln: Norderney, Juist, Baltrum, Langeoog.
+  Spiekeroog wird nicht beliefert (Manuel, 26.10.2026). Juist dagegen schon,
+  so auch in Andrees Ortsliste vom 15.10.2026. Eine zwischenzeitliche
+  Streichung von Juist am 25.10.2026 war ein Irrtum und ist zurueckgenommen.
 - Eigene Herstellung sind ausschließlich die marinierten
   Pfannengerichte. Feinkost und Schnittware kommen von Heinemann,
   essfertige Geflügelspezialitäten von Bedford. Diese Dreiteilung darf
