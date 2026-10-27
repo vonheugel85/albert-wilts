@@ -154,6 +154,19 @@ const extraJsonLd = jsonLd
       }
     </script>
     <script>
+      /* Zeitfalle gegen Formularspam (F9, 2026-10-27): beim Laden den Zeitpunkt in ein verstecktes Feld
+         schreiben, server.mjs verwirft Einsendungen, die zu schnell kommen oder gar keinen Zeitstempel
+         haben. Ohne JavaScript fehlt das Feld, das allein reicht dort aber nicht fuer eine Ablehnung. */
+      for (const form of document.querySelectorAll<HTMLFormElement>('form[data-formular], form[data-cl-form]')) {
+        const feld = document.createElement('input');
+        feld.type = 'hidden';
+        feld.name = '_ts';
+        feld.value = String(Date.now());
+        form.appendChild(feld);
+      }
+    </script>
+
+    <script>
       /* Kontakt- und Newsletter-Formular (data-formular): per fetch an /api/formular senden, Antwort inline zeigen.
          Ohne JavaScript schickt der Browser das Formular normal ab und bekommt eine Bestaetigungsseite. (F3, 2026-10-23) */
       for (const form of document.querySelectorAll<HTMLFormElement>('form[data-formular]')) {

@@ -23,7 +23,8 @@
  *     LISTMONK_URL     Basis-URL der Listmonk-Instanz; nur fuer die Newsletter-Anmeldung
  *     LISTMONK_LIST_UUID  UUID der Liste, in die eingetragen wird (Double-Opt-in dort einstellen)
  *   Keepalive: woechentliche Leseabfrage, damit der Schluessel nicht nach 90 Tagen Inaktivitaet verfaellt.
- *   Schutz: Honeypot-Feld _gotcha, Groessenlimit 32 KB, Ratenbegrenzung 8 Anfragen je IP und 10 Minuten,
+ *   Schutz: Honeypot-Feld _gotcha, Spampunkte (Zeitfalle _ts und Links im Freitext, siehe spamPunkte),
+ *           Groessenlimit 32 KB, Ratenbegrenzung 8 Anfragen je IP und 10 Minuten,
  *   Pflichtfelder und E-Mail-Format je Formulartyp. Antwort JSON bei Accept: application/json,
  *   sonst eine kleine HTML-Bestaetigungsseite (Formular ohne JavaScript).
  *
@@ -136,6 +137,35 @@ function rateOk(ip) {
   if (rateMap.size > 5000) for (const [k, v] of rateMap) if (!v.length || now - v[v.length - 1] > FORM.rateWindowMs) rateMap.delete(k);
   return true;
 }
+// Spamerkennung (F9, 2026-10-27). Am 27.10.2026 kam vier Stunden nach dem Livegang Linkspam
+// ueber /kontakt/ durch: der Honeypot greift nur bei Bots, die blind alle Felder ausfuellen.
+// Einzelne Signale sind zu unscharf fuer eine harte Ablehnung, deshalb Punkte ab SPAM.schwelle.
+// Ein Mensch ohne JavaScript hat nur den fehlenden Zeitstempel und bleibt damit unter der Schwelle.
+const SPAM = {
+  schwelle: 2,
+  minSekunden: 3,      // schneller tippt niemand ein Formular aus
+  maxStunden: 24,      // aelterer Zeitstempel: Seite lag lange offen oder wurde gefaelscht
+};
+function spamPunkte(d) {
+  let punkte = 0;
+  const gruende = [];
+  // Zeitfalle: _ts setzt das Layout-Skript beim Laden. Fehlt es, kam die Anfrage nicht ueber
+  // das Formular, sondern direkt an den Endpunkt.
+  const ts = Number(d._ts || 0);
+  if (!ts) { punkte += 1; gruende.push('kein Zeitstempel'); }
+  else {
+    const sek = (Date.now() - ts) / 1000;
+    if (sek < SPAM.minSekunden) { punkte += 2; gruende.push(`abgeschickt nach ${sek.toFixed(1)} s`); }
+    else if (sek < 0 || sek > SPAM.maxStunden * 3600) { punkte += 1; gruende.push('Zeitstempel unplausibel'); }
+  }
+  // Links im Freitext. Eine echte Anfrage an einen Lebensmittel-Grosshandel enthaelt praktisch nie
+  // eine URL, Linkspam dagegen immer. Ein einzelner Link bleibt erlaubt, solange sonst nichts auffaellt.
+  const text = [d.nachricht, d.name, d.firma, d.unternehmen].filter(Boolean).join(' ');
+  const links = (text.match(/https?:\/\/|www\.|\[url|<a\s/gi) || []).length;
+  if (links > 1) { punkte += 2; gruende.push(`${links} Links`); }
+  else if (links === 1) { punkte += 1; gruende.push('ein Link'); }
+  return { punkte, gruende };
+}
 function readBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = []; let size = 0;
@@ -176,6 +206,13 @@ async function handleFormular(req, res) {
   const def = FORMULARE[d.formular];
   if (!def) return antwort(req, res, 400, false, fallback, zurueck);
   if (d._gotcha) return antwort(req, res, 200, true, def.danke, zurueck); // Honeypot: still bestaetigen, nichts senden
+  // Wie beim Honeypot still bestaetigen: der Absender soll nicht erfahren, woran die Erkennung haengt,
+  // sonst probiert der naechste Versuch gezielt daran vorbei.
+  const bewertung = spamPunkte(d);
+  if (bewertung.punkte >= SPAM.schwelle) {
+    console.warn(`formular: als Spam verworfen (${bewertung.punkte} Punkte: ${bewertung.gruende.join(', ')})`, ip);
+    return antwort(req, res, 200, true, def.danke, zurueck);
+  }
   if (!rateOk(ip)) return antwort(req, res, 429, false, 'Zu viele Anfragen in kurzer Zeit. Bitte versuchen Sie es in ein paar Minuten erneut.', zurueck);
   const fehlt = def.pflicht.filter((k) => !d[k]);
   if (fehlt.length) return antwort(req, res, 422, false, 'Bitte füllen Sie alle Pflichtfelder aus.', zurueck);
