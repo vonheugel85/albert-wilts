@@ -28,7 +28,9 @@
  *   Pflichtfelder und E-Mail-Format je Formulartyp. Antwort JSON bei Accept: application/json,
  *   sonst eine kleine HTML-Bestaetigungsseite (Formular ohne JavaScript).
  *
- * Bewusst NICHT enthalten (anders als KVS Nordsee): Legacy-Redirect-Tabelle.
+ * - 301 Legacy-Redirects der alten WordPress-Seite auf die inhaltlich naechste neue Seite,
+ *   siehe LEGACY. Ersetzt die urspruengliche Entscheidung, auf eine solche Tabelle zu verzichten:
+ *   nach dem Livegang am 27.10.2026 liefen sieben indexierte Adressen ins Leere.
  */
 import http from 'node:http';
 import { createReadStream, statSync } from 'node:fs';
@@ -39,6 +41,21 @@ import { fileURLToPath } from 'node:url';
 const PORT = Number(process.env.PORT || 3000);
 const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist');
 const CANONICAL_HOST = 'albert-wilts.de';
+
+// Adressen der alten WordPress-Seite, die bis zum 27.10.2026 lief. Quelle ist deren
+// wp-sitemap.xml, am 27.10.2026 ueber die alte Server-IP abgerufen, abgeglichen mit dem
+// Google-Index. Ziel ist jeweils die inhaltlich naechste neue Seite, damit Besucher und
+// Suchmaschinen nicht auf 404 laufen. Schluessel ohne Schlussstrich, der Vergleich
+// normalisiert darauf.
+const LEGACY = new Map([
+  ['/belieferung',                   '/fuer-gewerbekunden/'],  // Grosshandel, Sortiment, Bestellung per App
+  ['/standorte',                     '/wochenmarkt/'],         // war die Uebersicht Wochenmarkt und Ladenverkauf
+  ['/ladenverkauf-in-upgant-schott', '/ladenverkauf/'],
+  ['/wochenmarkt-in-emden',          '/wochenmarkt/'],
+  ['/our-menu',                      '/ladenverkauf/'],        // Ladenangebote der Woche
+  ['/screenshot',                    '/ladenverkauf/'],        // derselbe Inhalt wie /our-menu
+  ['/contact',                       '/kontakt/'],
+]);
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -278,6 +295,11 @@ const server = http.createServer(async (req, res) => {
   if (host === `www.${CANONICAL_HOST}`) {
     return redirect(res, `https://${CANONICAL_HOST}${url.pathname}${search}`);
   }
+
+  // Legacy-Redirects vor der Trailing-Slash-Logik, sonst entstuenden zwei Spruenge
+  // (/contact -> /contact/ -> /kontakt/).
+  const legacyZiel = LEGACY.get(url.pathname.replace(/\/+$/, '').toLowerCase() || '/');
+  if (legacyZiel) return redirect(res, `${legacyZiel}${search}`);
 
   if (url.pathname === '/api/formular') {
     if (req.method !== 'POST') { res.writeHead(405, { Allow: 'POST', 'Content-Length': '0' }); return res.end(); }
