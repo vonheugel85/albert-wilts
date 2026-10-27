@@ -1,6 +1,6 @@
-# Offene Punkte vor dem Livegang
+# Offene Punkte
 
-Stand: 2026-10-27. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-10-27, nach dem Livegang. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
@@ -8,17 +8,16 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 | Punkt | Wo | Warum offen |
 |---|---|---|
 | Newsletter an Listmonk | Coolify-Umgebung | Code steht, aber `LISTMONK_URL` und `LISTMONK_LIST_UUID` fehlen in der App. Gemessen am 27.10.2026: die Anmeldung auf der Dev antwortet 503. Voraussetzung ist, dass die Liste in Listmonk auf public und Double-Opt-in steht. |
-| Brevo-Absender | Brevo, DNS bei JCC | Mails gehen derzeit über die vorhandene Absenderadresse. Für `website@albert-wilts.de` müssen die DNS-Einträge gesetzt werden. |
+| Brevo-Absender | Coolify-Umgebung | `albert-wilts.de` ist seit 27.10.2026 in Brevo authentifiziert, die vier DNS-Einträge stehen. `FORM_FROM_EMAIL` zeigt weiter auf `post@vonheugel.de`. Offen ist, ob auf eine Adresse des Kunden umgestellt wird, sie müsste dann in Brevo als Absender angelegt sein. |
 | Brevo-Tracking-Pixel | Brevo-Konto | Brevo hängt auch an Textmails ein Zählpixel. Im Konto abschaltbar, bisher nicht geschehen. |
 | Analytics | `ConsentBanner.astro` | Mess-ID steht auf `G-XXXXXXXXXX`, Analytics lädt dadurch nicht. Manuel setzt sie beim Livegang. |
 | Bildvorrat in `public/` | 28 MB Bilder, 6 MB Video | Ein Teil der Dateien wird von keiner Seite verwendet. Löschen oder als Reserve behalten. |
-| Livegang | Coolify, DNS | `albert-wilts.de` zeigt weiter auf 92.205.193.232, also die alte Seite bei JCC. Für den Umzug A-Record auf 178.104.134.190 und Domain an die Coolify-App. Server ist fertig. |
 
 ## Material (Kunde)
 
 | Punkt | Wo | Platz vorbereitet |
 |---|---|---|
-| Wochenblatt | `aktuelle-angebote.astro` | Grauer Platzhalter, einziger sichtbarer Stub |
+| Wochenblatt | `_aktuelle-angebote.astro` | Seite am 27.10.2026 komplett ausgeblendet, weil kein Angebot vorliegt. Unterstrich-Präfix hält sie aus Build und Sitemap. Verweise in Navigation, Info-Leiste, Quicklinks und auf Ladenverkauf stehen als Kommentar im Code. |
 | Zitate (4) | Gastronomie, Hotellerie, Großverbraucher, Wochenmarkt | Blöcke sind ganz entfernt, Wiederaufbau über die Git-Historie. Das CSS für Zitat und O-Ton steht noch. |
 | Fotos Warengruppen (5) | Obst, Fleisch, Kräuter, Nüsse, Säfte | Kommentar `BILDPLATZ` je Seite |
 | Historie und Familienfotos | `ueber-uns.astro` | Zeitstrahl als Kommentar ausgeblendet, Text und Fotos fehlen |
@@ -46,7 +45,6 @@ Quelle: Vorgänge „Website Relaunch" und „Verkaufspartner Website", Aufgaben
 | 14.10. / 23.09. / 17.09. | Andree | Historie: Familie schreibt sie „vernünftig runter", Fotos von Opa, Papa, Oma für den Zeitstrahl. | Zeitstrahl als Kommentar ausgeblendet, wartet auf Text und Fotos. Siehe Tabelle Material oben. |
 | 14.10. | Andree | Ampel „jetzt geöffnet" neben dem Burger-Menü, „ein bisschen Spielerei, aber clever". | Idee, nicht gebaut. |
 | 15.09. | Andree | Bewertungen: nicht dynamisch, daher „gelegentlich manuell aktualisieren" (Hinweis Manuel). | Daten in rezensionen.js, Stand Oktober. Vor Livegang prüfen. |
-| 14.09. | JCC Emden | Livegang: A-Record albert-wilts.de auf 178.104.134.190, www als CNAME, albertwilts.de als 301 in Plesk. „Nach der Abnahme und Ihrer Rückmeldung." | Server fertig. Manuel meldet sich bei Herrn van der Werf. |
 
 Geprüft und in Ordnung: Wochenmarkt nennt kein Obst und Gemüse, Kikok-Claim steht, Mopro nirgends, USt-IdNr im Impressum, „Frische-Vollsortimenter" an allen Stellen, Elka alle Sorten im 3-Liter-Gebinde, Tomaten ohne Markenname, Nobis nur Ente und Gans mit Wild aus heimischen Forsten getrennt, Heinemann bei geschälter Ware und Schnittware, Leybucht-Kartoffeln, Nature's Pride und Bedford mit Abgrenzung zur Eigenproduktion, Liefergebiet als Karte mit Andrees Ortsliste, ahoi-PDF, Wilts Box mit Bildern beim Klick, Vegan und Allergiker gestrichen, Ponthier nur gekühlt im 1-Kilo-Gebinde.
 

@@ -37,7 +37,7 @@ const DASHES = /[\u2013\u2014\u2212]/;
 // Datei und Textmerkmal, nicht ueber Zeilennummern, damit Verschiebungen die Liste nicht entwerten.
 const BEKANNTE_PLATZHALTER = [
   { datei: 'src/components/ConsentBanner.astro', merkmal: 'GA_MEASUREMENT_ID' },  // bis Analytics live geht
-  { datei: 'src/pages/aktuelle-angebote.astro',  merkmal: 'Wochenblatt' },        // Material fehlt
+  { datei: 'src/pages/_aktuelle-angebote.astro', merkmal: 'Wochenblatt' },        // ausgeblendet, Material fehlt
   { datei: 'src/pages/datenschutz.astro',        merkmal: 'Newsletter-Tool' },    // Anbieter noch offen
 ];
 const istBekannt = (file, zeile) =>

@@ -24,13 +24,16 @@ const cols = [
     lines:   ['Immer freitags', '8 bis 18 Uhr'],
     href:    '/ladenverkauf',
   },
-  {
-    iconSrc: '/icons/aktuelle-angebote_weiss.svg',
-    iconAlt: '',
-    title:   ['Aktuelle', 'Angebote'],
-    lines:   ['Jede Woche aktuell', 'direkt im Postfach'],
-    href:    '/aktuelle-angebote',
-  },
+  // ANGEBOTE: dritte Spalte ausgeblendet, bis das erste Wochenblatt vorliegt
+  // (Manuel, 27.10.2026). Zum Einblenden diesen Block einkommentieren und das
+  // Grid unten wieder auf repeat(3, 1fr) setzen.
+  // {
+  //   iconSrc: '/icons/aktuelle-angebote_weiss.svg',
+  //   iconAlt: '',
+  //   title:   ['Aktuelle', 'Angebote'],
+  //   lines:   ['Jede Woche aktuell', 'direkt im Postfach'],
+  //   href:    '/aktuelle-angebote',
+  // },
 ];
 ---
 
@@ -68,7 +71,8 @@ const cols = [
     padding: 0 24px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* ANGEBOTE ausgeblendet: zwei statt drei Spalten (Manuel, 27.10.2026) */
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
   }
 
