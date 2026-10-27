@@ -1,42 +1,34 @@
 # Offene Punkte vor dem Livegang
 
-Stand: 2026-10-26. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-10-27. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
 
 | Punkt | Wo | Warum offen |
 |---|---|---|
-| Formular-Backend | `server.mjs`, `kontakt.astro`, `ChefslistZugang.astro`, `NewsletterSection.astro` | Alle drei Formulare posten an Platzhalter. Vorschlag: Mail-Endpunkt in `server.mjs` über Brevo oder Resend, Zieladresse info@albert-wilts.de. Danach Datenschutz ergänzen. |
-| Analytics | `ConsentBanner.astro` | GA4-Mess-ID steht auf Platzhalter. Entweder echte ID oder Statistik vorerst abschalten, dann wird der Banner schlanker. |
-| Newsletter-Tool | `datenschutz.astro`, `NewsletterSection.astro` | Anbieter nicht entschieden, Datenschutz-Absatz ist Platzhalter. |
-| Auftragsverarbeitung Hosting | `datenschutz.astro` | AVV mit dem Hoster abschließen, dann Absatz ersetzen. |
-| Bildvorrat in `public/` | `bilder/stimmung/` (rund 50), `bilder/unternehmen/` (rund 20), drei Logovarianten | Keine Seite verweist darauf, über 10 MB je Deploy. Löschen oder als Reserve behalten. |
-| Livegang | Coolify, DNS | Domain albert-wilts.de an die App hängen, DNS umstellen. www-Weiterleitung und noindex für andere Hosts sind im Server fertig. |
+| Newsletter an Listmonk | Coolify-Umgebung | Code steht, aber `LISTMONK_URL` und `LISTMONK_LIST_UUID` fehlen in der App. Gemessen am 27.10.2026: die Anmeldung auf der Dev antwortet 503. Voraussetzung ist, dass die Liste in Listmonk auf public und Double-Opt-in steht. |
+| Brevo-Absender | Brevo, DNS bei JCC | Mails gehen derzeit über die vorhandene Absenderadresse. Für `website@albert-wilts.de` müssen die DNS-Einträge gesetzt werden. |
+| Brevo-Tracking-Pixel | Brevo-Konto | Brevo hängt auch an Textmails ein Zählpixel. Im Konto abschaltbar, bisher nicht geschehen. |
+| Analytics | `ConsentBanner.astro` | Mess-ID steht auf `G-XXXXXXXXXX`, Analytics lädt dadurch nicht. Manuel setzt sie beim Livegang. |
+| Bildvorrat in `public/` | 28 MB Bilder, 6 MB Video | Ein Teil der Dateien wird von keiner Seite verwendet. Löschen oder als Reserve behalten. |
+| Livegang | Coolify, DNS | `albert-wilts.de` zeigt weiter auf 92.205.193.232, also die alte Seite bei JCC. Für den Umzug A-Record auf 178.104.134.190 und Domain an die Coolify-App. Server ist fertig. |
 
 ## Material (Kunde)
 
 | Punkt | Wo | Platz vorbereitet |
 |---|---|---|
-| Video Wilts Box | `box.astro`, Hero | Einbau wie Startseite, sobald die Datei vorliegt |
 | Wochenblatt | `aktuelle-angebote.astro` | Grauer Platzhalter, einziger sichtbarer Stub |
-| Zitate (4) | Gastronomie, Hotellerie, Großverbraucher, Wochenmarkt | Kommentar `ZITATPLATZ` mit fertigem Gerüst |
+| Zitate (4) | Gastronomie, Hotellerie, Großverbraucher, Wochenmarkt | Blöcke sind ganz entfernt, Wiederaufbau über die Git-Historie. Das CSS für Zitat und O-Ton steht noch. |
 | Fotos Warengruppen (5) | Obst, Fleisch, Kräuter, Nüsse, Säfte | Kommentar `BILDPLATZ` je Seite |
-| Familienfotos Historie | `ueber-uns.astro` | Zeitstrahl ohne Bilder |
-| Chefslist-Logo | `ChefslistZugang.astro` | Liegt vor und ist eingebaut, Punkt erledigt |
-| Grillsortiment, Mittagsgericht, Weihnachtsverkauf, Vorbestellung | Ladenverkauf, Wochenmarkt | Siehe `offene-widersprueche.md`, kein Text vorhanden |
+| Historie und Familienfotos | `ueber-uns.astro` | Zeitstrahl als Kommentar ausgeblendet, Text und Fotos fehlen |
+| Personalfoto | `ueber-uns.astro`, Mitarbeiterblock | Kommentar `BILDPLATZ`, altes Flurfoto vom Kunden angekündigt |
 
 ## Vom Kunden zu klären
 
-- „Dritte Generation" (Trustbar Sortiment) gegen „sechste Generation" im ahoi-Artikel.
+- Einwilligung der Personen im Startseiten-Video und auf den Marktfotos.
 - „über 55 Fruchtpürees" in der Übersichtskarte Säfte, Unterseite ist bereinigt.
-- Personen im Startseiten-Video (Familie am Vordach ab Sekunde 10) sind auf der Dev öffentlich sichtbar.
-
-## Erledigt am 23.10.2026, nur zur Einordnung
-
-Sitemap und robots.txt, noindex außerhalb der Live-Domain, JSON-LD-Logo-Pfad, Alt-Text BereicheSection,
-vier ungenutzte Dateien entfernt, Cresco-Logo abgeleitet (Weiß durch Textgrau ersetzt, Bronze-Akzent original),
-Chefslist-Zugang auf allen vier Gewerbeseiten.
+- Bewertungen in `rezensionen.js` stehen auf dem Stand Oktober und werden nicht automatisch nachgeladen.
 
 ## Abgleich mit Fruity Notes am 24.10.2026 (WhatsApp, Mails, Aufgaben seit April)
 
@@ -44,14 +36,14 @@ Quelle: Vorgänge „Website Relaunch" und „Verkaufspartner Website", Aufgaben
 
 | Datum | Wer | Aussage (wörtlich, gekürzt) | Stand im Repo |
 |---|---|---|---|
-| 23.10. | Anke | „Wir sind nun momentan am neuen Markt. Die Adresse stimmt leider nicht." | Wochenmarkt Emden steht auf „Stadtgarten, Emden" (Seite, Karte, Maps-Link). Standort offenbar saisonal wechselnd, Formulierung klären. |
+| 23.10. | Anke | „Wir sind nun momentan am neuen Markt. Die Adresse stimmt leider nicht." | Erledigt am 23.10.2026, steht auf „Neuer Markt, Emden". |
 | 22.10. | Andree | „Es ist besser, du gelobest nicht, als dass du gelobest und nicht haltest." Soll irgendwo eingebaut werden. | Alle Zitate sind seit F2 ausgeblendet. Drittes Vater-Zitat neben „Glocken" (17.09.) und einem Zitat auf einem Bild (16.09., Text unbekannt). |
 | 17.10. | Andree | Chefslist-Vorteilstext „Zutaten und Allergene in jedem Artikel": „Kannst du dir irgendwas anderes einfallen lassen? Komplettes Sortiment, sichtbar oder so." | Nutzenpunkt „Zutaten und Allergene zu jedem Artikel" steht so im Block (Textfreigabe vom 23.10.). |
 | 17.10. | Andree | Bestellwege als Liste: „Telefonat gern gesehen, Mail, Fax geht auch noch, per App Chefslist." Chefslist „nicht so zentral". | Block nennt nur Telefon. Mail und Fax als Bestellwege fehlen auf den Gewerbeseiten. |
 | 17.10. | Andree | „Ich meine nicht nochmal ein weiteres Anmeldeformular … nur das Icon." und „Von mir aus können wir gerne dein Formular benutzen." | Eigenes Schrittformular plus Chefslist-Siegel, laut Manuel abgesprochen. Zur Kenntnis. |
 | 14.10. | Andree | „Da hätte ich gerne aber noch Bilder bei den Unterkategorien." Produktbilder: Heinemann-Produktion, Kresse, Nüsse, Tomate, Gurke (15.09.). | Fünf Warengruppen-Seiten ohne Bild, Plätze markiert. Kein Material. |
 | 14.10. / 15.09. | Andree | Presse: „Wie war das dann mit dem Video?" Seine Videos sollen eingebettet und anklickbar sein. | Beide TV-Einträge offline, keine Videodatei im Repo. Welche Videos gemeint sind, ist unklar. |
-| 14.10. / 23.09. / 17.09. | Andree | Historie: Familie schreibt sie „vernünftig runter", Fotos von Opa, Papa, Oma für den Zeitstrahl. | Zeitstrahl seit F2 ausgeblendet, wartet auf Text und Fotos vom Kunden. Manuel hatte am 17.09. „Historie größer, mit Galerie" zugesagt. |
+| 14.10. / 23.09. / 17.09. | Andree | Historie: Familie schreibt sie „vernünftig runter", Fotos von Opa, Papa, Oma für den Zeitstrahl. | Zeitstrahl als Kommentar ausgeblendet, wartet auf Text und Fotos. Siehe Tabelle Material oben. |
 | 14.10. | Andree | Ampel „jetzt geöffnet" neben dem Burger-Menü, „ein bisschen Spielerei, aber clever". | Idee, nicht gebaut. |
 | 15.09. | Andree | Bewertungen: nicht dynamisch, daher „gelegentlich manuell aktualisieren" (Hinweis Manuel). | Daten in rezensionen.js, Stand Oktober. Vor Livegang prüfen. |
 | 14.09. | JCC Emden | Livegang: A-Record albert-wilts.de auf 178.104.134.190, www als CNAME, albertwilts.de als 301 in Plesk. „Nach der Abnahme und Ihrer Rückmeldung." | Server fertig. Manuel meldet sich bei Herrn van der Werf. |
