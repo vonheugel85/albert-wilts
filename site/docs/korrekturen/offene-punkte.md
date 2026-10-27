@@ -7,9 +7,8 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 
 | Punkt | Wo | Warum offen |
 |---|---|---|
-| Newsletter an Listmonk | Coolify-Service `albert-wilts-newsletter` | Eigene Listmonk-Instanz am 27.10.2026 angelegt, Liste `Albert Wilts Newsletter` public mit Double-Opt-in, SMTP über das Brevo-Relay, Website umgestellt und getestet: Anmeldung antwortet 200. Offen: Zustellung der Bestätigungsmail an eine echte Adresse ist noch nicht geprüft, und die Instanz läuft bis zum A-Record für `news.albert-wilts.de` unter einer sslip.io-Adresse ohne TLS. |
-| Brevo-Absender | Coolify-Umgebung | `albert-wilts.de` ist seit 27.10.2026 in Brevo authentifiziert, die vier DNS-Einträge stehen. `FORM_FROM_EMAIL` zeigt weiter auf `post@vonheugel.de`. Offen ist, ob auf eine Adresse des Kunden umgestellt wird, sie müsste dann in Brevo als Absender angelegt sein. |
-| Brevo-Tracking-Pixel | Brevo-Konto | Brevo hängt auch an Textmails ein Zählpixel. Im Konto abschaltbar, bisher nicht geschehen. |
+| Brevo-Tracking-Pixel und Klick-Tracking | Brevo-Konto | Brevo ersetzt beim SMTP-Relay jeden Link durch einen Zaehllink auf `sendibt3.com`. Gemessen am 27.10.2026 in der Opt-in-Mail: auch der Bestaetigungslink laeuft darueber. Fremde Domain im Opt-in-Link, Tracking ohne Einwilligung. Im Konto abschaltbar, bisher nicht geschehen. |
+| A-Record news.albert-wilts.de | DNS bei JCC | Die eigene Listmonk-Instanz laeuft bis dahin unter einer sslip.io-Adresse ohne TLS. `app.root_url` steckt in jedem Bestaetigungs- und Abmeldelink, der Wechsel sollte vor dem ersten echten Abonnenten passieren. |
 | Analytics | `ConsentBanner.astro` | Mess-ID steht auf `G-XXXXXXXXXX`, Analytics lädt dadurch nicht. Manuel setzt sie beim Livegang. |
 | Bildvorrat in `public/` | 28 MB Bilder, 6 MB Video | Ein Teil der Dateien wird von keiner Seite verwendet. Löschen oder als Reserve behalten. |
 
