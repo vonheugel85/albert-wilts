@@ -7,7 +7,7 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 
 | Punkt | Wo | Warum offen |
 |---|---|---|
-| Newsletter an Listmonk | Coolify-Umgebung | Code steht, aber `LISTMONK_URL` und `LISTMONK_LIST_UUID` fehlen in der App. Gemessen am 27.10.2026: die Anmeldung auf der Dev antwortet 503. Voraussetzung ist, dass die Liste in Listmonk auf public und Double-Opt-in steht. |
+| Newsletter an Listmonk | Coolify-Service `albert-wilts-newsletter` | Eigene Listmonk-Instanz am 27.10.2026 angelegt, Liste `Albert Wilts Newsletter` public mit Double-Opt-in, SMTP über das Brevo-Relay, Website umgestellt und getestet: Anmeldung antwortet 200. Offen: Zustellung der Bestätigungsmail an eine echte Adresse ist noch nicht geprüft, und die Instanz läuft bis zum A-Record für `news.albert-wilts.de` unter einer sslip.io-Adresse ohne TLS. |
 | Brevo-Absender | Coolify-Umgebung | `albert-wilts.de` ist seit 27.10.2026 in Brevo authentifiziert, die vier DNS-Einträge stehen. `FORM_FROM_EMAIL` zeigt weiter auf `post@vonheugel.de`. Offen ist, ob auf eine Adresse des Kunden umgestellt wird, sie müsste dann in Brevo als Absender angelegt sein. |
 | Brevo-Tracking-Pixel | Brevo-Konto | Brevo hängt auch an Textmails ein Zählpixel. Im Konto abschaltbar, bisher nicht geschehen. |
 | Analytics | `ConsentBanner.astro` | Mess-ID steht auf `G-XXXXXXXXXX`, Analytics lädt dadurch nicht. Manuel setzt sie beim Livegang. |
