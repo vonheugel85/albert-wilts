@@ -867,7 +867,10 @@
   line-height: 28px;
   font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
+  /* Kein white-space: nowrap. Lange Herstellernamen wie "Zur Website von Norderneyer
+     Seeluftschinken" waren damit 381 px breit und sprengten auf dem Smartphone die
+     Karte (F11, 27.10.2026). Der Pfeil in ::after klebt ohne Leerzeichen am letzten
+     Wort und bricht deshalb auch so nicht allein um. */
 }
 .sub-brandlink::after {
   content: '\2197';
@@ -1048,7 +1051,10 @@
   .sub-featcols--2 { grid-template-columns: 1fr; }
   .sub-cards { grid-auto-rows: auto; }
   .sub-spec { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
-  .sub-brands { grid-template-columns: 1fr; gap: 18px; }
+  /* minmax(0, 1fr) statt 1fr: 1fr schrumpft nicht unter die Mindestbreite des Inhalts,
+     dadurch ragten die Karten ueber den Bildschirmrand und body{overflow-x:hidden} schnitt
+     sie ab, ohne dass ein Scrollbalken darauf hinwies (F11, 27.10.2026). */
+  .sub-brands { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .sub-brand { padding: 22px; }
 }
 

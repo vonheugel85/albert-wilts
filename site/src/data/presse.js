@@ -8,7 +8,7 @@ export const kategorien = {
   tv:        { label: 'Fernsehen',         hinweis: 'Zwei Fernsehporträts des NDR über zwei Generationen der Familie Wilts.' },
   emden:     { label: 'Emder Wochenmarkt', hinweis: 'Als Marktsprecherin vertritt Anke Wilts die Händler des Emder Wochenmarkts.' },
   norderney: { label: 'Norderney',         hinweis: 'Der Betrieb gehört seit Jahrzehnten zum Norderneyer Wochenmarkt.' },
-  betrieb:   { label: 'Betrieb & Familie', hinweis: 'Porträts über Familie, Betrieb und Geschichte seit 1958.' },
+  betrieb:   { label: 'Betrieb und Familie', hinweis: 'Porträts über Familie, Betrieb und Geschichte seit 1958.' },
 };
 
 export const zugangLabel = {

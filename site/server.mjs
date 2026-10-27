@@ -10,6 +10,8 @@
  * - 301 auf Trailing-Slash-Form für Verzeichnisrouten (/presse -> /presse/ -> dist/presse/index.html).
  * - Cache-Control: immutable für gehashte Assets (/_astro/) und Fonts, kurz für /bilder/ und /logo/,
  *   no-cache für HTML/XML/TXT, sonst eine Stunde.
+ * - gzip oder Brotli fuer Textformate, je nach Accept-Encoding des Browsers (F11, 2026-10-27).
+ *   Vorher ging alles unkomprimiert raus, die Startseite mit 85 KB statt rund 15 KB.
  * - ETag + Last-Modified + 304, Range-Anfragen (206, fuer Video), Path-Traversal-Schutz, nur GET/HEAD (sonst 405).
  * - 404 über dist/404.html, falls vorhanden, sonst Text-Fallback.
  *
@@ -33,6 +35,7 @@
  *   nach dem Livegang am 27.10.2026 liefen sieben indexierte Adressen ins Leere.
  */
 import http from 'node:http';
+import zlib from 'node:zlib';
 import { createReadStream, statSync } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -65,6 +68,21 @@ const MIME = {
   '.pdf': 'application/pdf', '.webmanifest': 'application/manifest+json',
   '.mp4': 'video/mp4', '.webm': 'video/webm',
 };
+
+// Nur Textformate lohnen die Kompression. Bilder, Video und woff2 sind bereits komprimiert,
+// ein zweiter Durchgang kostet CPU und bringt nichts.
+const KOMPRIMIERBAR = new Set(['.html', '.css', '.js', '.mjs', '.json', '.xml', '.txt', '.svg']);
+// Unter dieser Groesse lohnt es nicht: gzip haengt einen Kopf an und macht kleine Dateien
+// groesser, gemessen am 27.10.2026 an robots.txt (75 Bytes roh, 91 Bytes gzip).
+const KOMPRESSION_AB = 1024;
+
+// Brotli spart gegenueber gzip noch einmal rund 15 Prozent, kann aber nicht jeder Browser.
+function encodingWaehlen(req) {
+  const a = (req.headers['accept-encoding'] || '').toLowerCase();
+  if (/(^|,)\s*br\s*(,|;|$)/.test(a)) return 'br';
+  if (/(^|,)\s*gzip\s*(,|;|$)/.test(a)) return 'gzip';
+  return null;
+}
 
 function cacheControl(urlPath, ext) {
   if (urlPath.startsWith('/_astro/') || ext === '.woff2' || ext === '.woff') return 'public, max-age=31536000, immutable';
@@ -337,7 +355,11 @@ const server = http.createServer(async (req, res) => {
   if (!info) return send404(req, res);
 
   const ext = path.extname(filePath).toLowerCase();
-  const etag = `W/"${info.size.toString(16)}-${Math.floor(info.mtimeMs).toString(16)}"`;
+  // Bei Range-Anfragen nicht komprimieren: Byte-Bereiche beziehen sich auf die Rohdatei.
+  const enc = (KOMPRIMIERBAR.has(ext) && info.size >= KOMPRESSION_AB && !req.headers.range)
+    ? encodingWaehlen(req) : null;
+  // Das Encoding gehoert in den ETag, sonst bekommt ein Client vom Cache die falsche Kodierung.
+  const etag = `W/"${info.size.toString(16)}-${Math.floor(info.mtimeMs).toString(16)}${enc ? `-${enc}` : ''}"`;
   const lastModified = info.mtime.toUTCString();
   const headers = {
     'Content-Type': MIME[ext] || 'application/octet-stream',
@@ -346,6 +368,8 @@ const server = http.createServer(async (req, res) => {
     'Last-Modified': lastModified,
     'X-Content-Type-Options': 'nosniff',
   };
+  // Vary auch ohne gewaehltes Encoding, damit Caches die Varianten auseinanderhalten.
+  if (KOMPRIMIERBAR.has(ext)) headers.Vary = 'Accept-Encoding';
   // Nur die Live-Domain darf in den Index; dev.albert-wilts.de und alle anderen Hosts bekommen noindex (L1, 23.10.2026)
   if (host !== CANONICAL_HOST) headers['X-Robots-Tag'] = 'noindex, nofollow';
 
@@ -357,7 +381,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Range-Anfragen (Video): Safari spielt <video> nur, wenn der Server 206 mit Content-Range liefert.
-  headers['Accept-Ranges'] = 'bytes';
+  if (!enc) headers['Accept-Ranges'] = 'bytes';
   const range = req.headers.range;
   if (range) {
     const m = /^bytes=(\d*)-(\d*)$/.exec(range);
@@ -374,6 +398,22 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(206, headers);
     if (req.method === 'HEAD') return res.end();
     return createReadStream(filePath, { start, end }).pipe(res);
+  }
+
+  if (enc) {
+    // Laenge ist vorher nicht bekannt, deshalb chunked statt Content-Length.
+    headers['Content-Encoding'] = enc;
+    res.writeHead(200, headers);
+    if (req.method === 'HEAD') return res.end();
+    const packer = enc === 'br'
+      // Qualitaet 5 statt der Vorgabe 11: ab etwa 6 kostet jede Stufe deutlich mehr Rechenzeit,
+      // ohne dass die Datei nennenswert kleiner wird.
+      ? zlib.createBrotliCompress({ params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 5,
+          [zlib.constants.BROTLI_PARAM_SIZE_HINT]: info.size,
+        } })
+      : zlib.createGzip({ level: 6 });
+    return createReadStream(filePath).pipe(packer).pipe(res);
   }
 
   headers['Content-Length'] = info.size;

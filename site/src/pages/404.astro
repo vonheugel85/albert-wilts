@@ -1,0 +1,54 @@
+---
+/*
+  404.astro: Astro baut daraus dist/404.html, das server.mjs bei unbekannten Pfaden
+  ausliefert (siehe send404). Vorher kam dort nur der Text-Fallback "Seite nicht
+  gefunden." ohne Layout und ohne Weg zurueck (F11, 2026-10-27).
+
+  Wichtig nach dem Relaunch: Alte Adressen der WordPress-Seite sind in LEGACY in
+  server.mjs umgeleitet. Hier landet, was dort nicht steht, etwa alte Deeplinks aus
+  Mails oder Ausdrucken. Deshalb Navigation, Hauptziele und Telefonnummer.
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section    from '../components/Section.astro';
+import Button     from '../components/Button.astro';
+
+const ziele = [
+  { href: '/',                      titel: 'Startseite',        text: 'Zurück zum Anfang' },
+  { href: '/sortiment-und-leistungen/', titel: 'Sortiment und Leistungen', text: 'Obst und Gemüse, Fleisch, Käse, Säfte und mehr' },
+  { href: '/fuer-gewerbekunden/',   titel: 'Für Gewerbekunden', text: 'Belieferung für Gastronomie, Hotellerie und Großverbraucher' },
+  { href: '/wochenmarkt/',          titel: 'Wochenmarkt',       text: 'Unsere Markttage in Emden und auf Norderney' },
+  { href: '/ladenverkauf/',         titel: 'Ladenverkauf',      text: 'Freitags 8 bis 18 Uhr in Upgant-Schott' },
+  { href: '/kontakt/',              titel: 'Kontakt',           text: 'Schreiben Sie uns oder rufen Sie an' },
+];
+---
+
+<BaseLayout
+  title="Seite nicht gefunden | Albert Wilts e.K."
+  description="Diese Seite gibt es nicht mehr. Hier finden Sie die wichtigsten Bereiche von Albert Wilts e.K. in Upgant-Schott."
+  noindex={true}
+>
+
+  <section class="sub-hero">
+    <div class="sub-hero-inside">
+      <h1>Diese Seite gibt es nicht</h1>
+      <p class="sub-hero-sub">Vielleicht hat sich die Adresse geändert oder es hat sich ein Tippfehler eingeschlichen. Unten finden Sie die wichtigsten Bereiche.</p>
+      <div class="sub-hero-actions">
+        <span class="sub-hero-phone">Lieber anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff">
+    <h2 class="sub-h2-center">Wonach suchen Sie?</h2>
+    <div class="sub-featcols">
+      {ziele.map((z) => (
+        <div class="sub-featcol sub-featcol-top">
+          <h3>{z.titel}</h3>
+          <p>{z.text}</p>
+          <Button href={z.href} variant="link" label="Dorthin" />
+        </div>
+      ))}
+    </div>
+  </Section>
+
+</BaseLayout>
