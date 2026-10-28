@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Stand: 2026-10-27, nach dem Livegang. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-10-28, nach dem Livegang. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
@@ -9,7 +9,11 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 |---|---|---|
 | Brevo-Tracking-Pixel und Klick-Tracking | Brevo-Konto | Brevo ersetzt beim SMTP-Relay jeden Link durch einen Zaehllink auf `sendibt3.com`. Gemessen am 27.10.2026 in der Opt-in-Mail: auch der Bestaetigungslink laeuft darueber. Fremde Domain im Opt-in-Link, Tracking ohne Einwilligung. Im Konto abschaltbar, bisher nicht geschehen. |
 | A-Record news.albert-wilts.de | DNS bei JCC | Die eigene Listmonk-Instanz laeuft bis dahin unter einer sslip.io-Adresse ohne TLS. `app.root_url` steckt in jedem Bestaetigungs- und Abmeldelink, der Wechsel sollte vor dem ersten echten Abonnenten passieren. |
-| Bildvorrat in `public/` | 28 MB Bilder, 6 MB Video | Ein Teil der Dateien wird von keiner Seite verwendet. Löschen oder als Reserve behalten. |
+| Listmonk-Anrede | Listmonk, Opt-in-Mail | Die Mail begruesst mit "Guten Tag" plus dem Teil vor dem @, also etwa "Guten Tag info". Listmonk setzt diesen Namen selbst, wenn keiner uebergeben wird; ein Weglassen in `server.mjs` aendert nichts. Zu aendern nur ueber ein eigenes Template-Verzeichnis (`LISTMONK_static_dir`), das sich ohne Dateizugriff auf den Server nicht sauber bestuecken laesst. |
+| Chefslist: wer schickt den Zugangscode | Prozess, nicht Technik | Das Formular verspricht "Ihren persoenlichen Zugangscode schicken wir Ihnen danach zu". Technisch passiert nur eines: eine Mail an info@albert-wilts.de. Der Interessent bekommt keine Bestaetigung, und es ist unbenannt, wer den Code erzeugt. Die Felder entsprechen dem Chefslist-Typeform, vorher ging die Anmeldung also direkt zu Chefslist. Solange der Schritt nicht feststeht, versandet die erste echte Anfrage. Betrifft auch den Datenschutztext: dort steht "Eine Weitergabe an Dritte erfolgt nicht". |
+| Zugriff fuer den Kunden | Search Console, Analytics | Beides haengt an manuel@vonheugel.de. Andree Wilts hat keinen eigenen Zugang. Falls er hineinsehen soll, braucht er eine Einladung mit Leserechten. |
+| Domain-Property Search Console | DNS bei JCC | Aktuell URL-Praefix auf https://albert-wilts.de. Eine Domain-Property deckt zusaetzlich www, http und Subdomains ab, braucht aber einen DNS-TXT-Eintrag. Lohnt zusammen mit dem A-Record fuer news.albert-wilts.de in einem Aufwasch. |
+| Bildvorrat in `public/` | 137 Dateien | Gemessen am 28.10.2026: 80 Dateien mit zusammen 22,2 MB werden von keiner Seite referenziert, ueberwiegend Stimmungsbilder. Sie kosten keine Ladezeit, liegen aber im Repo und auf dem Server. Loeschen oder als Reserve behalten. |
 | Seitengewicht | `public/video/`, `public/bilder/` | Gemessen am 28.10.2026: die Startseite uebertraegt beim ersten Besuch 5,2 MB. Davon 2,7 MB Hero-Video, 0,25 MB sein Posterbild und rund 1,8 MB Inhaltsbilder (625, 572 und 469 KB). Alle sind bereits WebP und korrekt lazy, die Groesse kommt aus Aufloesung und Qualitaetsstufe. Verkleinern ist eine redaktionelle Entscheidung, weil es sichtbar ist. Technisch unauffaellig: Logos sind SVG, Texte gehen komprimiert raus. |
 
 ## Material (Kunde)
@@ -43,7 +47,7 @@ Quelle: Vorgänge „Website Relaunch" und „Verkaufspartner Website", Aufgaben
 | 14.10. / 15.09. | Andree | Presse: „Wie war das dann mit dem Video?" Seine Videos sollen eingebettet und anklickbar sein. | Beide TV-Einträge offline, keine Videodatei im Repo. Welche Videos gemeint sind, ist unklar. |
 | 14.10. / 23.09. / 17.09. | Andree | Historie: Familie schreibt sie „vernünftig runter", Fotos von Opa, Papa, Oma für den Zeitstrahl. | Zeitstrahl als Kommentar ausgeblendet, wartet auf Text und Fotos. Siehe Tabelle Material oben. |
 | 14.10. | Andree | Ampel „jetzt geöffnet" neben dem Burger-Menü, „ein bisschen Spielerei, aber clever". | Idee, nicht gebaut. |
-| 15.09. | Andree | Bewertungen: nicht dynamisch, daher „gelegentlich manuell aktualisieren" (Hinweis Manuel). | Daten in rezensionen.js, Stand Oktober. Vor Livegang prüfen. |
+| 15.09. | Andree | Bewertungen: nicht dynamisch, daher „gelegentlich manuell aktualisieren" (Hinweis Manuel). | 25 Eintraege in rezensionen.js, Stand Oktober. Der Livegang ist durch, die Aktualisierung steht weiter aus. |
 
 Geprüft und in Ordnung: Wochenmarkt nennt kein Obst und Gemüse, Kikok-Claim steht, Mopro nirgends, USt-IdNr im Impressum, „Frische-Vollsortimenter" an allen Stellen, Elka alle Sorten im 3-Liter-Gebinde, Tomaten ohne Markenname, Nobis nur Ente und Gans mit Wild aus heimischen Forsten getrennt, Heinemann bei geschälter Ware und Schnittware, Leybucht-Kartoffeln, Nature's Pride und Bedford mit Abgrenzung zur Eigenproduktion, Liefergebiet als Karte mit Andrees Ortsliste, ahoi-PDF, Wilts Box mit Bildern beim Klick, Vegan und Allergiker gestrichen, Ponthier nur gekühlt im 1-Kilo-Gebinde.
 
