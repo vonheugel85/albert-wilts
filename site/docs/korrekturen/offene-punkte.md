@@ -11,6 +11,7 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 | A-Record news.albert-wilts.de | DNS bei JCC | Die eigene Listmonk-Instanz laeuft bis dahin unter einer sslip.io-Adresse ohne TLS. `app.root_url` steckt in jedem Bestaetigungs- und Abmeldelink, der Wechsel sollte vor dem ersten echten Abonnenten passieren. |
 | Analytics | `ConsentBanner.astro` | Mess-ID steht auf `G-XXXXXXXXXX`, Analytics lädt dadurch nicht. Manuel setzt sie beim Livegang. |
 | Bildvorrat in `public/` | 28 MB Bilder, 6 MB Video | Ein Teil der Dateien wird von keiner Seite verwendet. Löschen oder als Reserve behalten. |
+| Seitengewicht | `public/video/`, `public/bilder/` | Gemessen am 28.10.2026: die Startseite uebertraegt beim ersten Besuch 5,2 MB. Davon 2,7 MB Hero-Video, 0,25 MB sein Posterbild und rund 1,8 MB Inhaltsbilder (625, 572 und 469 KB). Alle sind bereits WebP und korrekt lazy, die Groesse kommt aus Aufloesung und Qualitaetsstufe. Verkleinern ist eine redaktionelle Entscheidung, weil es sichtbar ist. Technisch unauffaellig: Logos sind SVG, Texte gehen komprimiert raus. |
 
 ## Material (Kunde)
 
