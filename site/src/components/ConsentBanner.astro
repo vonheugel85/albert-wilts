@@ -99,8 +99,10 @@
   const KEY = 'aw_consent';
   const VERSION = 1;
 
-  // === Platzhalter: echte GA4-Mess-ID erst spaeter setzen (siehe 03-analytics-aktivieren.md) ===
-  const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+  // GA4-Mess-ID der Property "albert-wilts.de", Konto "Albert Wilts e.K."
+  // (angelegt am 28.10.2026). Geladen wird gtag ausschliesslich nach Einwilligung,
+  // siehe apply() und loadGA() weiter unten.
+  const GA_MEASUREMENT_ID = 'G-J8DQ250ZG2';
 
   const root = document.getElementById('aw-consent');
   if (root) {

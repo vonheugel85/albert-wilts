@@ -154,6 +154,29 @@ const extraJsonLd = jsonLd
       }
     </script>
     <script>
+      /* Messung der Ziele in GA4 (F12, 28.10.2026). gtag existiert nur, wenn der Besucher
+         der Statistik zugestimmt hat; ohne Einwilligung passiert hier nichts. Die Namen
+         entsprechen den Schluesselereignissen in der Property "albert-wilts.de". */
+      (window as any).awEvent = (name: string, params: Record<string, unknown> = {}) => {
+        const g = (window as any).gtag;
+        if (typeof g === 'function') g('event', name, params);
+      };
+
+      /* Telefon und E-Mail sind bei einem Grosshandel die wichtigsten Wege, wichtiger als
+         jedes Formular. Ein Listener am Dokument faengt alle Links, auch die in der
+         Quicklink-Leiste und im Footer. */
+      document.addEventListener('click', (e) => {
+        const a = (e.target as HTMLElement)?.closest?.('a[href^="tel:"], a[href^="mailto:"]');
+        if (!a) return;
+        const href = a.getAttribute('href') || '';
+        (window as any).awEvent(
+          href.startsWith('tel:') ? 'telefon_klick' : 'email_klick',
+          { ziel: href.replace(/^(tel|mailto):/, ''), seite: location.pathname }
+        );
+      });
+    </script>
+
+    <script>
       /* Zeitfalle gegen Formularspam (F9, 2026-10-27): beim Laden den Zeitpunkt in ein verstecktes Feld
          schreiben, server.mjs verwirft Einsendungen, die zu schnell kommen oder gar keinen Zeitstempel
          haben. Ohne JavaScript fehlt das Feld, das allein reicht dort aber nicht fuer eine Ablehnung. */
@@ -182,6 +205,12 @@ const extraJsonLd = jsonLd
             const j = await r.json().catch(() => ({}));
             if (!r.ok || !j.ok) throw new Error(j.text || 'Das Senden hat nicht geklappt. Rufen Sie uns an unter 04934 91060 oder schreiben Sie an info@albert-wilts.de.');
             zeige(true, j.text);
+            // Welches Formular, steht im versteckten Feld "formular"
+            const art = (new FormData(form).get('formular') || 'unbekannt').toString();
+            (window as any).awEvent(
+              art === 'newsletter' ? 'newsletter_anmeldung' : 'kontaktformular',
+              { formular: art, seite: location.pathname }
+            );
             form.reset();
             for (const el of form.querySelectorAll<HTMLElement>('input:not([type=hidden]), select, textarea, button')) (el as HTMLInputElement).disabled = true;
           } catch (err) {

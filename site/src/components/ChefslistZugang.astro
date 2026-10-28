@@ -181,6 +181,12 @@ const appLink = 'http://onelink.to/z56nkd';
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.ok) throw new Error(j.text || String(r.status));
         form.hidden = true; danke.hidden = false;
+        // Schluesselereignis in GA4, siehe awEvent in BaseLayout (F12, 28.10.2026)
+        window.awEvent?.('chefslist_anfrage', {
+          formular: 'chefslist',
+          bestandskunde: (new FormData(form).get('bestandskunde') || '').toString(),
+          seite: location.pathname,
+        });
       } catch (e) {
         fehler((e as Error).message || 'Das Senden hat nicht geklappt. Rufen Sie uns an unter 04934 91060 oder schreiben Sie an info@albert-wilts.de.');
         senden.disabled = false;
