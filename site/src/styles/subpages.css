@@ -28,9 +28,12 @@
 }
 .sub-hero--image .sub-hero-inside { position: relative; z-index: 1; }
 /* Hintergrundvideo im Hero (Box, 23.10.2026): gleiche Ueberlagerung wie sub-hero--image, Video statt Bild */
+.sub-hero-standbild,
 .sub-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
 .sub-hero--video::after { content: ''; position: absolute; inset: 0; background: rgba(79, 113, 70, 0.8); z-index: 0; }
 .sub-hero--video .sub-hero-inside { position: relative; z-index: 1; }
+/* Reduzierte Bewegung: Video weg, das Standbild darunter bleibt stehen. Ohne dieses Bild
+   waere der Hero eine leere gruene Flaeche, weil mit dem Video auch sein poster verschwindet. */
 @media (prefers-reduced-motion: reduce) { .sub-hero-video { display: none; } }
 .sub-hero-inside,
 .sub-cta-inside,
