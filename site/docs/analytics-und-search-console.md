@@ -14,8 +14,17 @@ sie entfernt, verfaellt die Bestaetigung und die Property verliert ihre Daten.
 Eine **Domain-Property** waere vollstaendiger: Sie deckt zusaetzlich `www`,
 `http` und alle Subdomains ab, etwa `dev.` und spaeter `news.`. Sie verlangt
 aber einen DNS-TXT-Eintrag, den nur JCC setzen kann. Mit der Datei ging es ohne
-fremde Mitwirkung. Wenn ohnehin ein DNS-Eintrag bei JCC ansteht, lohnt es, die
-Domain-Property gleich mitzubestellen und spaeter umzustellen.
+fremde Mitwirkung.
+
+Die Domain-Property ist seit 28.10.2026 angelegt und wartet auf den Eintrag:
+
+```
+TXT   albert-wilts.de   google-site-verification=U-1QpKBqXAa28DFLGi6QhvzGPAZ9wHI8o9-V7eU0vps
+```
+
+Sobald JCC ihn gesetzt hat, laesst sie sich in der Search Console bestaetigen.
+Danach stehen beide Properties nebeneinander; die URL-Praefix-Property kann
+bleiben, ihre Daten reichen weiter zurueck.
 
 Sitemap `sitemap-index.xml` eingereicht, Status "Erfolgreich", 20 Seiten erkannt.
 Direkt nach dem Einreichen stand dort "Konnte nicht abgerufen werden": Das ist
