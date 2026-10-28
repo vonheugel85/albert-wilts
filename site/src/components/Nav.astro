@@ -77,9 +77,14 @@ const navItems = [
     border-bottom:1px solid #E5E5E5;
   ">
     <a href="/" aria-label="Albert Wilts, zur Startseite">
+      {/* SVG statt PNG (F11, 27.10.2026): das PNG ist 2903x2331 gross und wiegt 635 KB,
+          angezeigt wurden davon 44 Pixel Hoehe. Das SVG zeigt dasselbe Logo bei gleichem
+          Seitenverhaeltnis (141.7:113.8) mit 32 KB und wird unten im mobilen Menue ohnehin
+          schon verwendet. Das PNG bleibt als Logo im JSON-LD, dort will Google ein Rasterbild. */}
       <img
-        src="/logo/albert-wilts-logo.png"
+        src="/logo/albert-wilts-logo.svg"
         alt="Albert Wilts"
+        width="55" height="44"
         style="height:44px; width:auto; display:block;"
       />
     </a>
