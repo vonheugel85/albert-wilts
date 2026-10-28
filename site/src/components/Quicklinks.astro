@@ -11,7 +11,7 @@
 //   Label: <span class="ql-label"> – font-size 14px, padding-right 14px
 //   Gruene Tabs: bg #4F7146 / weiss
 //   Oranger Tab: bg #EF7F1A / weiss
-//   Reihenfolge: Telefon, Karte, E-Mail, Angebote
+//   Reihenfolge: Telefon, Karte, E-Mail, Instagram, Facebook (Angebote ausgeblendet)
 
 const links = [
   {
@@ -34,6 +34,22 @@ const links = [
     href: 'mailto:info@albert-wilts.de',
     cta: false,
     faClass: 'fa fa-envelope',
+  },
+  // Profile aus der alten Website uebernommen und am 28.10.2026 geprueft:
+  // Instagram "Albert Wilts e.K." (@albert_wilts_ek), Facebook "Albert Wilts e.K. | Upgant-Schott".
+  {
+    label: 'Instagram',
+    id: 'ql-instagram',
+    href: 'https://www.instagram.com/albert_wilts_ek/',
+    cta: false,
+    faClass: 'fa fa-instagram',
+  },
+  {
+    label: 'Facebook',
+    id: 'ql-facebook',
+    href: 'https://www.facebook.com/albertwilts',
+    cta: false,
+    faClass: 'fa fa-facebook',
   },
   // ANGEBOTE: ausgeblendet, bis das erste Wochenblatt vorliegt (Manuel, 27.10.2026).
   // Zum Einblenden Kommentar entfernen.
@@ -170,6 +186,14 @@ const links = [
 
 <style is:global>
   /* Platz für die mobile Quicklinks-Leiste, damit Footer und CTA nicht verdeckt werden */
+  /* Unter 560px teilen sich fuenf Tabs die Breite, dann passen "Instagram" und "Facebook"
+     nicht mehr neben ihr Icon und wurden abgeschnitten (gemessen am 28.10.2026 bei 390px:
+     77px je Tab). Dort nur die Icons zeigen, der Name steht weiter im aria-label. */
+  @media (max-width: 560px) {
+    .ql-label { display: none; }
+    .ql-icon { width: 100%; min-width: 0; }
+  }
+
   @media (max-width: 768px) {
     body { padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px)); }
   }
