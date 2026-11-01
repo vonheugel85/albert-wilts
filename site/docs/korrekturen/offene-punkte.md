@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Stand: 2026-10-28, nach dem Livegang. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
+Stand: 2026-11-01, nach dem Livegang. Reine Zustandsliste, altert schnell: beim Abhaken Zeile entfernen, nicht ergänzen.
 Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die Umsetzung folgt auf Ansage.
 
 ## Entscheidungen (Manuel)
@@ -8,11 +8,10 @@ Entscheidungen und Material liegen bei Manuel beziehungsweise beim Kunden, die U
 | Punkt | Wo | Warum offen |
 |---|---|---|
 | Brevo-Tracking-Pixel und Klick-Tracking | Brevo-Konto | Brevo ersetzt beim SMTP-Relay jeden Link durch einen Zaehllink auf `sendibt3.com`. Gemessen am 27.10.2026 in der Opt-in-Mail: auch der Bestaetigungslink laeuft darueber. Fremde Domain im Opt-in-Link, Tracking ohne Einwilligung. Im Konto abschaltbar, bisher nicht geschehen. |
-| A-Record news.albert-wilts.de | DNS bei JCC | Die eigene Listmonk-Instanz laeuft bis dahin unter einer sslip.io-Adresse ohne TLS. `app.root_url` steckt in jedem Bestaetigungs- und Abmeldelink, der Wechsel sollte vor dem ersten echten Abonnenten passieren. |
 | Listmonk-Anrede | Listmonk, Opt-in-Mail | Die Mail begruesst mit "Guten Tag" plus dem Teil vor dem @, also etwa "Guten Tag info". Listmonk setzt diesen Namen selbst, wenn keiner uebergeben wird; ein Weglassen in `server.mjs` aendert nichts. Zu aendern nur ueber ein eigenes Template-Verzeichnis (`LISTMONK_static_dir`), das sich ohne Dateizugriff auf den Server nicht sauber bestuecken laesst. |
 | Chefslist: wer schickt den Zugangscode | Prozess, nicht Technik | Das Formular verspricht "Ihren persoenlichen Zugangscode schicken wir Ihnen danach zu". Technisch passiert nur eines: eine Mail an info@albert-wilts.de. Der Interessent bekommt keine Bestaetigung, und es ist unbenannt, wer den Code erzeugt. Die Felder entsprechen dem Chefslist-Typeform, vorher ging die Anmeldung also direkt zu Chefslist. Solange der Schritt nicht feststeht, versandet die erste echte Anfrage. Betrifft auch den Datenschutztext: dort steht "Eine Weitergabe an Dritte erfolgt nicht". |
 | Zugriff fuer den Kunden | Search Console, Analytics | Beides haengt an manuel@vonheugel.de. Andree Wilts hat keinen eigenen Zugang. Falls er hineinsehen soll, braucht er eine Einladung mit Leserechten. |
-| Domain-Property Search Console | DNS bei JCC | Aktuell URL-Praefix auf https://albert-wilts.de. Eine Domain-Property deckt zusaetzlich www, http und Subdomains ab, braucht aber einen DNS-TXT-Eintrag. Lohnt zusammen mit dem A-Record fuer news.albert-wilts.de in einem Aufwasch. |
+| Domain-Property Search Console | Search Console | Der TXT-Eintrag ist seit 01.11.2026 bei JCC gesetzt. Die Property ist angelegt und wartet nur noch auf den Klick auf "Bestaetigen". |
 | Bildvorrat in `public/` | 137 Dateien | Gemessen am 28.10.2026: 80 Dateien mit zusammen 22,2 MB werden von keiner Seite referenziert, ueberwiegend Stimmungsbilder. Sie kosten keine Ladezeit, liegen aber im Repo und auf dem Server. Loeschen oder als Reserve behalten. |
 | Seitengewicht | `public/video/`, `public/bilder/` | Gemessen am 28.10.2026: die Startseite uebertraegt beim ersten Besuch 5,2 MB. Davon 2,7 MB Hero-Video, 0,25 MB sein Posterbild und rund 1,8 MB Inhaltsbilder (625, 572 und 469 KB). Alle sind bereits WebP und korrekt lazy, die Groesse kommt aus Aufloesung und Qualitaetsstufe. Verkleinern ist eine redaktionelle Entscheidung, weil es sichtbar ist. Technisch unauffaellig: Logos sind SVG, Texte gehen komprimiert raus. |
 

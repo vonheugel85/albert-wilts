@@ -1,6 +1,6 @@
 # Newsletter: eigene Listmonk-Instanz
 
-Stand: 2026-10-27. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-01. Entscheidungen und Begruendungen, keine Zustandsliste.
 
 ## Warum eine eigene Instanz
 
@@ -19,6 +19,24 @@ Wechsel neue Einwilligungen erfordert haette.
 Coolify-Service `albert-wilts-newsletter` im Projekt `albert-wilts`, eigener
 Container mit eigener Postgres. Zugangsdaten, UUIDs und API-Token stehen in
 `env.local` unter dem Praefix `AW_LISTMONK_`.
+
+## Domain
+
+Seit 01.11.2026 laeuft die Instanz unter `https://news.albert-wilts.de` mit
+Let's-Encrypt-Zertifikat. Davor lief sie unter einer sslip.io-Adresse ohne TLS,
+weil der A-Record bei JCC fehlte. Gesetzt in Coolify am Service-Container
+`listmonk` als `https://news.albert-wilts.de:9000`; das `:9000` ist der
+Container-Port, den Coolify fuer das Routing braucht, nach aussen bleibt es 443.
+Per API laesst sich die Domain eines Service-Containers nicht setzen, das ging
+nur ueber die Oberflaeche.
+
+`app.root_url` in Listmonk zeigt auf die neue Domain, ebenso `LISTMONK_URL`
+der Website in Coolify. Die alte sslip.io-Adresse antwortet mit 404.
+
+Zum Zeitpunkt der Umstellung hatte die Liste einen echten Abonnenten
+(angemeldet am 29.10.2026). Sein Abmeldelink aus der Bestaetigungsmail zeigt
+noch auf die alte Adresse und ist damit tot; er kann sich ueber den Link in
+jeder kuenftigen Newsletter-Mail abmelden.
 
 ## Die Sie-Ansprache haengt an einer Datei im Volume
 
