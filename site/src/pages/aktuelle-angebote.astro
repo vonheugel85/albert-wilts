@@ -1,0 +1,218 @@
+---
+import BaseLayout        from '../layouts/BaseLayout.astro';
+import Section           from '../components/Section.astro';
+import Button            from '../components/Button.astro';
+import NewsletterSection from '../components/NewsletterSection.astro';
+import { zeitraum, ortLabel, ortDetail, mittagsgericht, angebote, saisonHinweis } from '../data/angebote.js';
+
+// Dauerhafte Standardartikel stehen immer am Ende des Rasters (stabile Sortierung).
+const sortiert = [...angebote].sort((a, b) => Number(a.dauerhaft ?? false) - Number(b.dauerhaft ?? false));
+
+// ISO-Kalenderwoche aus dem Gueltigkeitsbeginn, landet in der H2 und haelt sich beim
+// woechentlichen Datentausch von selbst aktuell.
+function kalenderwoche(iso: string): number {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const jahresanfang = Date.UTC(d.getUTCFullYear(), 0, 1);
+  return Math.ceil(((d.getTime() - jahresanfang) / 86400000 + 1) / 7);
+}
+const kw = kalenderwoche(zeitraum.von);
+
+// Alle Eintraege fuer die Detail-Dialoge: Mittagsgericht plus Raster
+const dialogEintraege = [
+  { ...mittagsgericht, kategorie: mittagsgericht.badge },
+  ...sortiert,
+];
+---
+
+<BaseLayout
+  title="Aktuelle Angebote | Jede Woche neu für Laden und Wochenmarkt | Albert Wilts"
+  description="Jede Woche neu: die aktuellen Angebote von Albert Wilts für den Ladenverkauf in Upgant-Schott und die Wochenmärkte in Emden und auf Norderney. Mit allen Preisen im Überblick."
+>
+
+  <section class="sub-hero ang-hero">
+    <div class="sub-hero-inside">
+      <h1>Aktuelle Angebote</h1>
+      <p class="sub-hero-sub">Jede Woche neu: unsere Angebote für den Ladenverkauf in Upgant-Schott und unsere Wochenmärkte in Emden und auf Norderney.</p>
+      <div class="sub-hero-actions">
+        <Button href="#angebote" label="Zu den Angeboten" />
+        <span class="sub-hero-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar ang-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Seit 1958</span>
+      <span class="sub-trustbar-item">Dritte Generation</span>
+      <span class="sub-trustbar-item">Wöchentlich neu</span>
+      <span class="sub-trustbar-item">Markt und Laden</span>
+      <span class="sub-trustbar-item">Bio-zertifiziert</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" id="angebote">
+    <div data-bis={zeitraum.bis}>
+      <h2 class="sub-h2-center">Unsere Angebote der Kalenderwoche&nbsp;{kw}</h2>
+      <p class="sub-lead-center">Frisch im Ladenverkauf am Freitag und an unseren Marktständen. Tippen Sie ein Angebot an, um alle Einzelheiten zu sehen.</p>
+      <p class="ang-gueltig"><span>{zeitraum.label}, solange der Vorrat reicht</span></p>
+
+      <p class="ang-veraltet" id="ang-veraltet" hidden>
+        Diese Angebote sind abgelaufen. Die neuen Angebote der Woche erscheinen in Kürze.
+      </p>
+
+      <div class="ang-filter" role="group" aria-label="Angebote filtern">
+        <button type="button" class="ang-filter-btn" aria-pressed="true" data-filter="alle">Alle Angebote</button>
+        <button type="button" class="ang-filter-btn" aria-pressed="false" data-filter="laden">Ladenverkauf</button>
+        <button type="button" class="ang-filter-btn" aria-pressed="false" data-filter="markt">Wochenmarkt</button>
+      </div>
+
+      <article class="ang-highlight" data-orte={mittagsgericht.orte.join(' ')} data-dialog={`dlg-${mittagsgericht.id}`}>
+        <span class="ang-highlight-badge">{mittagsgericht.badge}</span>
+        <div class="ang-highlight-body">
+          <h3>{mittagsgericht.titel}</h3>
+          <p>{mittagsgericht.beschreibung}</p>
+        </div>
+        <div class="ang-highlight-preis">
+          <span class="ang-preis">{mittagsgericht.preis}</span>
+          <span class="ang-einheit">{mittagsgericht.einheit}</span>
+        </div>
+        <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
+      </article>
+
+      <div class="ang-grid" id="ang-grid">
+        {sortiert.map((a) => (
+          <article class="ang-card" data-orte={a.orte.join(' ')} data-dialog={`dlg-${a.id}`}>
+            <span class="ang-eyebrow">{a.kategorie}</span>
+            <h3>{a.titel}</h3>
+            <p class="ang-desc">{a.beschreibung}</p>
+            <div class="ang-foot">
+              <div>
+                <span class="ang-preis">{a.preis}</span>
+                <span class="ang-einheit">{a.einheit}</span>
+              </div>
+              <div class="ang-chips">
+                {a.orte.map((o) => <span class="ang-chip">{ortLabel[o]}</span>)}
+              </div>
+            </div>
+            <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  {saisonHinweis && (
+    <section class="sub-teaserband">
+      <div class="sub-teaserband-inside">
+        <div class="sub-teaserband-text">
+          <h2>{saisonHinweis.titel}</h2>
+          <p>{saisonHinweis.text}</p>
+        </div>
+        <Button href={saisonHinweis.linkHref} label={saisonHinweis.linkLabel} />
+      </div>
+    </section>
+  )}
+
+  <Section bg="#F8F8F8">
+    <h2 class="sub-h2-center">Hier bekommen Sie die Angebote</h2>
+    <p class="sub-lead-center">Im Ladenverkauf bei uns auf dem Hof und an unseren Marktständen in der Region.</p>
+    <div class="ang-orte">
+      <div class="ang-ort">
+        <div class="ang-ort-head">Ladenverkauf Upgant-Schott</div>
+        <div class="ang-ort-body">
+          <p>Hansestraße 4, 26529 Upgant-Schott</p>
+          <table class="ang-ort-tabelle">
+            <tbody>
+              <tr><td>Freitag</td><td>8 bis 18 Uhr</td></tr>
+            </tbody>
+          </table>
+          <p class="ang-ort-hinweis">Rund um die Uhr: die <a href="/box">Wilts Box 24/7</a> auf dem Betriebsgelände.</p>
+        </div>
+      </div>
+      <div class="ang-ort">
+        <div class="ang-ort-head">Unsere Wochenmärkte</div>
+        <div class="ang-ort-body">
+          <table class="ang-ort-tabelle">
+            <tbody>
+              <tr><td>Dienstag</td><td>Emden</td></tr>
+              <tr><td>Mittwoch</td><td>Norderney</td></tr>
+              <tr><td>Donnerstag</td><td>Emden-Borssum</td></tr>
+              <tr><td>Freitag</td><td>Emden</td></tr>
+              <tr><td>Samstag</td><td>Emden</td></tr>
+            </tbody>
+          </table>
+          <p class="ang-ort-hinweis"><a href="/wochenmarkt">Alles über unsere Wochenmärkte</a></p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <NewsletterSection />
+
+  {dialogEintraege.map((a) => (
+    <dialog class="ang-dialog" id={`dlg-${a.id}`} aria-labelledby={`dlg-titel-${a.id}`}>
+      <div class="ang-dialog-head">
+        <div>
+          <span class="ang-eyebrow ang-eyebrow--hell">{a.kategorie}</span>
+          <h3 id={`dlg-titel-${a.id}`}>{a.titel}</h3>
+        </div>
+        <button type="button" class="ang-dialog-close" aria-label="Schließen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="ang-dialog-body">
+        <p class="ang-dialog-preis">
+          <span class="ang-preis">{a.preis}</span>
+          <span class="ang-einheit">{a.einheit}</span>
+        </p>
+        <p class="ang-dialog-desc">{a.detail}</p>
+        <p class="ang-dialog-label">Diese Woche erhältlich</p>
+        <ul class="ang-dialog-verf">
+          {a.orte.map((o) => <li>{ortDetail[o]}</li>)}
+        </ul>
+        <p class="ang-dialog-note">{a.hinweis ?? `${zeitraum.label}, solange der Vorrat reicht.`}</p>
+      </div>
+    </dialog>
+  ))}
+
+</BaseLayout>
+
+<script>
+  const root = document.getElementById('angebote');
+  if (root) {
+    // ── Filter: Laden / Markt / Alle ──
+    const filterBtns = root.querySelectorAll<HTMLButtonElement>('.ang-filter-btn');
+    const karten = root.querySelectorAll<HTMLElement>('[data-orte]');
+    filterBtns.forEach((btn) => btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      const f = btn.dataset.filter ?? 'alle';
+      karten.forEach((k) => {
+        k.hidden = f !== 'alle' && !(k.dataset.orte ?? '').split(' ').includes(f);
+      });
+    }));
+
+    // ── Detail-Dialoge ──
+    karten.forEach((k) => {
+      const dialog = document.getElementById(k.dataset.dialog ?? '') as HTMLDialogElement | null;
+      if (!dialog) return;
+      k.addEventListener('click', () => dialog.showModal());
+      dialog.querySelector('.ang-dialog-close')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dialog.close();
+      });
+      // Klick auf den Backdrop schliesst (Klicks im Inhalt treffen die inneren Elemente)
+      dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    });
+
+    // ── Abgelaufene Woche kennzeichnen ──
+    const bis = root.querySelector<HTMLElement>('[data-bis]')?.dataset.bis;
+    if (bis) {
+      const ende = new Date(`${bis}T23:59:59`);
+      if (Date.now() > ende.getTime()) {
+        const banner = document.getElementById('ang-veraltet');
+        if (banner) banner.hidden = false;
+      }
+    }
+  }
+</script>
