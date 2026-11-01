@@ -92,10 +92,19 @@ gleichfalls als `confirmed` und ohne erneute Bestaetigungsmail. Sie tragen
 Vorschlag, sie als `unconfirmed` mit Bestaetigungsmail aufzunehmen, wurde
 verworfen.
 
-Nicht importiert: 344 Adressen ohne jeden Beleg. Die Quelldateien liegen
-ausserhalb des Repos unter `backup/newsletter-export/`.
+Als drittes, ebenfalls am 01.11.2026: 344 Adressen, fuer die MailPoet keinen
+Einwilligungsbeleg enthaelt (342 davon mit Quelle `imported`, zwei
+WordPress-Nutzer). Freigabe durch den Geschaeftsfuehrer: Die fehlende
+Markierung geht auf einen Datenbankfehler in der alten Installation zurueck,
+die Adressen gelten als rechtmaessig eingeworben. Importiert als `confirmed`
+ohne Bestaetigungsmail, mit `optin: keiner` und einem Attribut `freigabe`, das
+die Entscheidung und das Datum traegt. Wer spaeter nach dem Nachweis fragt,
+findet ihn so am Abonnenten und nicht nur in dieser Datei.
 
-Stand nach beiden Importen: 521 Abonnenten in Liste 3, alle `confirmed`.
+Die Quelldateien liegen ausserhalb des Repos unter `backup/newsletter-export/`.
+
+Stand nach den drei Importen: 865 Abonnenten in Liste 3, alle `confirmed`.
+Das sind alle 864 in MailPoet aktiven Abonnenten plus eine Testadresse.
 
 Eine Adresse (`aeckhardt459@gmail.com`) stand schon vor dem Import in der
 Liste, Anmeldung ueber die neue Website am 29.10.2026. Sie wurde nicht
