@@ -109,3 +109,46 @@ Das sind alle 864 in MailPoet aktiven Abonnenten plus eine Testadresse.
 Eine Adresse (`aeckhardt459@gmail.com`) stand schon vor dem Import in der
 Liste, Anmeldung ueber die neue Website am 29.10.2026. Sie wurde nicht
 ueberschrieben, die neue Bestaetigung ist der frischere Nachweis.
+
+## Erscheinungsbild im CI der Website
+
+Listmonk kommt in Blau (`#0055d4`) mit eigenem Logo. Am 01.11.2026 auf das CI
+der Website umgestellt (Gruen `#4F7146`, Hover `#3D5A36`, Schrift IBM Plex Sans
+und Caladea, Radius 6px). Drei Stellen, drei Mechanismen:
+
+**Oeffentliche Seiten** (Anmeldung, Opt-in-Bestaetigung, Abmeldung): ueber
+`appearance.public.custom_css` in den Settings, wird als `/public/custom.css`
+nach dem Standard-Stylesheet geladen und ueberschreibt nur Farben, Schrift
+und Radien. Die Schriften liegen als woff2 in den Listmonk-Medien
+(`/uploads/`), nicht bei Google, aus demselben Grund wie auf der Website.
+Logo ueber `app.logo_url`, Favicon ueber `app.favicon_url`.
+
+**Kampagnen**: eigenes Template "Albert Wilts" (id 5) als Standard. Kopf mit
+Logo, Fuss mit Firmierung, Adresse, Telefon, Abmelden, Im-Browser-ansehen,
+Impressum und Datenschutz. Die mitgelieferten Templates 1 bis 4 bleiben
+unveraendert liegen.
+
+**Systemmails** (Opt-in-Bestaetigung, Abmeldebestaetigung) liegen in
+Listmonks `static/email-templates` und sind ohne `LISTMONK_static_dir` nicht
+aenderbar, dieselbe Huerde wie bei der Anrede. Das Logo zieht trotzdem, weil
+die Vorlage `{{ LogoURL }}` verwendet. Blauer Button und die Zeile
+"Unterstuetzt von listmonk" bleiben dort vorerst.
+
+**Logo als PNG, nicht SVG.** `app.logo_url` gilt fuer Seiten und Mails
+zugleich. Gmail und Outlook zeigen SVG in Mails nicht an, deshalb liegt das
+Logo als PNG (360px breit, aus dem SVG gerendert) unter
+`/uploads/albert-wilts-logo-mail.png`. Das SVG liegt daneben, wird aber
+nicht referenziert. Geprueft mit zwei Testanmeldungen: erste Mail mit SVG,
+zweite mit PNG, Testabonnenten danach geloescht.
+
+**Falle bei `PUT /api/settings`.** Die Route will das komplette
+Settings-Objekt. Das SMTP-Passwort kommt beim GET maskiert zurueck; Listmonk
+behaelt beim PUT zwar den alten Wert, wenn die Maske zurueckgeschickt wird,
+aber wer es explizit setzt, muss den richtigen Schluessel nehmen: Der
+Listmonk-SMTP-Benutzer ist `BREVO_SMTP_USER`, das Passwort `BREVO_SMTP_KEY`
+aus `env.local`. `SMTP_PASS` dort gehoert zu einem anderen Konto. Genau das
+ging am 01.11.2026 einmal schief und wurde mit einem zweiten PUT behoben,
+Versand danach per Testanmeldung bestaetigt. Jeder PUT startet Listmonk neu
+(etwa acht Sekunden).
+
+Beobachtung: Gmail sortierte die Opt-in-Mail unter "Werbung" ein.
