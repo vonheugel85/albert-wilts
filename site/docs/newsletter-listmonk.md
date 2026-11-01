@@ -85,11 +85,17 @@ Abonnenten als Attribut: `optin`, `optin_datum`, `optin_ip`, `anmelde_ip`,
 `angemeldet_am`, `bestaetigungen`, `quelle`, `formular_protokoll`, `herkunft`.
 So bleibt bei einer Beschwerde nachvollziehbar, woher die Einwilligung stammt.
 
-Nicht importiert: 48 Adressen mit einfachem Opt-in (Formularprotokoll und
-`subscribed_ip`, aber keine Bestaetigung) und 344 ohne jeden Beleg. Die
-Quelldateien liegen ausserhalb des Repos unter
-`backup/newsletter-export/`. Ein Nachimport der 48 waere nur als
-`unconfirmed` vertretbar, mit erneuter Bestaetigungsmail.
+Ebenfalls am 01.11.2026, auf Manuels Entscheidung: 48 Adressen mit einfachem
+Opt-in (Formularprotokoll und `subscribed_ip`, aber keine Bestaetigung),
+gleichfalls als `confirmed` und ohne erneute Bestaetigungsmail. Sie tragen
+`optin: single`, damit die Unterscheidung in der Liste sichtbar bleibt. Der
+Vorschlag, sie als `unconfirmed` mit Bestaetigungsmail aufzunehmen, wurde
+verworfen.
+
+Nicht importiert: 344 Adressen ohne jeden Beleg. Die Quelldateien liegen
+ausserhalb des Repos unter `backup/newsletter-export/`.
+
+Stand nach beiden Importen: 521 Abonnenten in Liste 3, alle `confirmed`.
 
 Eine Adresse (`aeckhardt459@gmail.com`) stand schon vor dem Import in der
 Liste, Anmeldung ueber die neue Website am 29.10.2026. Sie wurde nicht
