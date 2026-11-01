@@ -66,49 +66,12 @@ der laufenden Version, nicht `master`.
 
 Nach jedem Update eine Testanmeldung durchfuehren und die Mail ansehen.
 
-## Bekannte Einschraenkung: die Anrede
+## Die Anrede
 
-Die Mail begruesst mit "Guten Tag" und dem Namen des Abonnenten. Listmonk
-setzt diesen Namen selbst auf den Teil vor dem @, wenn keiner uebergeben wird,
-ein Weglassen in `server.mjs` aendert daran nichts. Die Anrede lautet deshalb
-etwa "Guten Tag info". Zu aendern waere das nur ueber ein eigenes
-Template-Verzeichnis (`LISTMONK_static_dir`), das sich ohne Dateizugriff auf
-den Server nicht sauber bestuecken laesst.
-
-## Altbestand aus MailPoet
-
-Am 01.11.2026 wurden 472 Adressen aus der alten WordPress-Installation
-importiert (Liste 3, Status confirmed, `overwrite: false`). Das sind
-ausschliesslich die Abonnenten, fuer die MailPoet ein doppeltes Opt-in belegt
-(`confirmed_at` und `confirmed_ip` gesetzt). Der Nachweis haengt an jedem
-Abonnenten als Attribut: `optin`, `optin_datum`, `optin_ip`, `anmelde_ip`,
-`angemeldet_am`, `bestaetigungen`, `quelle`, `formular_protokoll`, `herkunft`.
-So bleibt bei einer Beschwerde nachvollziehbar, woher die Einwilligung stammt.
-
-Ebenfalls am 01.11.2026, auf Manuels Entscheidung: 48 Adressen mit einfachem
-Opt-in (Formularprotokoll und `subscribed_ip`, aber keine Bestaetigung),
-gleichfalls als `confirmed` und ohne erneute Bestaetigungsmail. Sie tragen
-`optin: single`, damit die Unterscheidung in der Liste sichtbar bleibt. Der
-Vorschlag, sie als `unconfirmed` mit Bestaetigungsmail aufzunehmen, wurde
-verworfen.
-
-Als drittes, ebenfalls am 01.11.2026: 344 Adressen, fuer die MailPoet keinen
-Einwilligungsbeleg enthaelt (342 davon mit Quelle `imported`, zwei
-WordPress-Nutzer). Freigabe durch den Geschaeftsfuehrer: Die fehlende
-Markierung geht auf einen Datenbankfehler in der alten Installation zurueck,
-die Adressen gelten als rechtmaessig eingeworben. Importiert als `confirmed`
-ohne Bestaetigungsmail, mit `optin: keiner` und einem Attribut `freigabe`, das
-die Entscheidung und das Datum traegt. Wer spaeter nach dem Nachweis fragt,
-findet ihn so am Abonnenten und nicht nur in dieser Datei.
-
-Die Quelldateien liegen ausserhalb des Repos unter `backup/newsletter-export/`.
-
-Stand nach den drei Importen: 865 Abonnenten in Liste 3, alle `confirmed`.
-Das sind alle 864 in MailPoet aktiven Abonnenten plus eine Testadresse.
-
-Eine Adresse (`aeckhardt459@gmail.com`) stand schon vor dem Import in der
-Liste, Anmeldung ueber die neue Website am 29.10.2026. Sie wurde nicht
-ueberschrieben, die neue Bestaetigung ist der frischere Nachweis.
+Listmonks Opt-in-Vorlage begruesst mit "Guten Tag" und dem Vornamen. Das
+Website-Formular uebergibt keinen Namen, Listmonk setzt dann den Teil vor dem
+@ ein ("Guten Tag info"). Seit 01.11.2026 lautet die Anrede in der eigenen
+`subscriber-optin.html` schlicht "Guten Tag," ohne Namen, siehe unten.
 
 ## Erscheinungsbild im CI der Website
 
@@ -128,18 +91,38 @@ Logo, Fuss mit Firmierung, Adresse, Telefon, Abmelden, Im-Browser-ansehen,
 Impressum und Datenschutz. Die mitgelieferten Templates 1 bis 4 bleiben
 unveraendert liegen.
 
-**Systemmails** (Opt-in-Bestaetigung, Abmeldebestaetigung) liegen in
-Listmonks `static/email-templates` und sind ohne `LISTMONK_static_dir` nicht
-aenderbar, dieselbe Huerde wie bei der Anrede. Das Logo zieht trotzdem, weil
-die Vorlage `{{ LogoURL }}` verwendet. Blauer Button und die Zeile
-"Unterstuetzt von listmonk" bleiben dort vorerst.
+**Systemmails** (Opt-in-Bestaetigung, Abmeldung, SMTP-Test usw.) kommen aus
+Listmonks eingebetteten `static/email-templates`. Ueberlagert ueber
+`LISTMONK_static_dir=/listmonk/uploads/static`: Listmonk mischt daraus Datei
+fuer Datei ueber die eingebetteten (`fs.Merge` in `cmd/init.go`), und nur die
+Unterordner, die es dort gibt. Es liegen zwei Dateien darin:
+`base.html` (Kopf mit Logo 160px, Farben, Fuss mit Firmierung, Adresse,
+Telefon, Impressum, Datenschutz, ohne "Unterstuetzt von listmonk") und
+`subscriber-optin.html` (Anrede ohne Namen). Alle anderen Vorlagen bleiben
+die eingebetteten, erben aber Kopf und Fuss aus `base.html`.
+
+Der Medien-Upload legt keine Unterordner an. Deshalb hat der
+Listmonk-Container in der Coolify-Compose ein `command`, das beim Start
+`/listmonk/uploads/static/email-templates/` anlegt, `base.html` und
+`subscriber-optin.html` aus `/listmonk/uploads/` hineinkopiert und dann
+`exec ./listmonk` ausfuehrt. Die Quelldateien liegen also als normale
+Medien in Listmonk (`/uploads/base.html`, `/uploads/subscriber-optin.html`).
+
+**Vorlage aendern:** Medieneintrag in Listmonk loeschen, neue Datei mit
+demselben Namen hochladen (sonst haengt Listmonk ein Suffix an), Service in
+Coolify neu starten, Testanmeldung, Mail ansehen, Testabonnent loeschen.
+Beim Listmonk-Update dasselbe pruefen wie bei der Sprachdatei: Die
+Vorlagen muessen zur Version passen, Quelle ist der Tag der laufenden
+Version (`static/email-templates/` im Repo).
 
 **Logo als PNG, nicht SVG.** `app.logo_url` gilt fuer Seiten und Mails
 zugleich. Gmail und Outlook zeigen SVG in Mails nicht an, deshalb liegt das
 Logo als PNG (360px breit, aus dem SVG gerendert) unter
 `/uploads/albert-wilts-logo-mail.png`. Das SVG liegt daneben, wird aber
-nicht referenziert. Geprueft mit zwei Testanmeldungen: erste Mail mit SVG,
-zweite mit PNG, Testabonnenten danach geloescht.
+nicht referenziert. Die Breite in der Mail setzt `base.html` fest auf
+160px; ohne diese Angabe erschien das PNG in voller Groesse. Geprueft mit
+drei Testanmeldungen (SVG, PNG ohne Breite, PNG mit eigener Vorlage),
+Testabonnenten danach geloescht.
 
 **Falle bei `PUT /api/settings`.** Die Route will das komplette
 Settings-Objekt. Das SMTP-Passwort kommt beim GET maskiert zurueck; Listmonk
