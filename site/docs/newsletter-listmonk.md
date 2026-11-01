@@ -74,3 +74,23 @@ ein Weglassen in `server.mjs` aendert daran nichts. Die Anrede lautet deshalb
 etwa "Guten Tag info". Zu aendern waere das nur ueber ein eigenes
 Template-Verzeichnis (`LISTMONK_static_dir`), das sich ohne Dateizugriff auf
 den Server nicht sauber bestuecken laesst.
+
+## Altbestand aus MailPoet
+
+Am 01.11.2026 wurden 472 Adressen aus der alten WordPress-Installation
+importiert (Liste 3, Status confirmed, `overwrite: false`). Das sind
+ausschliesslich die Abonnenten, fuer die MailPoet ein doppeltes Opt-in belegt
+(`confirmed_at` und `confirmed_ip` gesetzt). Der Nachweis haengt an jedem
+Abonnenten als Attribut: `optin`, `optin_datum`, `optin_ip`, `anmelde_ip`,
+`angemeldet_am`, `bestaetigungen`, `quelle`, `formular_protokoll`, `herkunft`.
+So bleibt bei einer Beschwerde nachvollziehbar, woher die Einwilligung stammt.
+
+Nicht importiert: 48 Adressen mit einfachem Opt-in (Formularprotokoll und
+`subscribed_ip`, aber keine Bestaetigung) und 344 ohne jeden Beleg. Die
+Quelldateien liegen ausserhalb des Repos unter
+`backup/newsletter-export/`. Ein Nachimport der 48 waere nur als
+`unconfirmed` vertretbar, mit erneuter Bestaetigungsmail.
+
+Eine Adresse (`aeckhardt459@gmail.com`) stand schon vor dem Import in der
+Liste, Anmeldung ueber die neue Website am 29.10.2026. Sie wurde nicht
+ueberschrieben, die neue Bestaetigung ist der frischere Nachweis.
