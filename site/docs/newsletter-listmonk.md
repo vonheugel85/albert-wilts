@@ -84,7 +84,9 @@ und Caladea, Radius 6px). Drei Stellen, drei Mechanismen:
 nach dem Standard-Stylesheet geladen und ueberschreibt nur Farben, Schrift
 und Radien. Die Schriften liegen als woff2 in den Listmonk-Medien
 (`/uploads/`), nicht bei Google, aus demselben Grund wie auf der Website.
-Logo ueber `app.logo_url`, Favicon ueber `app.favicon_url`.
+Logo ueber `app.logo_url`, Favicon ueber `app.favicon_url`. Listmonks Seitenfuss
+"Unterstuetzt von listmonk" ist per `footer.container { display: none }`
+ausgeblendet.
 
 **Kampagnen**: eigenes Template "Albert Wilts" (id 5) als Standard. Kopf mit
 Logo, Fuss mit Firmierung, Adresse, Telefon, Abmelden, Im-Browser-ansehen,
