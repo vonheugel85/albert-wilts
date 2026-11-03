@@ -3,26 +3,35 @@ import BaseLayout        from '../layouts/BaseLayout.astro';
 import Section           from '../components/Section.astro';
 import Button            from '../components/Button.astro';
 import NewsletterSection from '../components/NewsletterSection.astro';
-import { zeitraum, ortLabel, ortDetail, mittagsgericht, angebote, saisonHinweis } from '../data/angebote.js';
+import { wochen, ortLabel, ortDetail, saisonHinweis } from '../data/angebote.js';
 
-// Dauerhafte Standardartikel stehen immer am Ende des Rasters (stabile Sortierung).
-const sortiert = [...angebote].sort((a, b) => Number(a.dauerhaft ?? false) - Number(b.dauerhaft ?? false));
-
-// ISO-Kalenderwoche aus dem Gueltigkeitsbeginn, landet in der H2 und haelt sich beim
-// woechentlichen Datentausch von selbst aktuell.
+// ISO-Kalenderwoche aus dem Gueltigkeitsbeginn; haelt sich beim Datentausch von selbst aktuell.
 function kalenderwoche(iso: string): number {
   const d = new Date(`${iso}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
   const jahresanfang = Date.UTC(d.getUTCFullYear(), 0, 1);
   return Math.ceil(((d.getTime() - jahresanfang) / 86400000 + 1) / 7);
 }
-const kw = kalenderwoche(zeitraum.von);
+const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+function datumKurz(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return `${d.getUTCDate()}. ${MONATE[d.getUTCMonth()]}`;
+}
 
-// Alle Eintraege fuer die Detail-Dialoge: Mittagsgericht plus Raster
-const dialogEintraege = [
-  { ...mittagsgericht, kategorie: mittagsgericht.badge },
-  ...sortiert,
-];
+// Pro Woche: dauerhafte Standardartikel ans Ende, Dialog-Liste mit Mittagsgericht zuerst.
+const ansichten = wochen.map((w, index) => {
+  const sortiert = [...w.angebote].sort((a, b) => Number(a.dauerhaft ?? false) - Number(b.dauerhaft ?? false));
+  return {
+    index,
+    zeitraum: w.zeitraum,
+    mittagsgericht: w.mittagsgericht,
+    sortiert,
+    kw: kalenderwoche(w.zeitraum.von),
+    tabLabel: index === 0 ? `Diese Woche bis ${datumKurz(w.zeitraum.bis)}` : `Nächste Woche ab ${datumKurz(w.zeitraum.von)}`,
+    dialoge: [{ ...w.mittagsgericht, kategorie: w.mittagsgericht.badge }, ...sortiert],
+  };
+});
+const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
 ---
 
 <BaseLayout
@@ -52,14 +61,24 @@ const dialogEintraege = [
   </section>
 
   <Section bg="#fff" id="angebote">
-    <div data-bis={zeitraum.bis}>
-      <h2 class="sub-h2-center">Unsere Angebote der Kalenderwoche&nbsp;{kw}</h2>
+    <div data-letzte-bis={letzteBis}>
+      <h2 class="sub-h2-center" id="ang-titel">Unsere Angebote der Kalenderwoche&nbsp;{ansichten[0].kw}</h2>
       <p class="sub-lead-center">Frisch im Ladenverkauf am Freitag und an unseren Marktständen. Tippen Sie ein Angebot an, um alle Einzelheiten zu sehen.</p>
-      <p class="ang-gueltig"><span>{zeitraum.label}, solange der Vorrat reicht</span></p>
 
       <p class="ang-veraltet" id="ang-veraltet" hidden>
         Diese Angebote sind abgelaufen. Die neuen Angebote der Woche erscheinen in Kürze.
       </p>
+
+      {ansichten.length > 1 && (
+        <div class="ang-wochen-tabs" role="group" aria-label="Woche wählen">
+          {ansichten.map((w) => (
+            <button type="button" class="ang-wochen-tab" data-woche={w.index} aria-pressed={w.index === 0 ? 'true' : 'false'}>{w.tabLabel}</button>
+          ))}
+        </div>
+      )}
+      {ansichten.length > 1 && (
+        <p class="ang-swipe-hinweis">Sie können auch zwischen den Wochen wischen.</p>
+      )}
 
       <div class="ang-filter" role="group" aria-label="Angebote filtern">
         <button type="button" class="ang-filter-btn" aria-pressed="true" data-filter="alle">Alle Angebote</button>
@@ -67,36 +86,46 @@ const dialogEintraege = [
         <button type="button" class="ang-filter-btn" aria-pressed="false" data-filter="markt">Wochenmarkt</button>
       </div>
 
-      <article class="ang-highlight" data-orte={mittagsgericht.orte.join(' ')} data-dialog={`dlg-${mittagsgericht.id}`}>
-        <span class="ang-highlight-badge">{mittagsgericht.badge}</span>
-        <div class="ang-highlight-body">
-          <h3>{mittagsgericht.titel}</h3>
-          <p>{mittagsgericht.beschreibung}</p>
-        </div>
-        <div class="ang-highlight-preis">
-          <span class="ang-preis">{mittagsgericht.preis}</span>
-          <span class="ang-einheit">{mittagsgericht.einheit}</span>
-        </div>
-        <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
-      </article>
+      <div class="ang-wviewport">
+        {ansichten.map((w) => (
+          <div class="ang-wpanel" data-bis={w.zeitraum.bis} data-kw={w.kw}>
+            <p class={`ang-wbadge${w.index > 0 ? ' ang-wbadge--next' : ''}`}>
+              <span>{w.index > 0 ? 'Vorschau: ' : ''}{w.zeitraum.label}, solange der Vorrat reicht</span>
+            </p>
 
-      <div class="ang-grid" id="ang-grid">
-        {sortiert.map((a) => (
-          <article class="ang-card" data-orte={a.orte.join(' ')} data-dialog={`dlg-${a.id}`}>
-            <span class="ang-eyebrow">{a.kategorie}</span>
-            <h3>{a.titel}</h3>
-            <p class="ang-desc">{a.beschreibung}</p>
-            <div class="ang-foot">
-              <div>
-                <span class="ang-preis">{a.preis}</span>
-                <span class="ang-einheit">{a.einheit}</span>
+            <article class="ang-highlight" data-orte={w.mittagsgericht.orte.join(' ')} data-dialog={`dlg-w${w.index}-${w.mittagsgericht.id}`}>
+              <span class="ang-highlight-badge">{w.mittagsgericht.badge}</span>
+              <div class="ang-highlight-body">
+                <h3>{w.mittagsgericht.titel}</h3>
+                <p>{w.mittagsgericht.beschreibung}</p>
               </div>
-              <div class="ang-chips">
-                {a.orte.map((o) => <span class="ang-chip">{ortLabel[o]}</span>)}
+              <div class="ang-highlight-preis">
+                <span class="ang-preis">{w.mittagsgericht.preis}</span>
+                <span class="ang-einheit">{w.mittagsgericht.einheit}</span>
               </div>
+              <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
+            </article>
+
+            <div class="ang-grid">
+              {w.sortiert.map((a) => (
+                <article class="ang-card" data-orte={a.orte.join(' ')} data-dialog={`dlg-w${w.index}-${a.id}`}>
+                  <span class="ang-eyebrow">{a.kategorie}</span>
+                  <h3>{a.titel}</h3>
+                  <p class="ang-desc">{a.beschreibung}</p>
+                  <div class="ang-foot">
+                    <div>
+                      <span class="ang-preis">{a.preis}</span>
+                      <span class="ang-einheit">{a.einheit}</span>
+                    </div>
+                    <div class="ang-chips">
+                      {a.orte.map((o) => <span class="ang-chip">{ortLabel[o]}</span>)}
+                    </div>
+                  </div>
+                  <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
+                </article>
+              ))}
             </div>
-            <button type="button" class="ang-more">Details ansehen <span class="ang-arrow">&#8594;</span></button>
-          </article>
+          </div>
         ))}
       </div>
     </div>
@@ -150,12 +179,12 @@ const dialogEintraege = [
 
   <NewsletterSection />
 
-  {dialogEintraege.map((a) => (
-    <dialog class="ang-dialog" id={`dlg-${a.id}`} aria-labelledby={`dlg-titel-${a.id}`}>
+  {ansichten.map((w) => w.dialoge.map((a) => (
+    <dialog class="ang-dialog" id={`dlg-w${w.index}-${a.id}`} aria-labelledby={`dlg-titel-w${w.index}-${a.id}`}>
       <div class="ang-dialog-head">
         <div>
           <span class="ang-eyebrow ang-eyebrow--hell">{a.kategorie}</span>
-          <h3 id={`dlg-titel-${a.id}`}>{a.titel}</h3>
+          <h3 id={`dlg-titel-w${w.index}-${a.id}`}>{a.titel}</h3>
         </div>
         <button type="button" class="ang-dialog-close" aria-label="Schließen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -167,21 +196,59 @@ const dialogEintraege = [
           <span class="ang-einheit">{a.einheit}</span>
         </p>
         <p class="ang-dialog-desc">{a.detail}</p>
-        <p class="ang-dialog-label">Diese Woche erhältlich</p>
+        <p class="ang-dialog-label">Erhältlich</p>
         <ul class="ang-dialog-verf">
           {a.orte.map((o) => <li>{ortDetail[o]}</li>)}
         </ul>
-        <p class="ang-dialog-note">{a.hinweis ?? `${zeitraum.label}, solange der Vorrat reicht.`}</p>
+        <p class="ang-dialog-note">{a.hinweis ?? `${w.zeitraum.label}, solange der Vorrat reicht.`}</p>
       </div>
     </dialog>
-  ))}
+  )))}
 
 </BaseLayout>
 
 <script>
   const root = document.getElementById('angebote');
   if (root) {
-    // ── Filter: Laden / Markt / Alle ──
+    // ── Wochen-Reiter und Swipe ──
+    const viewport = root.querySelector<HTMLElement>('.ang-wviewport');
+    const panels = root.querySelectorAll<HTMLElement>('.ang-wpanel');
+    const wTabs = root.querySelectorAll<HTMLButtonElement>('.ang-wochen-tab');
+    const titel = document.getElementById('ang-titel');
+
+    const setActive = (idx: number) => {
+      wTabs.forEach((t, i) => t.setAttribute('aria-pressed', String(i === idx)));
+      const kw = panels[idx]?.dataset.kw;
+      if (titel && kw) titel.textContent = `Unsere Angebote der Kalenderwoche ${kw}`;
+    };
+    const geheZu = (idx: number, smooth: boolean) => {
+      viewport?.scrollTo({ left: idx * (viewport?.clientWidth ?? 0), behavior: smooth ? 'smooth' : 'auto' });
+      setActive(idx);
+    };
+    wTabs.forEach((t) => t.addEventListener('click', () => geheZu(Number(t.dataset.woche), true)));
+
+    let scrollTimer: ReturnType<typeof setTimeout>;
+    viewport?.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        setActive(Math.round(viewport.scrollLeft / viewport.clientWidth));
+      }, 80);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      const aktiver = root.querySelector<HTMLButtonElement>('.ang-wochen-tab[aria-pressed="true"]');
+      if (viewport && aktiver) viewport.scrollTo({ left: Number(aktiver.dataset.woche) * viewport.clientWidth });
+    });
+
+    // Startwoche nach Datum: abgelaufene Wochen ueberspringen, solange eine neuere da ist
+    let start = 0;
+    panels.forEach((p, i) => {
+      const bis = new Date(`${p.dataset.bis}T23:59:59`);
+      if (Date.now() > bis.getTime() && i < panels.length - 1) start = i + 1;
+    });
+    if (start > 0) requestAnimationFrame(() => geheZu(start, false));
+
+    // ── Filter: Laden / Markt / Alle (wirken in allen Wochen) ──
     const filterBtns = root.querySelectorAll<HTMLButtonElement>('.ang-filter-btn');
     const karten = root.querySelectorAll<HTMLElement>('[data-orte]');
     filterBtns.forEach((btn) => btn.addEventListener('click', () => {
@@ -201,18 +268,14 @@ const dialogEintraege = [
         e.stopPropagation();
         dialog.close();
       });
-      // Klick auf den Backdrop schliesst (Klicks im Inhalt treffen die inneren Elemente)
       dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
     });
 
-    // ── Abgelaufene Woche kennzeichnen ──
-    const bis = root.querySelector<HTMLElement>('[data-bis]')?.dataset.bis;
-    if (bis) {
-      const ende = new Date(`${bis}T23:59:59`);
-      if (Date.now() > ende.getTime()) {
-        const banner = document.getElementById('ang-veraltet');
-        if (banner) banner.hidden = false;
-      }
+    // ── Alle Wochen abgelaufen: Hinweis einblenden ──
+    const letzteBis = root.querySelector<HTMLElement>('[data-letzte-bis]')?.dataset.letzteBis;
+    if (letzteBis && Date.now() > new Date(`${letzteBis}T23:59:59`).getTime()) {
+      const banner = document.getElementById('ang-veraltet');
+      if (banner) banner.hidden = false;
     }
   }
 </script>

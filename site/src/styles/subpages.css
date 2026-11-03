@@ -1092,12 +1092,62 @@
    Daten: src/data/angebote.js
    ============================================================ */
 
-/* Gueltigkeit als bestehendes Badge-Element (wie .sub-highlight-badge), kein neues Stilmittel */
-.ang-gueltig {
-  text-align: center;
-  margin: 0 0 44px;
+/* ── Wochen-Reiter: gleiche Pillen-Form wie die Filter, kein neues Element.
+   Farblogik: Orange = laufende Woche, Gruen = naechste Woche (Manuel, 03.11.2026) ── */
+.ang-wochen-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.ang-gueltig span {
+.ang-wochen-tab {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 24px;
+  color: #4F7146;
+  background: #EDF1EA;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+.ang-wochen-tab[data-woche="0"]:hover { border-color: #EF7F1A; }
+.ang-wochen-tab[data-woche="1"]:hover { border-color: #4F7146; }
+.ang-wochen-tab[data-woche="0"][aria-pressed="true"] { background: #EF7F1A; color: #fff; }
+.ang-wochen-tab[data-woche="1"][aria-pressed="true"] { background: #4F7146; color: #fff; }
+.ang-swipe-hinweis {
+  text-align: center;
+  font-size: 15px;
+  line-height: 24px;
+  color: #7F7F7F;
+  margin: 0 0 28px;
+}
+
+/* ── Wochen-Viewport: Panels nebeneinander, horizontal snappend ── */
+.ang-wviewport {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.ang-wviewport::-webkit-scrollbar { display: none; }
+.ang-wpanel {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  padding: 4px;
+}
+
+/* Gueltigkeits-Badge je Woche (Badge-Element wie .sub-highlight-badge):
+   Orange = laufende Woche, Gruen = naechste Woche */
+.ang-wbadge {
+  text-align: center;
+  margin: 0 0 36px;
+}
+.ang-wbadge span {
   display: inline-block;
   font-family: var(--font-sans);
   font-size: 13px;
@@ -1105,10 +1155,11 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #fff;
-  background: #4F7146;
+  background: #EF7F1A;
   padding: 6px 12px;
   border-radius: 3px;
 }
+.ang-wbadge--next span { background: #4F7146; }
 
 .ang-veraltet {
   max-width: 760px;
