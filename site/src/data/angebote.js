@@ -6,9 +6,9 @@
 // Das Mittagsgericht steht immer zuerst (eigener Block ueber dem Raster).
 
 export const zeitraum = {
-  von: '2026-11-03',
-  bis: '2026-11-07',
-  label: 'Gültig vom 03. bis 07. November 2026',
+  von: '2026-11-10',
+  bis: '2026-11-14',
+  label: 'Gültig vom 10. bis 14. November 2026',
 };
 
 export const ortLabel = {
@@ -25,45 +25,45 @@ export const ortDetail = {
 export const mittagsgericht = {
   id: 'mittagsgericht',
   badge: 'Mittagsgericht am Freitag',
-  titel: 'Halbes gebratenes Hähnchen',
-  beschreibung: 'Knusprig vom Grill, frisch im Ladenverkauf. Ideal zum Mitnehmen in der Mittagspause.',
+  titel: 'Gebratene Schweine-Haxen',
+  beschreibung: 'Knusprig gebraten, frisch im Ladenverkauf. Ideal zum Mitnehmen in der Mittagspause.',
   preis: '3,90 €',
   einheit: 'pro Stück',
   orte: ['laden'],
-  detail: 'Knusprig gegrillt und direkt zum Mitnehmen. Freitags frisch im Ladenverkauf, solange der Vorrat reicht.',
+  detail: 'Knusprig gebratene Schweine-Haxen, direkt zum Mitnehmen. Freitags frisch im Ladenverkauf, solange der Vorrat reicht.',
   hinweis: 'Tipp für die Mittagspause: am besten vorbestellen unter 04934 91060.',
 };
 
 export const angebote = [
   {
-    id: 'haehnchen-gyros',
+    id: 'haehnchenbrustfilet',
     kategorie: 'Geflügel',
-    titel: 'Frisches Hähnchen-Gyros',
-    beschreibung: 'Saftiges Hähnchenkeulenfleisch, fertig gewürzt für die Pfanne.',
+    titel: 'Frisches Hähnchenbrustfilet',
+    beschreibung: 'Zart und mager, vielseitig für Pfanne, Ofen und Grill.',
     preis: '10,90 €',
     einheit: 'pro kg',
     orte: ['laden', 'markt'],
-    detail: 'Saftiges Hähnchenkeulenfleisch, fertig gewürzt. Nur noch ab in die Pfanne.',
+    detail: 'Frisches Hähnchenbrustfilet, zart und mager. Vielseitig für Pfanne, Ofen und Grill.',
   },
   {
-    id: 'putenschnitzel',
+    id: 'puten-jaegerpfanne',
     kategorie: 'Geflügel',
-    titel: 'Frische Putenschnitzel',
-    beschreibung: 'Zartes Putenbrustfilet, geschnitten für die schnelle Küche.',
-    preis: '13,90 €',
+    titel: 'Frische Puten-Jägerpfanne',
+    beschreibung: 'Saftiges Putenoberkeulengulasch mit Champignons und Zwiebeln.',
+    preis: '10,90 €',
     einheit: 'pro kg',
     orte: ['laden', 'markt'],
-    detail: 'Zartes Putenbrustfilet, als Schnitzel geschnitten. Mager, schnell gebraten und vielseitig.',
+    detail: 'Saftiges Putenoberkeulengulasch mit Champignons und Zwiebeln. Fertig vorbereitet, nur noch ab in die Pfanne.',
   },
   {
-    id: 'snirtjebraten',
-    kategorie: 'Schwein',
-    titel: 'Frischer Schweine-Snirtjebraten',
-    beschreibung: 'Der ostfriesische Klassiker, bratfertig gewürzt.',
-    preis: '8,95 €',
-    einheit: 'pro kg',
+    id: 'kohlrouladen',
+    kategorie: 'Hausmannskost',
+    titel: 'Gefüllte Kohlrouladen',
+    beschreibung: 'Tiefgefroren, klassisch gefüllt mit Schweinegehacktem.',
+    preis: '1,95 €',
+    einheit: 'pro Stück',
     orte: ['laden'],
-    detail: 'Der ostfriesische Klassiker für die kalte Jahreszeit, bratfertig gewürzt.',
+    detail: 'Gefüllte Kohlrouladen, tiefgefroren und klassisch gefüllt mit Schweinegehacktem. Der Klassiker für die kalte Jahreszeit.',
   },
   {
     id: 'gefluegelsalat',
@@ -110,8 +110,8 @@ export const angebote = [
 
 // Saisonaler Hinweis unter dem Angebotsraster. Auf null setzen, wenn keiner ansteht.
 export const saisonHinweis = {
-  titel: 'Weihnachtsverkauf ab dem 27. November',
-  text: 'Vielfältige Weihnachtsangebote von Geflügel, Schwein, Rind und Wildfleisch, direkt bei uns in Upgant-Schott.',
-  linkHref: '/ladenverkauf',
-  linkLabel: 'Zum Ladenverkauf',
+  titel: 'Weihnachtsvorbestellung ab sofort möglich',
+  text: 'Ganze Puten, Flugenten, Gänse, Kaninchen, Wildfleisch und mehr: Sprechen Sie unser Team am Marktstand oder im Ladenverkauf an. Der Weihnachtsverkauf in Upgant-Schott startet am 27. November.',
+  linkHref: '/kontakt',
+  linkLabel: 'Jetzt vorbestellen',
 };
