@@ -58,6 +58,11 @@ const LEGACY = new Map([
   ['/our-menu',                      '/ladenverkauf/'],        // Ladenangebote der Woche
   ['/screenshot',                    '/ladenverkauf/'],        // derselbe Inhalt wie /our-menu
   ['/contact',                       '/kontakt/'],
+  // Angebote-Seiten der alten Site. Laut Search Console sucht mehr als die Haelfte der
+  // Klicks "wilts angebote"; diese Pfade liefen bis 07.11.2026 auf 404.
+  ['/angebote',                      '/aktuelle-angebote/'],
+  ['/angebote-wochenmarkt',          '/aktuelle-angebote/'],
+  ['/angebote-laden',                '/aktuelle-angebote/'],
 ]);
 
 const MIME = {
