@@ -55,8 +55,8 @@ const LEGACY = new Map([
   ['/standorte',                     '/wochenmarkt/'],         // war die Uebersicht Wochenmarkt und Ladenverkauf
   ['/ladenverkauf-in-upgant-schott', '/ladenverkauf/'],
   ['/wochenmarkt-in-emden',          '/wochenmarkt/'],
-  ['/our-menu',                      '/ladenverkauf/'],        // Ladenangebote der Woche
-  ['/screenshot',                    '/ladenverkauf/'],        // derselbe Inhalt wie /our-menu
+  ['/our-menu',                      '/aktuelle-angebote/'],   // Ladenangebote der Woche (bis 07.11.2026 auf /ladenverkauf/, solange die Angebotsseite ausgeblendet war)
+  ['/screenshot',                    '/aktuelle-angebote/'],   // derselbe Inhalt wie /our-menu
   ['/contact',                       '/kontakt/'],
   // Angebote-Seiten der alten Site. Laut Search Console sucht mehr als die Haelfte der
   // Klicks "wilts angebote"; diese Pfade liefen bis 07.11.2026 auf 404.
