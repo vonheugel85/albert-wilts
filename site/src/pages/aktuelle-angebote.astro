@@ -249,15 +249,19 @@ const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
     if (start > 0) requestAnimationFrame(() => geheZu(start, false));
 
     // ── Filter: Laden / Markt / Alle (wirken in allen Wochen) ──
+    // Vorauswahl ueber ?ort=laden oder ?ort=markt, damit die CTAs auf /ladenverkauf und
+    // /wochenmarkt direkt die passenden Angebote zeigen (07.11.2026).
     const filterBtns = root.querySelectorAll<HTMLButtonElement>('.ang-filter-btn');
     const karten = root.querySelectorAll<HTMLElement>('[data-orte]');
-    filterBtns.forEach((btn) => btn.addEventListener('click', () => {
-      filterBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      const f = btn.dataset.filter ?? 'alle';
+    const setzeFilter = (f: string) => {
+      filterBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
       karten.forEach((k) => {
         k.hidden = f !== 'alle' && !(k.dataset.orte ?? '').split(' ').includes(f);
       });
-    }));
+    };
+    filterBtns.forEach((btn) => btn.addEventListener('click', () => setzeFilter(btn.dataset.filter ?? 'alle')));
+    const ortParam = new URLSearchParams(location.search).get('ort');
+    if (ortParam === 'laden' || ortParam === 'markt') setzeFilter(ortParam);
 
     // ── Detail-Dialoge ──
     karten.forEach((k) => {
