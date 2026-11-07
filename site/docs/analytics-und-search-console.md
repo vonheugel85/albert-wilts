@@ -1,6 +1,6 @@
 # Search Console und Analytics
 
-Stand: 2026-10-28. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-07. Entscheidungen und Begruendungen, keine Zustandsliste.
 Beides liegt im Google-Konto manuel@vonheugel.de.
 
 ## Search Console
@@ -16,15 +16,16 @@ Eine **Domain-Property** waere vollstaendiger: Sie deckt zusaetzlich `www`,
 aber einen DNS-TXT-Eintrag, den nur JCC setzen kann. Mit der Datei ging es ohne
 fremde Mitwirkung.
 
-Die Domain-Property ist seit 28.10.2026 angelegt und wartet auf den Eintrag:
+Die Domain-Property ist seit 28.10.2026 angelegt. JCC hat den Eintrag gesetzt,
+am 01.11.2026 bestaetigt (Manuel):
 
 ```
 TXT   albert-wilts.de   google-site-verification=U-1QpKBqXAa28DFLGi6QhvzGPAZ9wHI8o9-V7eU0vps
 ```
 
-Sobald JCC ihn gesetzt hat, laesst sie sich in der Search Console bestaetigen.
-Danach stehen beide Properties nebeneinander; die URL-Praefix-Property kann
-bleiben, ihre Daten reichen weiter zurueck.
+**Der TXT-Eintrag muss liegen bleiben**, Google prueft ihn nach. Beide
+Properties stehen nebeneinander; die URL-Praefix-Property bleibt, ihre Daten
+reichen weiter zurueck.
 
 Sitemap `sitemap-index.xml` eingereicht, Status "Erfolgreich", 20 Seiten erkannt.
 Direkt nach dem Einreichen stand dort "Konnte nicht abgerufen werden": Das ist
