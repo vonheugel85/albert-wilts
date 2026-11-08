@@ -210,10 +210,38 @@ const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
 <script>
   const root = document.getElementById('angebote');
   if (root) {
-    // ── Wochen-Reiter und Swipe ──
-    const viewport = root.querySelector<HTMLElement>('.ang-wviewport');
+    // ── Abschaltung am Samstagabend: abgelaufene Wochen werden komplett entfernt,
+    //    solange eine neuere Woche in den Daten steht. Die Umschaltung passiert damit
+    //    exakt nach Samstag 23.59 Uhr im Browser des Besuchers, ohne Deployment
+    //    (Manuel, 08.11.2026). Sind alle Wochen abgelaufen, bleibt die letzte stehen
+    //    und der Hinweis unten blendet sich ein.
+    const allePanels = Array.from(root.querySelectorAll<HTMLElement>('.ang-wpanel'));
+    const alleTabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.ang-wochen-tab'));
+    allePanels.forEach((p, i) => {
+      const bis = new Date(`${p.dataset.bis}T23:59:59`);
+      if (Date.now() > bis.getTime() && i < allePanels.length - 1) {
+        p.remove();
+        alleTabs[i]?.remove();
+      }
+    });
+    // Verbleibende Wochen neu durchzaehlen; die erste ist jetzt die aktuelle
     const panels = root.querySelectorAll<HTMLElement>('.ang-wpanel');
     const wTabs = root.querySelectorAll<HTMLButtonElement>('.ang-wochen-tab');
+    wTabs.forEach((t, i) => { t.dataset.woche = String(i); });
+    if (wTabs.length < 2) {
+      root.querySelector<HTMLElement>('.ang-wochen-tabs')?.remove();
+      root.querySelector<HTMLElement>('.ang-swipe-hinweis')?.remove();
+    }
+    // Rueckt die naechste Woche auf Platz eins, verliert sie ihr Vorschau-Badge
+    const erstesBadge = panels[0]?.querySelector<HTMLElement>('.ang-wbadge');
+    if (erstesBadge && erstesBadge.classList.contains('ang-wbadge--next')) {
+      erstesBadge.classList.remove('ang-wbadge--next');
+      const span = erstesBadge.querySelector('span');
+      if (span && span.textContent) span.textContent = span.textContent.replace('Vorschau: ', '');
+    }
+
+    // ── Wochen-Reiter und Swipe ──
+    const viewport = root.querySelector<HTMLElement>('.ang-wviewport');
     const titel = document.getElementById('ang-titel');
 
     const setActive = (idx: number) => {
@@ -240,13 +268,8 @@ const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
       if (viewport && aktiver) viewport.scrollTo({ left: Number(aktiver.dataset.woche) * viewport.clientWidth });
     });
 
-    // Startwoche nach Datum: abgelaufene Wochen ueberspringen, solange eine neuere da ist
-    let start = 0;
-    panels.forEach((p, i) => {
-      const bis = new Date(`${p.dataset.bis}T23:59:59`);
-      if (Date.now() > bis.getTime() && i < panels.length - 1) start = i + 1;
-    });
-    if (start > 0) requestAnimationFrame(() => geheZu(start, false));
+    // Nach der Abschaltung ist die erste verbleibende Woche immer die aktive
+    setActive(0);
 
     // ── Filter: Laden / Markt / Alle (wirken in allen Wochen) ──
     // Vorauswahl ueber ?ort=laden oder ?ort=markt, damit die CTAs auf /ladenverkauf und
