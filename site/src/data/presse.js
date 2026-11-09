@@ -195,6 +195,18 @@ export const pressebeitraege = [
 
   // ── Betrieb & Familie ──────────────────────────────────────────────────
   {
+    id: 'kurier-2026-08-27',
+    kategorie: 'betrieb',
+    medium: 'Ostfriesischer Kurier',
+    datum: '2026-08-27',
+    datumLabel: '27.08.2026',
+    titel: 'Wilts Box 24/7: Grillfleisch rund um die Uhr in Upgant-Schott',
+    teaser: 'Der Kurier stellt die Wilts Box vor: Grillfleisch und regionale Produkte rund um die Uhr am Automaten vor dem Betrieb in Upgant-Schott.',
+    url: 'https://www.noz.de/lokales/ostfriesland/norderland/artikel/wilts-box-247-grillfleisch-rund-um-die-uhr-in-upgant-schott-51149011',
+    zugang: 'paywall',
+    format: 'Zeitungsbericht',
+  },
+  {
     id: 'ostfriesischer-kurier-2024',
     kategorie: 'betrieb',
     medium: 'Ostfriesischer Kurier',
