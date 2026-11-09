@@ -1,6 +1,6 @@
 # Newsletter: eigene Listmonk-Instanz
 
-Stand: 2026-11-01. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-10. Entscheidungen und Begruendungen, keine Zustandsliste.
 
 ## Warum eine eigene Instanz
 
@@ -137,3 +137,30 @@ Versand danach per Testanmeldung bestaetigt. Jeder PUT startet Listmonk neu
 (etwa acht Sekunden).
 
 Beobachtung: Gmail sortierte die Opt-in-Mail unter "Werbung" ein.
+
+## Kampagnen
+
+Die erste Kampagne "Wochenangebote KW 46" (Listmonk-ID 2) ist vom Kunden
+abgenommen und fuer den 11.11.2026, 8.00 Uhr deutscher Zeit geplant
+(Status `scheduled`, in Listmonk als 07:00 UTC angezeigt). Empfaenger sind
+die bestaetigten Abonnenten der Liste "Albert Wilts Newsletter", unbestaetigte
+bekommen nichts. Vor der Planung am 10.11.2026 geprueft: Inhalt wortgleich
+mit den KW-46-Daten in `src/data/angebote.js`, Schreibregeln aus `CLAUDE.md`,
+Template 5, Fusszeile mit Firmierung, Impressum, Datenschutz und
+Abmeldelink, alle Links 200, SMTP Brevo aktiv, DKIM fuer Brevo in der Zone.
+
+Planen per API: `PUT /api/campaigns/<id>` mit dem vollstaendigen
+Kampagnenobjekt und `send_at` als ISO-Zeit mit Offset, danach
+`PUT /api/campaigns/<id>/status` mit `{"status":"scheduled"}`. Das Feld
+`to_send` bleibt bis zum Start 0, das ist kein Fehler.
+
+Zwei bekannte Schwaechen, nicht blockierend: Der Preheader im Template ist
+leer, Mailprogramme zeigen den ersten Satz des Textes. Die Ortskuerzel
+"Laden" und "Markt" kommen aus `ortLabel` in `angebote.js` und stehen so auch
+auf der Website; die Projektregel "Ladenverkauf" gilt fuer Fliesstext, eine
+Umstellung muesste an beiden Stellen erfolgen.
+
+Der SPF-Eintrag von albert-wilts.de nennt Brevo nicht (`include:ispgateway.de
+-all`). Zustellung funktioniert, weil Brevo einen eigenen Rueckweg nutzt und
+DKIM fuer DMARC reicht. Brevo empfiehlt `include:spf.brevo.com`, das waere ein
+weiterer Eintrag fuer JCC.
