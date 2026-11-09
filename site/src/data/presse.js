@@ -176,8 +176,9 @@ export const pressebeitraege = [
     datumLabel: 'Ausgabe 39, 2024',
     titel: 'Von Generation zu Generation',
     teaser: 'Das Norderneyer Reisemagazin begleitet den Wechsel im Familienbetrieb und den Blick nach vorn.',
-    zugang: 'offline',
-    format: 'Reisemagazin',
+    url: '/presse/ahoi-magazin-39-von-generation-zu-generation.pdf',
+    zugang: 'frei',
+    format: 'Reisemagazin, PDF',
   },
   {
     id: 'ferien-ahoi-21',
@@ -187,9 +188,9 @@ export const pressebeitraege = [
     datumLabel: 'Ausgabe 21, 2014',
     titel: 'Ein ostfriesisches Original',
     teaser: 'Ein frühes Porträt über Albert Wilts jun. und seinen Marktstand, aufgenommen im Betrieb bei Marienhafe.',
-    url: 'https://issuu.com/ferien.ahoi/docs/21',
+    url: '/presse/ahoi-magazin-21-ein-ostfriesisches-original.pdf',
     zugang: 'frei',
-    format: 'Reisemagazin',
+    format: 'Reisemagazin, PDF',
   },
 
   // ── Betrieb & Familie ──────────────────────────────────────────────────
