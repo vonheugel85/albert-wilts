@@ -1,6 +1,6 @@
 # Offene Widersprüche zwischen Kundenfeedback und Umsetzung
 
-Stand: 2026-10-16. Entscheidung Manuel: ohne Rückfrage beim Kunden auf der sicheren Seite
+Stand: 2026-11-09. Entscheidung Manuel: ohne Rückfrage beim Kunden auf der sicheren Seite
 bleiben und die Abweichung hier festhalten. Wird beim nächsten Kundentermin aufgelöst.
 
 | Nr. | Kundenwunsch (Datum) | Umsetzung | Grund |
@@ -14,5 +14,6 @@ bleiben und die Abweichung hier festhalten. Wird beim nächsten Kundentermin auf
 ## Noch ohne Material
 
 Grillsortiment im Sommer, Mittagsgericht im Laden, Weihnachtsverkauf als Veranstaltung,
-Weihnachtsessen-Vorbestellung, Liefergebiets-Karte Großhandel, Videos, aktueller
-Ahoi-Artikel, Produktbilder, Familienfotos für die Historie, letztes KI-Bild Hotellerie.
+Weihnachtsessen-Vorbestellung, Liefergebiets-Karte Großhandel, Videos, Produktbilder,
+Familienfotos für die Historie, letztes KI-Bild Hotellerie. Die ahoi!-Artikel (Ausgaben
+21, 39, 44) liegen seit 09.11.2026 alle als PDF vor, siehe `../presse.md`.
