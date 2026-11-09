@@ -1,6 +1,6 @@
 # Pressebereich
 
-Stand: 2026-11-09. Entscheidungen und Begründungen. Welche Beiträge es gibt, steht
+Stand: 2026-11-09, zwei Nachträge am selben Tag. Entscheidungen und Begründungen. Welche Beiträge es gibt, steht
 ausschließlich in `src/data/presse.js`, diese Datei wiederholt die Liste nicht.
 
 ## Eigene PDFs statt Fremdlinks
@@ -33,12 +33,26 @@ dritten Generation (siehe `CLAUDE.md`, Fakten). Das PDF wird deshalb nicht angef
 es ist ein Fremdtext, der Widerspruch ist bekannt und entschieden (Manuel, 26.10. und
 09.11.2026).
 
+## Ostfriesischer Kurier
+
+Der Kurier gehört inzwischen zur NOZ, neue Artikel erscheinen auf noz.de hinter der
+Paywall, die alten Artikel-URLs unter `nachrichten.ostfriesischer-kurier.de` leiten auf
+eine Übersichtsseite um und sind damit tot.
+
+- "Wilts Box 24/7: Grillfleisch rund um die Uhr in Upgant-Schott", 27.08.2026, auf
+  noz.de, Zugang `paywall`. Gefunden am 09.11.2026 über die noz.de-Suche, am selben Tag
+  eingetragen. Titel und Teaser folgen der Artikelbeschreibung von noz.de.
+- "Eine Familie, eine Mission: Frische und Qualität", 21.08.2024. War online, die URL
+  leitet heute um, auf noz.de nicht übernommen. Wayback-Kopien vom 08.09.2024 und
+  05.12.2024 existieren, auf eine Archivkopie wird nicht verlinkt. Bleibt `offline`,
+  bis der Kunde den Ausschnitt liefert und NOZ die Veröffentlichung freigibt.
+
 ## Was weiterhin offline ist und warum
 
 - Die beiden NDR-Beiträge: keine Mediathek-Fassung mehr, keine Videodatei beim Kunden.
   Andree wünscht sich eingebettete Videos (14.10.2026), welche gemeint sind, ist offen,
   siehe `korrekturen/offene-punkte.md`.
-- Ostfriesischer Kurier 21.08.2024: kein Online-Artikel, kein PDF, keine Freigabe.
+- Ostfriesischer Kurier 21.08.2024, siehe oben.
 
 ## Prüfen
 
