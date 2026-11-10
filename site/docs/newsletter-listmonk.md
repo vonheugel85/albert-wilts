@@ -141,8 +141,10 @@ Beobachtung: Gmail sortierte die Opt-in-Mail unter "Werbung" ein.
 ## Kampagnen
 
 Die erste Kampagne "Wochenangebote KW 46" (Listmonk-ID 2) ist vom Kunden
-abgenommen und fuer den 11.11.2026, 8.00 Uhr deutscher Zeit geplant
-(Status `scheduled`, in Listmonk als 07:00 UTC angezeigt). Empfaenger sind
+abgenommen und fuer den 10.11.2026, 9.05 Uhr deutscher Zeit geplant
+(Status `scheduled`, in Listmonk als 08:05 UTC angezeigt). Zuerst war der
+11.11.2026, 8 Uhr eingetragen, das war ein Missverstaendnis, der Versand
+sollte von Anfang an am Dienstag erfolgen. Empfaenger sind
 die bestaetigten Abonnenten der Liste "Albert Wilts Newsletter", unbestaetigte
 bekommen nichts. Vor der Planung am 10.11.2026 geprueft: Inhalt wortgleich
 mit den KW-46-Daten in `src/data/angebote.js`, Schreibregeln aus `CLAUDE.md`,
