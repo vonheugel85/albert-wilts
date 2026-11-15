@@ -157,8 +157,8 @@ der Angebotswoche 17. bis 21.11.2026, Empfaenger die bestaetigten Abonnenten
 der Liste (878 am Planungstag). Der Body wurde nicht von Hand geschrieben,
 sondern per Skript aus `wochen[1]` in `src/data/angebote.js` erzeugt, Kopf
 bis Saison-Block neu, Fuss ab dem Button byteweise aus KW 46 uebernommen.
-Website und Newsletter koennen so nicht auseinanderlaufen. Das Skript lag
-am 15.11.2026 nur im Scratchpad der Sitzung, nicht im Repo. Abweichungen vom
+Website und Newsletter koennen so nicht auseinanderlaufen. Das Skript liegt seit
+15.11.2026 im Repo: `scripts/newsletter-body.mjs`, Aufruf im Dateikopf. Abweichungen vom
 Angebotsblatt: "Hausgemachte Erbsensuppe" und "Hausgemachter Gefluegelsalat"
 stehen ohne "hausgemacht", weil der Hersteller nicht feststeht (Projektregel
 in `CLAUDE.md`). Vor der Planung geprueft: gespeicherter Body gleich Datei,
