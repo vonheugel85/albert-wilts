@@ -214,6 +214,6 @@ export const wochen = [
 export const saisonHinweis = {
   titel: 'Weihnachtsvorbestellung ab sofort möglich',
   text: 'Ganze Puten, Flugenten, Gänse, Kaninchen, Wildfleisch und mehr: Sprechen Sie unser Team am Marktstand oder im Ladenverkauf an. Der Weihnachtsverkauf in Upgant-Schott startet am 27. November.',
-  linkHref: '/kontakt',
+  linkHref: '/weihnachtsverkauf/#vorbestellen',
   linkLabel: 'Jetzt vorbestellen',
 };

@@ -12,6 +12,7 @@ import Button              from '../components/Button.astro';
 import { pressebeitraege } from '../data/presse.js';
 import PresseCard from '../components/PresseCard.astro';
 import Rezensionen from '../components/Rezensionen.astro';
+import WeihnachtsTeaser from '../components/WeihnachtsTeaser.astro';
 
 // Drei neueste frei lesbare Beitraege
 const presseTeaser = [...pressebeitraege]
@@ -29,6 +30,9 @@ const presseTeaser = [...pressebeitraege]
     <HeroSection />
     <InfoLeiste />
   </HeroBuehne>
+
+  <!-- Saisonal: Weihnachtsverkauf und Vorbestellung, blendet sich nach dem 18.12.2026 selbst aus -->
+  <WeihnachtsTeaser />
 
   <!-- Sektion 2b: Google-Bewertungen (kuratiert, Slider, Unterseite /bewertungen) -->
   <Section bg="#F8F8F8">

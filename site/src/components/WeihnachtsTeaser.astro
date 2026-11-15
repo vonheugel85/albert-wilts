@@ -1,0 +1,104 @@
+---
+/*
+  WeihnachtsTeaser.astro – saisonaler Hinweis auf /weihnachtsverkauf (seit 16.11.2026).
+  Steht auf Startseite, Ladenverkauf und Wochenmarkt.
+
+  Schaltet beim Build nach Datum um, die Site wird mit jedem Push neu gebaut:
+    bis Freitag, 27.11.2026, 18 Uhr   Einladung zum Weihnachtsverkauf
+    danach bis Freitag, 18.12.2026     Weihnachtsessen vorbestellen (Bestellschluss)
+    ab 19.12.2026                      nichts
+  Zwischen Stichtag und naechstem Deploy kann also noch die alte Fassung stehen.
+  Fuer das naechste Jahr: Daten und Texte unten anpassen, Einbindungen bleiben.
+*/
+const jetzt = new Date();
+const verkaufEnde = new Date('2026-11-27T18:00:00+01:00');
+const bestellschluss = new Date('2026-12-19T00:00:00+01:00');
+
+const phase = jetzt < verkaufEnde ? 'verkauf' : jetzt < bestellschluss ? 'vorbestellen' : null;
+
+const inhalt = phase === 'verkauf'
+  ? {
+      eyebrow: 'Einladung zum Weihnachtsverkauf',
+      titel: 'Freitag, 27. November 2026, 8 bis 18 Uhr',
+      text: 'Wild, Rind, Schinken und vieles mehr für Ihr Festessen, im Ladenverkauf in Upgant-Schott. Wie jedes Jahr am Freitag vor dem 1. Advent.',
+      knopf: { href: '/weihnachtsverkauf/', label: 'Zum Weihnachtsverkauf' },
+      link: { href: '/weihnachtsverkauf/#vorbestellen', label: 'Weihnachtsessen vorbestellen' },
+    }
+  : {
+      eyebrow: 'Weihnachtsessen vorbestellen',
+      titel: 'Bestellschluss ist Freitag, 18. Dezember 2026',
+      text: 'Ganze Puten, Flugenten, Gänse, Kaninchen und Wildfleisch. Bestellen Sie telefonisch, per E-Mail oder direkt bei uns im Ladenverkauf und am Marktstand.',
+      knopf: { href: '/weihnachtsverkauf/#vorbestellen', label: 'Jetzt vorbestellen' },
+      link: null,
+    };
+
+import Button from './Button.astro';
+---
+
+{phase && (
+  <section class="wt" aria-label="Weihnachten bei Albert Wilts">
+    <div class="wt-inside">
+      <img class="wt-bild" src="/bilder/stimmung/weihnachtsverkauf-hirsch-klein.webp" alt="" aria-hidden="true" width="280" height="359" loading="lazy" decoding="async" />
+      <div class="wt-text">
+        <p class="wt-eyebrow">{inhalt.eyebrow}</p>
+        <h2 class="wt-titel">{inhalt.titel}</h2>
+        <p class="wt-lead" set:html={inhalt.text.replace('Upgant-Schott', '<span class="wt-nobr">Upgant-Schott</span>')} />
+      </div>
+      <div class="wt-actions">
+        <Button href={inhalt.knopf.href} label={inhalt.knopf.label} />
+        {inhalt.link && <Button href={inhalt.link.href} variant="link" label={inhalt.link.label} />}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .wt {
+    background: #F7F4E5; /* Creme der Weihnachtsseite und der Druckmotive */
+    border-top: 1px solid #E8E2CB;
+    border-bottom: 1px solid #E8E2CB;
+    padding: 28px 0;
+  }
+  .wt-inside {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) auto;
+    gap: 16px 36px;
+    align-items: center;
+  }
+  .wt-bild { display: block; width: 110px; height: auto; }
+  .wt-eyebrow {
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 26px;
+    color: #4F7146;
+    margin: 0 0 4px;
+  }
+  .wt-titel {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #EF7F1A;
+    margin: 0 0 8px;
+  }
+  .wt-lead { font-size: 17px; line-height: 28px; color: #555; margin: 0; max-width: 680px; }
+  .wt-lead :global(.wt-nobr) { white-space: nowrap; }
+  .wt-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  @media (max-width: 1000px) {
+    .wt-inside { grid-template-columns: 90px minmax(0, 1fr); }
+    .wt-bild { width: 90px; }
+    .wt-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  }
+  @media (max-width: 640px) {
+    .wt { padding: 28px 0 32px; }
+    .wt-inside { grid-template-columns: minmax(0, 1fr); padding: 0 20px; }
+    .wt-bild { width: 72px; }
+    .wt-actions { grid-column: 1; }
+    .wt-titel { font-size: 24px; line-height: 32px; }
+  }
+</style>

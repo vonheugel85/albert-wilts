@@ -2,6 +2,7 @@
 import BaseLayout   from '../layouts/BaseLayout.astro';
 import Section      from '../components/Section.astro';
 import Button       from '../components/Button.astro';
+import WeihnachtsTeaser from '../components/WeihnachtsTeaser.astro';
 import Placeholder  from '../components/Placeholder.astro';
 ---
 
@@ -30,6 +31,9 @@ import Placeholder  from '../components/Placeholder.astro';
       <span class="sub-trustbar-item">Emden und Norderney</span>
     </div>
   </section>
+
+  <!-- Saisonal: Weihnachtsverkauf und Vorbestellung, blendet sich nach dem 18.12.2026 selbst aus -->
+  <WeihnachtsTeaser />
 
   <Section bg="#fff">
     <div class="sub-split">
