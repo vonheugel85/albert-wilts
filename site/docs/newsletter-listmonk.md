@@ -219,8 +219,15 @@ Website-Checks). Albert Wilts ist damit rund 90 Prozent des Kontos.
 
 Entscheidung (Manuel, 15.11.2026): Das Agenturkonto wurde auf den Tarif
 Standard angehoben, ein eigenes Konto fuer Albert Wilts wird vorerst nicht
-angelegt. Damit entfaellt das Tageslimit, es gilt nur noch das
-Monatsvolumen der gebuchten Stufe. Grund gegen das eigene Konto: neuer
+angelegt. Gebucht laut Brevo-Dashboard am 15.11.2026: Standard, 5.000 Mails
+pro Monat, Jahreszahlung bis 15.11.2027, Kontingent erneuert sich jeweils
+am 15. des Monats (erstmals 15.12.2026). Damit entfaellt das Tageslimit, es
+gilt nur noch das Monatsvolumen. Die 5.000 sind knapp: Wilts rund 3.900 plus
+rund 140 der anderen Projekte, ein Monat mit fuenf Dienstagen oder ein
+Zusatzmailing liegt darueber. Erster kritischer Abschnitt ist 15.12.2026 bis
+15.01.2027 mit fuenf Dienstagen und Weihnachten. Vorher auf 10.000 heben
+oder Prepaid-Guthaben nachlegen, sonst haelt Brevo den Rest wieder bis zur
+Erneuerung zurueck. Grund gegen das eigene Konto: neuer
 SMTP-Schluessel an zwei Stellen, erneute Domainpruefung, Freischaltfrist von
 ein bis zwei Tagen vor dem naechsten Dienstagsversand.
 
