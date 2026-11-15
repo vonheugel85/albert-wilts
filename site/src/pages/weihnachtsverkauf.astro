@@ -1,0 +1,465 @@
+---
+// Weihnachtsverkauf 2026 (Freitag, 27.11.2026) und Weihnachtsessen-Vorbestellung.
+// Texte aus den freigegebenen Druckdaten von Verena Tapper: Flyer und Plakat A1 (Reinzeichnung
+// 14.11.2026), Plakat "Weihnachtsessen vorbestellen" (Layout 14.11.2026). Bei Textaenderungen
+// Druck und Seite gleich halten.
+// Saisonseite: nach Weihnachten auf das naechste Jahr umstellen oder auf noindex setzen.
+// Hirsch und die beiden Zweige sind aus Verenas SVG-Exporten gerendert (Hirsch.svg 2,3 MB, als SVG
+// zu schwer), transparent als WebP. Die Knabbersalami stammt aus dem Plakat (Bild mit Maske).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section    from '../components/Section.astro';
+import Button     from '../components/Button.astro';
+
+const siteBase  = Astro.site ?? new URL('https://albert-wilts.de');
+const canonical = new URL(Astro.url.pathname, siteBase).href;
+
+const festessen = [
+  'Wildfleisch: Reh, Hirsch, Wildschwein, Hase und Fasan',
+  'Highland-Rindfleisch aus eigener Schlachtung',
+  'Ganze Bauernschinken, luftgetrocknet oder geräuchert',
+  'Gebratene Oldenburger Entenkeulen zum Mitnehmen',
+  'Clementinen, Orangen und Nüsse',
+];
+
+const familie = [
+  'Ballonfrau Jolli für die Kinder',
+  'Monis Neujahrskuchen',
+  'Imbiss mit Bratwurst, Currywurst und Krakauer',
+  'Frischer Fisch, Fischbrötchen und Backfisch von der Fischhandlung Luth Eilts',
+  'Frische Waffeln vom Elternverein krebskranker Kinder',
+  'Große Weihnachtsverlosung zugunsten des Elternvereins',
+  'Kostenloser Kaffee und Sitzgelegenheiten',
+];
+
+const adventsfreitage = ['Freitag, 4. Dezember', 'Freitag, 11. Dezember', 'Freitag, 18. Dezember'];
+
+const vorbestellbar = ['Ganze Puten', 'Flugenten', 'Gänse', 'Kaninchen', 'Wildfleisch'];
+
+const weihnachtswoche = [
+  { tag: 'Dienstag, 22. Dezember',   ort: 'Wochenmarkt Emden' },
+  { tag: 'Mittwoch, 23. Dezember',   ort: 'Wochenmarkt Norderney' },
+  { tag: 'Mittwoch, 23. Dezember',   ort: 'Abholtag im Ladenverkauf Upgant-Schott, 8 bis 13 Uhr' },
+  { tag: 'Donnerstag, 24. Dezember', ort: 'Wochenmarkt Emden bis 12 Uhr' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Weihnachtsverkauf bei Albert Wilts',
+  description: 'Weihnachtsverkauf im Ladenverkauf in Upgant-Schott: Wildfleisch, Highland-Rindfleisch, Bauernschinken und vieles mehr für Ihr Festessen, dazu Imbiss, Waffeln, Weihnachtsverlosung und kostenloser Kaffee.',
+  startDate: '2026-11-27T08:00:00+01:00',
+  endDate: '2026-11-27T18:00:00+01:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  isAccessibleForFree: true,
+  url: canonical,
+  image: new URL('/bilder/stimmung/weihnachtsverkauf-hirsch.webp', siteBase).href,
+  location: {
+    '@type': 'Place',
+    name: 'Albert Wilts, Ladenverkauf Upgant-Schott',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Hansestraße 4',
+      postalCode: '26529',
+      addressLocality: 'Upgant-Schott',
+      addressCountry: 'DE',
+    },
+  },
+  organizer: { '@id': `${siteBase}#organization` },
+};
+---
+
+<BaseLayout
+  title="Weihnachtsverkauf am 27. November 2026 in Upgant-Schott | Albert Wilts"
+  description="Einladung zum Weihnachtsverkauf bei Albert Wilts: Freitag, 27. November 2026, 8 bis 18 Uhr im Ladenverkauf in Upgant-Schott. Wild, Rind, Schinken und vieles mehr für Ihr Festessen. Weihnachtsessen jetzt vorbestellen."
+  jsonLd={jsonLd}
+>
+
+  <section class="wv-hero" aria-labelledby="wv-titel">
+    <img class="wv-deko wv-deko--links" src="/bilder/stimmung/weihnachtsverkauf-deko-tannenast.webp" alt="" aria-hidden="true" width="360" height="387" loading="eager" decoding="async" />
+    <img class="wv-deko wv-deko--mitte" src="/bilder/stimmung/weihnachtsverkauf-deko-beerenast.webp" alt="" aria-hidden="true" width="360" height="338" loading="eager" decoding="async" />
+    <div class="wv-hero-inside">
+      <div class="wv-hero-text">
+        <p class="wv-eyebrow">Einladung zum</p>
+        <h1 id="wv-titel">Weihnachtsverkauf</h1>
+        <p class="wv-datum">Freitag, 27. November 2026</p>
+        <p class="wv-zeit">8 bis 18 Uhr</p>
+        <p class="wv-tradition">Wie jedes Jahr am Freitag vor dem 1.&nbsp;Advent</p>
+        <p class="wv-ort">
+          <strong>Im Ladenverkauf in Upgant-Schott</strong><br />
+          Hansestraße 4, 26529 Upgant-Schott. Parkplätze direkt am Gebäude.
+        </p>
+        <div class="wv-hero-actions">
+          <Button href="#programm" label="Das erwartet Sie" />
+          <Button href="#vorbestellen" variant="link" label="Weihnachtsessen vorbestellen" />
+        </div>
+      </div>
+      <div class="wv-hero-bild">
+        <img
+          src="/bilder/stimmung/weihnachtsverkauf-hirsch.webp"
+          alt="Gezeichneter Hirsch mit Lichterkette im Geweih, daran hängen Geschenk, Stern, Tannenbaum, Strumpf und Mütze"
+          width="920"
+          height="1178"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-trustbar">
+    <div class="sub-trustbar-inside">
+      <span class="sub-trustbar-item">Freitag, 27. November 2026</span>
+      <span class="sub-trustbar-item">8 bis 18 Uhr</span>
+      <span class="sub-trustbar-item">Hansestraße 4, Upgant-Schott</span>
+      <span class="sub-trustbar-item">Kostenloser Kaffee</span>
+    </div>
+  </section>
+
+  <Section bg="#fff" id="programm">
+    <h2 class="sub-h2-center">Das erwartet Sie bei uns</h2>
+    <p class="sub-lead-center">Wild, Rind, Schinken und vieles mehr für Ihr Festessen. Und für die ganze Familie ist auch etwas dabei.</p>
+    <div class="sub-featcols sub-featcols--2">
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Frisch für Ihr Festessen</h3>
+        <ul class="sub-check wv-liste">
+          {festessen.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+      <div class="sub-featcol sub-featcol-top">
+        <h3>Für die ganze Familie</h3>
+        <ul class="sub-check wv-liste">
+          {familie.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <section class="wv-dank section-pad" id="dankeschoen" aria-labelledby="wv-dank-titel">
+    <div class="wv-dank-inside">
+      <div class="wv-dank-text">
+        <span class="sub-highlight-badge">Unser Dankeschön für Sie</span>
+        <h2 id="wv-dank-titel">Newsletter anmelden, Knabbersalami mitnehmen</h2>
+        <p>Sie bekommen unsere Angebote jede Woche per E-Mail. Als Dankeschön schenken wir Ihnen ein Paket Geflügel-Knabbersalami.</p>
+
+        <form class="wv-form" action="/api/formular" method="post" aria-label="Newsletter-Anmeldung" data-formular>
+          <input type="hidden" name="formular" value="newsletter">
+          <input type="text" name="_gotcha" class="sub-form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="wv-form-row">
+            <label for="wv-email" class="sr-only">E-Mail-Adresse</label>
+            <input id="wv-email" type="email" name="email" placeholder="E-Mail-Adresse" class="wv-form-input" autocomplete="email" required />
+            <button type="submit" class="wv-form-btn">Anmelden</button>
+          </div>
+          <p class="wv-form-hinweis">Sie erhalten eine E-Mail zur Bestätigung. Kein Spam, Abmeldung jederzeit möglich. Es gilt unsere <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+          <p class="wv-form-hinweis sub-form-status" data-formular-status role="alert" hidden></p>
+        </form>
+
+        <p class="wv-teilnahme"><strong>So geht es:</strong> Bestätigungs-Mail im Ladenverkauf zeigen. Bis einschließlich 18. Dezember, ein Paket pro Person, solange der Vorrat reicht.</p>
+      </div>
+      <div class="wv-dank-bild">
+        <img
+          src="/bilder/stimmung/gefluegel-knabbersalami-weihnachtsaktion.webp"
+          alt="Geflügel-Knabbersalami, mehrere Stangen mit Kräutern und Gurkenscheiben"
+          width="900"
+          height="695"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Section bg="#fff" id="advent">
+    <h2 class="sub-h2-center">Und danach? Jeden Freitag im Advent.</h2>
+    <p class="sub-lead-center">Weihnachtseinkauf im Ladenverkauf, jeweils von 8 bis 18 Uhr.</p>
+    <div class="sub-schedule">
+      <div class="sub-schedule-head">Ladenverkauf Upgant-Schott</div>
+      {adventsfreitage.map((tag) => (
+        <div class="sub-schedule-row">
+          <span class="sub-schedule-day">{tag}</span>
+          <span class="sub-schedule-place">8 bis 18 Uhr</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section bg="#F8F8F8" id="vorbestellen">
+    <h2 class="sub-h2-center">Jetzt Ihr Weihnachtsessen vorbestellen</h2>
+    <p class="sub-lead-center">Bestellschluss ist <strong>Freitag, 18. Dezember 2026</strong>.</p>
+
+    <ul class="wv-chips" aria-label="Zum Vorbestellen">
+      {vorbestellbar.map((p) => <li>{p}</li>)}
+    </ul>
+
+    <div class="wv-bestellwege">
+      <div class="wv-bestellweg">
+        <span class="wv-bestellweg-label">Telefonisch</span>
+        <a href="tel:+49493491060" class="sub-phone">04934 91060</a>
+      </div>
+      <div class="wv-bestellweg">
+        <span class="wv-bestellweg-label">Per E-Mail</span>
+        <a href="mailto:info@albert-wilts.de" class="sub-phone">info@albert-wilts.de</a>
+      </div>
+      <div class="wv-bestellweg">
+        <span class="wv-bestellweg-label">Persönlich</span>
+        <span>Direkt bei uns im Ladenverkauf und am Marktstand</span>
+      </div>
+    </div>
+
+    <div class="wv-termine">
+      <div class="sub-schedule">
+        <div class="sub-schedule-head">Hier finden Sie uns in der Weihnachtswoche</div>
+        {weihnachtswoche.map((t) => (
+          <div class="sub-schedule-row">
+            <span class="sub-schedule-day">{t.tag}</span>
+            <span class="sub-schedule-place">{t.ort}</span>
+          </div>
+        ))}
+      </div>
+      <div class="sub-schedule">
+        <div class="sub-schedule-head">Zwischen den Jahren</div>
+        <div class="sub-schedule-row">
+          <span class="sub-schedule-day">Dienstag, 29. Dezember</span>
+          <span class="sub-schedule-place">Wochenmarkt Emden</span>
+        </div>
+        <div class="sub-schedule-row wv-schedule-hinweis">
+          <span>Unser Ladenverkauf bleibt zwischen den Jahren geschlossen. Die <a href="/box">Wilts Box 24/7</a> ist durchgehend für Sie geöffnet.</span>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <section class="sub-cta section-pad" id="anfahrt">
+    <div class="sub-cta-inside">
+      <h2>Wir sehen uns am 27. November</h2>
+      <p>Ladenverkauf Upgant-Schott, Hansestraße 4, 26529 Upgant-Schott. Parkplätze finden Sie direkt am Gebäude.</p>
+      <div class="sub-cta-actions">
+        <Button href="https://www.google.com/maps/search/?api=1&query=Albert+Wilts+Hansestra%C3%9Fe+4+Upgant-Schott" label="Route planen" />
+        <span class="sub-cta-phone">oder anrufen: <a href="tel:+49493491060" class="sub-phone">04934 91060</a></span>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero im Stil der Druckmotive: Creme wie der Flyer, Hirsch rechts ── */
+  .wv-hero {
+    position: relative;
+    background: #F7F4E5; /* Flyer-Hintergrund, gemessen */
+    border-bottom: 1px solid #E8E2CB;
+    overflow: hidden;
+  }
+  /* Zweige wie oben auf dem Flyer, nur Dekoration */
+  .wv-deko { position: absolute; z-index: 0; pointer-events: none; height: auto; }
+  .wv-deko--links { width: 220px; top: -100px; left: -70px; transform: rotate(140deg); opacity: 0.9; }
+  .wv-deko--mitte { width: 170px; top: -40px; left: 46%; transform: rotate(200deg); opacity: 0.85; }
+  .wv-hero-inside {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 460px);
+    gap: 32px 56px;
+    align-items: center;
+  }
+  .wv-hero-text { padding: 72px 0; }
+  .wv-eyebrow {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 32px;
+    color: #4F7146;
+    margin: 0 0 4px;
+  }
+  .wv-hero h1 {
+    color: #4F7146;
+    font-size: var(--text-hero);
+    line-height: 1.1;
+    margin: 0 0 28px;
+  }
+  .wv-datum {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: #EF7F1A;
+    margin: 0;
+  }
+  .wv-zeit {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #3B3C42;
+    margin: 0 0 6px;
+  }
+  .wv-tradition {
+    font-size: 18px;
+    line-height: 27px;
+    color: #555;
+    margin: 0 0 24px;
+  }
+  .wv-ort {
+    font-size: 17px;
+    line-height: 28px;
+    color: #555;
+    margin: 0 0 28px;
+  }
+  .wv-ort strong { color: #3B3C42; }
+  .wv-hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; }
+  .wv-hero-bild { align-self: end; padding-top: 32px; }
+  .wv-hero-bild img { display: block; width: 100%; height: auto; }
+
+  /* ── Listen: engerer Abstand als sub-check, sieben Punkte sollen nicht zerfallen ── */
+  .wv-liste { gap: 12px; }
+
+  /* ── Dankeschoen mit Newsletter-Formular ── */
+  .wv-dank { background: #EDF1EA; }
+  .wv-dank-inside {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 40px 56px;
+    align-items: center;
+  }
+  .wv-dank-text h2 { margin: 16px 0 14px; }
+  .wv-dank-text > p { font-size: 18px; line-height: 27px; color: #555; margin: 0 0 24px; }
+  .wv-dank-bild img { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto; }
+  .wv-teilnahme { font-size: 16px; line-height: 26px; color: #555; margin: 20px 0 0; }
+  .wv-teilnahme strong { color: #3B3C42; }
+
+  /* Formular wie NewsletterSection: Feld und Knopf in einer Pille */
+  .wv-form-row {
+    display: flex;
+    align-items: center;
+    max-width: 460px;
+    background: #fff;
+    border: 1px solid #CFD8CB;
+    border-radius: 28px;
+    padding: 5px 6px 5px 10px;
+    box-sizing: border-box;
+  }
+  .wv-form-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 28px;
+    color: #3B3C42;
+    background: transparent;
+    border: none;
+  }
+  .wv-form-input::placeholder { color: #8a8a8a; }
+  .wv-form-input:focus { outline: none; }
+  .wv-form-row:focus-within { border-color: #4F7146; box-shadow: 0 0 0 2px rgba(79, 113, 70, 0.2); }
+  .wv-form-btn {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 28px;
+    background: #EF7F1A;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 28px;
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease-out;
+  }
+  .wv-form-btn:hover { background: #d9700f; }
+  .wv-form-btn:disabled { opacity: 0.6; cursor: default; }
+  .wv-form-hinweis { font-size: 15px; line-height: 24px; color: #777; margin: 12px 0 0; }
+
+  /* ── Vorbestellen ── */
+  .wv-chips {
+    list-style: none;
+    padding: 0;
+    margin: -24px auto 36px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 12px;
+    max-width: 760px;
+  }
+  .wv-chips li {
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 28px;
+    color: #3B3C42;
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    border-radius: 24px;
+    padding: 8px 20px;
+  }
+  .wv-bestellwege {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto 48px;
+  }
+  .wv-bestellweg {
+    background: #fff;
+    border-top: 3px solid #EF7F1A;
+    border-radius: 5px;
+    padding: 20px 22px;
+    font-size: 17px;
+    line-height: 28px;
+    color: #555;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .wv-bestellweg-label {
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7F7F7F;
+  }
+  .wv-termine {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .wv-termine .sub-schedule { max-width: none; margin: 0; }
+  .wv-termine .sub-schedule-row { gap: 16px; }
+  .wv-termine .sub-schedule-day { flex: 0 0 auto; }
+  .wv-termine .sub-schedule-place { text-align: right; }
+  .wv-schedule-hinweis { font-size: 16px; line-height: 26px; color: #555; background: #FDF3E8; }
+
+  @media (max-width: 1024px) {
+    .wv-termine { grid-template-columns: 1fr; max-width: 640px; }
+  }
+
+  @media (max-width: 768px) {
+    .wv-deko { display: none; }
+    .wv-hero-inside { grid-template-columns: minmax(0, 1fr); padding: 0 20px; gap: 0; }
+    .wv-hero-text { padding: 20px 0 48px; }
+    .wv-hero-bild { order: -1; align-self: start; justify-self: center; width: 100%; max-width: 260px; padding-top: 28px; }
+    .wv-datum { font-size: 30px; line-height: 38px; }
+    .wv-zeit { font-size: 24px; line-height: 32px; }
+    .wv-dank-inside { grid-template-columns: minmax(0, 1fr); padding: 0 20px; }
+    .wv-dank-bild { order: -1; }
+    .wv-dank-bild img { max-width: 300px; }
+    .wv-form-row { max-width: 100%; }
+    .wv-chips { margin-top: -28px; }
+    .wv-chips li { font-size: 18px; padding: 6px 16px; }
+    .wv-bestellwege { grid-template-columns: 1fr; }
+    .wv-termine .sub-schedule-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .wv-termine .sub-schedule-place { text-align: left; }
+  }
+</style>
