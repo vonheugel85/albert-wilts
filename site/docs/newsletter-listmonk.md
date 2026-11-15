@@ -1,6 +1,6 @@
 # Newsletter: eigene Listmonk-Instanz
 
-Stand: 2026-11-10. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-15. Entscheidungen und Begruendungen, keine Zustandsliste.
 
 ## Warum eine eigene Instanz
 
@@ -166,3 +166,37 @@ Der SPF-Eintrag von albert-wilts.de nennt Brevo nicht (`include:ispgateway.de
 -all`). Zustellung funktioniert, weil Brevo einen eigenen Rueckweg nutzt und
 DKIM fuer DMARC reicht. Brevo empfiehlt `include:spf.brevo.com`, das waere ein
 weiterer Eintrag fuer JCC.
+
+## Versand KW 46: Befund Brevo (10. und 11.11.2026)
+
+Listmonk hat alle 879 Mails fehlerfrei ans Brevo-Relay uebergeben (Log nur
+Start und Ende, 17 Sekunden). Brevo hat sie aber in drei Schueben
+verarbeitet: 419 um 9.05 Uhr, 300 um 11.21 Uhr, 161 am 11.11. gegen 1 Uhr
+nachts. Grund laut Brevo-Ereignisprotokoll: "insufficient credits". Brevo
+haelt Mails ohne Guthaben in einer Warteschlange und schiebt sie nach dem
+Tageswechsel nach, verwirft sie nicht. 161 Kunden haben die Dienstagsangebote
+deshalb erst Mittwoch frueh bekommen.
+
+Ursache: Der SMTP-Zugang gehoert zum Brevo-Konto der Agentur, nicht zu einem
+eigenen Konto fuer Albert Wilts. Ueber denselben Zugang laufen auch
+Kontaktformulare und Mails anderer Projekte, das Tageskontingent teilen sich
+alle. Das wiederholt sich bei jedem Wochenversand, solange der Tarif nicht
+angehoben oder ein eigenes Konto angelegt wird. Entscheidung steht aus
+(Manuel, 15.11.2026).
+
+Zustellung war sonst gut: 3 Hard Bounces, 9 Soft Bounces, 0 Spam-Meldungen,
+0 Abmeldungen; rund 380 eindeutige Oeffnungen und 81 eindeutige Klicks auf
+879 Mails.
+
+Zweiter Befund: Listmonk zaehlt fuer die Kampagne 0 Oeffnungen, 0 Klicks und
+0 Bounces, Brevo zaehlt alle drei. Der Bounce-Webhook von Brevo nach Listmonk
+ist nicht wirksam, das Listmonk-Tracking greift nicht. Folge: gebouncte
+Adressen bleiben in der Liste und werden erneut angeschrieben. Nicht
+dringend, aber offen.
+
+Pruefweg: Brevo-API `GET /v3/smtp/statistics/events?event=requests`
+(auch `error`, `hardBounces`, `deferred`) mit `startDate`/`endDate`, Schluessel
+`BREVO_API_KEY` aus `env.local`. Der Schluessel darf Konto und Guthaben nicht
+lesen (`/v3/account` liefert 403), Tarif und Restguthaben zeigt nur das
+Brevo-Dashboard. Abonnentenadressen aus den Ereignissen nicht in den Chat
+schreiben, nur zaehlen.
