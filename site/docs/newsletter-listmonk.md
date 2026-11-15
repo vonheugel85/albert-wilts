@@ -181,8 +181,9 @@ Ursache: Der SMTP-Zugang gehoert zum Brevo-Konto der Agentur, nicht zu einem
 eigenen Konto fuer Albert Wilts. Ueber denselben Zugang laufen auch
 Kontaktformulare und Mails anderer Projekte, das Tageskontingent teilen sich
 alle. Das wiederholt sich bei jedem Wochenversand, solange der Tarif nicht
-angehoben oder ein eigenes Konto angelegt wird. Entscheidung steht aus
-(Manuel, 15.11.2026).
+angehoben oder ein eigenes Konto angelegt wird. Entscheidung am 15.11.2026:
+Agenturkonto auf Standard angehoben, kein eigenes Konto, siehe Abschnitt
+"Brevo-Konto und Tarif".
 
 Zustellung war sonst gut: 3 Hard Bounces, 9 Soft Bounces, 0 Spam-Meldungen,
 0 Abmeldungen; rund 380 eindeutige Oeffnungen und 81 eindeutige Klicks auf
@@ -200,3 +201,44 @@ Pruefweg: Brevo-API `GET /v3/smtp/statistics/events?event=requests`
 lesen (`/v3/account` liefert 403), Tarif und Restguthaben zeigt nur das
 Brevo-Dashboard. Abonnentenadressen aus den Ereignissen nicht in den Chat
 schreiben, nur zaehlen.
+
+## Brevo-Konto und Tarif (Stand 15.11.2026)
+
+Der SMTP-Zugang und der API-Schluessel "albert-wilts-website" (angelegt
+24.10.2026) gehoeren zum Brevo-Konto "von Heugel" der Agentur, Kontomails
+gehen an Manuels Agenturadresse. Ueber dasselbe Konto laufen zwei
+Wilts-Integrationen: Listmonk (Newsletter, Anmeldebestaetigungen) und das
+Kontaktformular der Wilts-Website (BREVO_SMTP-Werte aus `env.local`, in
+Coolify als Umgebungsvariablen der Website-App). Bei einem spaeteren
+Kontowechsel muessen beide Stellen den neuen Schluessel bekommen.
+
+Verteilung der letzten 30 Tage (16.10. bis 15.11.2026): rund 935 Mails von
+info@albert-wilts.de, zusammen rund 140 von newsletter@, post@ und
+manuel@vonheugel.de (Opt-in-Bestaetigungen, Kontaktformular, Stellwerk,
+Website-Checks). Albert Wilts ist damit rund 90 Prozent des Kontos.
+
+Entscheidung (Manuel, 15.11.2026): Das Agenturkonto wurde auf den Tarif
+Standard angehoben, ein eigenes Konto fuer Albert Wilts wird vorerst nicht
+angelegt. Damit entfaellt das Tageslimit, es gilt nur noch das
+Monatsvolumen der gebuchten Stufe. Grund gegen das eigene Konto: neuer
+SMTP-Schluessel an zwei Stellen, erneute Domainpruefung, Freischaltfrist von
+ein bis zwei Tagen vor dem naechsten Dienstagsversand.
+
+Bedarf zur Einordnung: 879 Empfaenger woechentlich sind rund 3.900 Mails im
+Monat, bei fuenf Dienstagen oder einem Zusatzmailing (Weihnachten) ueber
+5.000. Die gebuchte Volumenstufe muss darueber liegen, sonst haelt Brevo
+den Versand beim Erreichen des Monatsvolumens an. Preise am 15.11.2026
+(EUR, monatlich): Starter 5k 7 Euro, Starter 10k 14 Euro, Standard 5k
+15 Euro, Prepaid-Guthaben 30 Euro je 5.000 ohne Verfall. Quelle
+https://www.brevo.com/de/pricing/ , Preise altern, vor einer neuen
+Entscheidung nachsehen.
+
+Brevo-Tracking: Brevo schreibt in SMTP-Mails alle Links und Bilder auf
+eigene Tracking-Adressen (sendibt3.com) um. Deshalb zaehlt Listmonk fuer
+die Kampagne 0 Oeffnungen und 0 Klicks, Brevo dagegen alles. Wer die Zahlen
+in Listmonk haben will, schaltet das Tracking in den Brevo-Kontoeinstellungen
+fuer Transaktionsmails ab. Noch nicht entschieden.
+
+Zugriff per API: Der Schluessel darf Konto, Tarif und Guthaben nicht lesen,
+Statistiken und Ereignisse schon. Tarif und Volumenstufe zeigt nur das
+Brevo-Dashboard.
