@@ -151,6 +151,19 @@ mit den KW-46-Daten in `src/data/angebote.js`, Schreibregeln aus `CLAUDE.md`,
 Template 5, Fusszeile mit Firmierung, Impressum, Datenschutz und
 Abmeldelink, alle Links 200, SMTP Brevo aktiv, DKIM fuer Brevo in der Zone.
 
+Zweite Kampagne "Wochenangebote KW 47" (Listmonk-ID 3): geplant fuer
+Sonntag, 15.11.2026, 18.00 Uhr deutscher Zeit (17:00 UTC), also am Abend vor
+der Angebotswoche 17. bis 21.11.2026, Empfaenger die bestaetigten Abonnenten
+der Liste (878 am Planungstag). Der Body wurde nicht von Hand geschrieben,
+sondern per Skript aus `wochen[1]` in `src/data/angebote.js` erzeugt, Kopf
+bis Saison-Block neu, Fuss ab dem Button byteweise aus KW 46 uebernommen.
+Website und Newsletter koennen so nicht auseinanderlaufen. Das Skript lag
+am 15.11.2026 nur im Scratchpad der Sitzung, nicht im Repo. Abweichungen vom
+Angebotsblatt: "Hausgemachte Erbsensuppe" und "Hausgemachter Gefluegelsalat"
+stehen ohne "hausgemacht", weil der Hersteller nicht feststeht (Projektregel
+in `CLAUDE.md`). Vor der Planung geprueft: gespeicherter Body gleich Datei,
+Vorschau mit Template 5 gerendert, alle Links 200, Schreibregeln.
+
 Planen per API: `PUT /api/campaigns/<id>` mit dem vollstaendigen
 Kampagnenobjekt und `send_at` als ISO-Zeit mit Offset, danach
 `PUT /api/campaigns/<id>/status` mit `{"status":"scheduled"}`. Das Feld
