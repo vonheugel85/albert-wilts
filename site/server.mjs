@@ -316,6 +316,20 @@ const server = http.createServer(async (req, res) => {
     return redirect(res, `https://${CANONICAL_HOST}${url.pathname}${search}`);
   }
 
+  // Zweitdomain ohne Bindestrich. Zeigt seit November 2026 auf diesen Server (A-Record bei JCC),
+  // dauerhaft auf die kanonische Domain, Pfad und Parameter bleiben.
+  if (host === 'albertwilts.de' || host === 'www.albertwilts.de') {
+    return redirect(res, `https://${CANONICAL_HOST}${url.pathname}${search}`);
+  }
+
+  // QR-Codes auf Flyer, Plakat und Bauzaunbanner zum Weihnachtsverkauf 2026 zeigen auf
+  // https://weihnachtsaktion.albert-wilts.de/?utm_source=<flyer|plakat|...>&utm_medium=qr&utm_campaign=weihnachtsverkauf-2026
+  // 302, weil die Adresse nur fuer die Kampagne lebt. Ziel ist die Newsletter-Aktion auf der
+  // Weihnachtsseite, die utm-Parameter bleiben fuer die Auswertung erhalten. Der Pfad zaehlt nicht.
+  if (host === `weihnachtsaktion.${CANONICAL_HOST}`) {
+    return redirect(res, `https://${CANONICAL_HOST}/weihnachtsverkauf/${search}#dankeschoen`, 302);
+  }
+
   // Legacy-Redirects vor der Trailing-Slash-Logik, sonst entstuenden zwei Spruenge
   // (/contact -> /contact/ -> /kontakt/).
   const legacyZiel = LEGACY.get(url.pathname.replace(/\/+$/, '').toLowerCase() || '/');

@@ -1,6 +1,6 @@
 # Deploy: Push auf main ist live
 
-Stand: 2026-11-01. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-16. Entscheidungen und Begruendungen, keine Zustandsliste.
 
 ## Wie es laeuft
 
@@ -33,6 +33,25 @@ Doppel-Deploys, so geschehen am 01.11.2026 (webhook 21:47, manuell 21:49).
 - Reine Doku-Commits loesen ebenfalls einen Build aus. Das ist harmlos,
   aber nicht noetig; Doku-Aenderungen sammeln und mit dem naechsten
   Code-Push mitnehmen, wenn es passt.
+
+## Weitere Domains an der App
+
+Seit 16.11.2026 haengen drei weitere Hosts an derselben Coolify-App, eingetragen
+per `PATCH /api/v1/applications/<uuid>` mit dem Feld `domains` (komplette
+Liste, kommagetrennt; Coolify erzeugt die Traefik-Labels daraus neu, geprueft):
+
+- `albertwilts.de` und `www.albertwilts.de`: Zweitdomain ohne Bindestrich,
+  A-Record bei JCC. `server.mjs` leitet per 301 auf albert-wilts.de, Pfad und
+  Parameter bleiben.
+- `weihnachtsaktion.albert-wilts.de`: Ziel der QR-Codes auf Flyer, Plakat und
+  Bauzaunbanner zum Weihnachtsverkauf 2026. `server.mjs` leitet per 302 auf
+  `/weihnachtsverkauf/#dankeschoen`, die utm-Parameter der Codes bleiben.
+  Ohne eigenen A-Record landet die Subdomain ueber den Platzhalter-Eintrag
+  `*.albert-wilts.de` auf dem alten Webspace; den Eintrag setzt JCC.
+
+Das Zertifikat holt Traefik erst, wenn der A-Record auf diesen Server zeigt.
+Kommt der Eintrag nach dem Deploy, danach einmal neu deployen. Nach der
+Kampagne die Weihnachts-Subdomain aus der Liste nehmen.
 
 ## Pruefen, ob der Deploy durch ist
 
