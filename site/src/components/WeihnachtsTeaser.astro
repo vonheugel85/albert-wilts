@@ -19,7 +19,7 @@ const phase = jetzt < verkaufEnde ? 'verkauf' : jetzt < bestellschluss ? 'vorbes
 const inhalt = phase === 'verkauf'
   ? {
       eyebrow: 'Einladung zum Weihnachtsverkauf',
-      titel: 'Freitag, 27. November 2026, 8 bis 18 Uhr',
+      titel: 'Freitag, 27.\u00A0November 2026, 8\u00A0bis\u00A018\u00A0Uhr',
       text: 'Wild, Rind, Schinken und vieles mehr für Ihr Festessen, im Ladenverkauf in Upgant-Schott. Wie jedes Jahr am Freitag vor dem 1. Advent.',
       knopf: { href: '/weihnachtsverkauf/', label: 'Zum Weihnachtsverkauf' },
       link: { href: '/weihnachtsverkauf/#vorbestellen', label: 'Weihnachtsessen vorbestellen' },
@@ -97,7 +97,7 @@ import Button from './Button.astro';
   @media (max-width: 640px) {
     .wt { padding: 28px 0 32px; }
     .wt-inside { grid-template-columns: minmax(0, 1fr); padding: 0 20px; }
-    .wt-bild { width: 72px; }
+    .wt-bild { width: 140px; justify-self: center; }
     .wt-actions { grid-column: 1; }
     .wt-titel { font-size: 24px; line-height: 32px; }
   }
