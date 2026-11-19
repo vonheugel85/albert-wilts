@@ -49,9 +49,11 @@ Liste, kommagetrennt; Coolify erzeugt die Traefik-Labels daraus neu, geprueft):
   Ohne eigenen A-Record landet die Subdomain ueber den Platzhalter-Eintrag
   `*.albert-wilts.de` auf dem alten Webspace; den Eintrag setzt JCC.
 
-Das Zertifikat holt Traefik erst, wenn der A-Record auf diesen Server zeigt.
-Kommt der Eintrag nach dem Deploy, danach einmal neu deployen. Nach der
-Kampagne die Weihnachts-Subdomain aus der Liste nehmen.
+Das Zertifikat holt Traefik erst, wenn der A-Record auf diesen Server zeigt,
+und zwar von selbst: weihnachtsaktion wurde am 16.11.2026 eingetragen, drei
+Stunden nach dem Deploy kam das Zertifikat ohne neuen Deploy (geprueft am
+19.11.2026, Let's Encrypt, Aussteller YR1). Nach der Kampagne die
+Weihnachts-Subdomain aus der Liste nehmen.
 
 ## Pruefen, ob der Deploy durch ist
 
