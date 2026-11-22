@@ -1,6 +1,6 @@
 # Newsletter: eigene Listmonk-Instanz
 
-Stand: 2026-11-15. Entscheidungen und Begruendungen, keine Zustandsliste.
+Stand: 2026-11-22. Entscheidungen und Begruendungen, keine Zustandsliste.
 
 ## Warum eine eigene Instanz
 
@@ -137,6 +137,44 @@ Versand danach per Testanmeldung bestaetigt. Jeder PUT startet Listmonk neu
 (etwa acht Sekunden).
 
 Beobachtung: Gmail sortierte die Opt-in-Mail unter "Werbung" ein.
+
+## Woechentlicher Ablauf
+
+Seit KW 47 baut Claude den Newsletter komplett, Manuel liefert die
+Angebotsblaetter und gibt frei. Verfahrensdetails stehen am Skript
+(`scripts/newsletter-body.mjs`, Dateikopf), hier nur Reihenfolge und Gruende.
+
+1. **Angebote auf die Website.** Die Word-Dateien (bisher je eine fuer Laden
+   und Markt) in `src/data/angebote.js` uebertragen: abgelaufene Woche raus,
+   laufende bleibt, neue Woche hinten anhaengen. Erst committen und pushen,
+   denn der Button im Newsletter zeigt auf `/aktuelle-angebote/`; ist die
+   Seite beim Versand nicht live, sehen die Leser die alte Woche.
+2. **Body erzeugen.** `node scripts/newsletter-body.mjs --intro-datei intro.txt`
+   aus `site/`. Die Einleitung ist ein Absatz pro Woche, alles andere kommt aus
+   den Daten. Das Skript bricht bei Verstoessen gegen die Schreibregeln ab.
+   "Hausgemacht" vom Angebotsblatt nur mit bekanntem Hersteller uebernehmen
+   (`CLAUDE.md`).
+3. **Kampagne anlegen.** `POST /api/campaigns`: Name "Wochenangebote KW nn",
+   Liste 3, Template 5, Absender `Albert Wilts <info@albert-wilts.de>`,
+   Betreff nach dem Muster "Unsere Angebote vom ... bis ..., mit X und Y".
+4. **Testmail und Freigabe.** `POST /api/campaigns/<id>/test` an Manuel.
+   Geplant wird erst nach seiner Freigabe.
+5. **Planen.** Termin nennt Manuel (bisher KW 46 Dienstag 9.05 Uhr, KW 47
+   Sonntag 18 Uhr vor der Angebotswoche). API-Aufrufe siehe unten.
+6. **Versandkontrolle.** Nach dem Start `sent` gegen `to_send` in Listmonk,
+   dann Brevo-Ereignisse `requests` und `error` fuer den Versandzeitraum.
+   Fehler "insufficient credits" heisst Kontingent erschoepft, siehe Befund
+   KW 46 und Abschnitt Tarif.
+7. **Doku.** Kampagne unten mit ID, Termin, Empfaengerzahl und Abweichungen
+   vom Angebotsblatt eintragen.
+
+Regeln dabei: Token per `grep` aus `env.local`, nie per `source`, nie im
+Chat ausgeben. Abonnenten nur zaehlen, keine Adressen in Chat oder Doku.
+
+Herkunft KW 46: Kampagne 2 wurde am 08.11.2026 angelegt, nicht von Manuel
+selbst und aus keiner Claude-Code-Sitzung auf dem Arbeitsrechner (Verlaeufe
+am 22.11.2026 durchsucht). Wer sie gebaut hat, ist offen; Listmonk speichert
+den Ersteller nicht.
 
 ## Kampagnen
 
