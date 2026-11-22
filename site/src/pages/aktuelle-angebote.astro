@@ -211,15 +211,14 @@ const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
   const root = document.getElementById('angebote');
   if (root) {
     // ── Abschaltung am Samstagabend: abgelaufene Wochen werden komplett entfernt,
-    //    solange eine neuere Woche in den Daten steht. Die Umschaltung passiert damit
     //    exakt nach Samstag 23.59 Uhr im Browser des Besuchers, ohne Deployment
-    //    (Manuel, 08.11.2026). Sind alle Wochen abgelaufen, bleibt die letzte stehen
-    //    und der Hinweis unten blendet sich ein.
+    //    (Manuel, 08.11.2026). Seit 22.11.2026 auch dann, wenn keine neuere Woche
+    //    in den Daten steht: dann zeigt die Seite nur noch den Hinweis unten.
     const allePanels = Array.from(root.querySelectorAll<HTMLElement>('.ang-wpanel'));
     const alleTabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.ang-wochen-tab'));
     allePanels.forEach((p, i) => {
       const bis = new Date(`${p.dataset.bis}T23:59:59`);
-      if (Date.now() > bis.getTime() && i < allePanels.length - 1) {
+      if (Date.now() > bis.getTime()) {
         p.remove();
         alleTabs[i]?.remove();
       }
@@ -232,6 +231,19 @@ const letzteBis = wochen[wochen.length - 1].zeitraum.bis;
       root.querySelector<HTMLElement>('.ang-wochen-tabs')?.remove();
       root.querySelector<HTMLElement>('.ang-swipe-hinweis')?.remove();
     }
+    // ── Keine gueltige Woche mehr: Angebote komplett offline, nur der Hinweis bleibt ──
+    if (panels.length === 0) {
+      root.querySelector<HTMLElement>('.ang-filter')?.remove();
+      root.querySelector<HTMLElement>('.sub-lead-center')?.remove();
+      const titelLeer = document.getElementById('ang-titel');
+      if (titelLeer) titelLeer.textContent = 'Unsere Angebote der Woche';
+      const bannerLeer = document.getElementById('ang-veraltet');
+      if (bannerLeer) {
+        bannerLeer.textContent = 'Die neuen Angebote der Woche erscheinen in Kürze.';
+        bannerLeer.hidden = false;
+      }
+    }
+
     // Rueckt die naechste Woche auf Platz eins, verliert sie ihr Vorschau-Badge
     const erstesBadge = panels[0]?.querySelector<HTMLElement>('.ang-wbadge');
     if (erstesBadge && erstesBadge.classList.contains('ang-wbadge--next')) {
