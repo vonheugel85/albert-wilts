@@ -202,6 +202,24 @@ stehen ohne "hausgemacht", weil der Hersteller nicht feststeht (Projektregel
 in `CLAUDE.md`). Vor der Planung geprueft: gespeicherter Body gleich Datei,
 Vorschau mit Template 5 gerendert, alle Links 200, Schreibregeln.
 
+Dritte Kampagne "Weihnachtsverkauf 2026" (Listmonk-ID 4): Sonderausgabe zum
+Weihnachtsverkauf am Freitag, 27.11.2026, versendet Sonntag, 22.11.2026,
+20.00 Uhr an 903 bestaetigte Abonnenten (Listmonk fertig um 20.00 Uhr).
+Brevo hat alle 903 bis 20.01 Uhr angenommen, kein Fehler, keine
+Kontingentsperre; drei Mails mit "451 Try again later" zurueckgestellt
+(Greylisting beim Empfaenger, Brevo stellt erneut zu).
+Grundgeruest per Skript aus der Weihnachtsverkauf-Woche in `angebote.js`,
+danach von Hand ergaenzt: Einladungs-Kasten mit Hirsch und Familienprogramm
+vor dem Mittagsgericht, Adventsfreitage vor dem Button, Vorbestell-Block mit
+Bestellschluss und Bestellwegen. Inhalte von `/weihnachtsverkauf`. Der Hirsch
+liegt als JPG in der Listmonk-Mediathek (`/uploads/weihnachtsverkauf-hirsch-mail.jpg`),
+weil nicht jedes Mailprogramm WebP zeigt. Bewusst weggelassen: "aus eigener
+Schlachtung" beim Highland-Rind (Herstellerregel in `CLAUDE.md`, noch offen)
+und die Knabbersalami-Aktion, die nur fuer Neuanmeldungen gilt. Mobil
+gemessen: Der Titel "Weihnachtsverkauf" in 32 px hat die Mail bei 375 px um
+70 px verbreitert, deshalb 26 px; Faustregel fuer eigene Bloecke: kein
+einzelnes Wort ueber 260 px Breite inklusive Innenabstand.
+
 Planen per API: `PUT /api/campaigns/<id>` mit dem vollstaendigen
 Kampagnenobjekt und `send_at` als ISO-Zeit mit Offset, danach
 `PUT /api/campaigns/<id>/status` mit `{"status":"scheduled"}`. Das Feld
